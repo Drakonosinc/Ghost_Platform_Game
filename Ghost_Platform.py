@@ -22,16 +22,18 @@ class ghost_platform(interface):
         self.mode_game={"Training AI":True,"Player":False,"AI":False}
         self.scores=self.reward=0
         self.last_movement_time = pygame.time.get_ticks()  # Initialize movement timer
+        self.generation=0
     def objects(self):
         self.object1=Rect(350, self.HEIGHT-35,25,25)
         self.object2=Rect(0,0,0,0)
         self.object3=Rect(0,0,0,0)
         self.object4=Rect(0,0,0,0)
         self.object5=Rect(0,0,0,0)
+        self.platarforms_nexts=[Rect(0,0,0,0),Rect(0,0,0,0)]
     def generate_nuances(self):
         return np.column_stack((np.random.choice(np.arange(25, self.WIDTH-50, 115), 15),np.random.choice(np.arange(-500, 0, 200), 15))).tolist()
     def nuances(self):self.matrix=[self.generate_nuances(),self.generate_nuances()]
-    def elements(self,matrix,speed_fall,object_name,width,height,type_object,image=None,restx=0,resty=0,object_name2=None,object_name3=None,current_elements=None,next_elements1=None,next_elements2=None):
+    def elements(self,matrix,speed_fall,object_name,width,height,type_object,image=None,restx=0,resty=0,object_name2=False,object_name3=False,current_elements=None,next_elements1=None,next_elements2=None):
         for coords in matrix:
             coords[1]+=speed_fall
             rect=Rect(coords[0],coords[1],width,height)
@@ -46,8 +48,8 @@ class ghost_platform(interface):
                 next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
                 break
         if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
-        # if next_elements1:setattr(self, object_name2, Rect(next_elements1[0],next_elements1[1],width,height))
-        # if next_elements2:setattr(self, object_name3, Rect(next_elements2[0],next_elements2[1],width,height))
+        if object_name2 and next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
+        if object_name3 and next_elements2:self.platarforms_nexts[1]=Rect(next_elements2[0],next_elements2[1],width,height)
     def collision(self,objects,type_object,coords):
         if self.object1.colliderect(objects):
             match type_object:
@@ -81,7 +83,7 @@ class ghost_platform(interface):
         coords[1]=random.choice(np.arange(-500, 0, 200))
         coords[0]=random.choice(np.arange(25, self.WIDTH-50, 115))
     def calls_elements(self):
-        self.elements(self.matrix[0],3,"object2",100,25,"platform",self.floor,0,10)
+        self.elements(self.matrix[0],3,"object2",100,25,"platform",self.floor,0,10,True,True)
         self.elements([self.matrix[1][0]],6,"object3",50,35,"meteorite",self.meteorite,0,45)
         self.elements([self.matrix[1][1]],2,"object4",35,25,"potion",self.potion,0,10)
         self.elements([self.matrix[1][2]],4,"object5",45,25,"shield",self.shield,5,10)
@@ -140,21 +142,21 @@ class ghost_platform(interface):
     def draw(self):
         self.screen.fill(self.background)
         self.screen.blit(self.player,(self.object1.x-5,self.object1.y-5))
-        self.bar_life(),self.shield_draw()
+        self.bar_life(),self.shield_draw(),self.draw_generations()
     def jump(self):
         if self.isjumper:
             self.down_gravity=self.jumper
             self.sound_jump.play(loops=0)
             self.isjumper,self.floor_fall=False,True
+    def draw_generations(self):
+        self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
     def bar_life(self):
         pygame.draw.rect(self.screen,self.BLACK,(50,8,105,20),4)
         pygame.draw.rect(self.screen,self.life_color,(52,11,self.life,15))
         self.life += 1 if self.state_life[0] == 1 else -1 if self.state_life[0] == 0 else 0
-        states = {100: (2, self.GREEN),75: (2, self.SKYBLUE),50: (2, self.YELLOW),25: (2, self.RED)}
+        states = {100: (2, self.GREEN),75: (2, self.SKYBLUE),50: (2, self.YELLOW),25: (2, self.RED),-1: (2, self.BLACK)}
         if self.life in states:self.state_life[0], self.life_color = states[self.life]
-        elif self.life < 0:
-            self.restart()
-            self.life_color,self.state_life[0] = (self.BLACK,2)
+        if self.life < 0:self.restart()
         if self.main==-1:self.screen.blit(self.font6.render("Life",True,self.life_color),(0,9))
     def shield_draw(self):
         if self.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(self.object1.x-11,self.object1.y-15,50,50),3)
@@ -171,8 +173,11 @@ class ghost_platform(interface):
         self.floor_fall=False
         self.scores=0
     def get_state(self):
-        print(self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y)
-        return np.array([self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y])
+        distances_y = [abs(self.object1.y - self.object2.y),abs(self.object1.y - self.platarforms_nexts[0].y),
+                    abs(self.object1.y - self.platarforms_nexts[1].y),abs(self.object1.y - self.object3.y),
+                    abs(self.object1.y - self.object4.y),abs(self.object1.y - self.object5.y)]
+        print(self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,"Distancias Y:", distances_y)
+        return np.array([self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
     def type_mode(self):
         if self.mode_game["Training AI"]:self.actions_AI(self.model)
         if self.mode_game["AI"]:self.actions_AI(self.model_training)
@@ -205,7 +210,3 @@ class ghost_platform(interface):
             self.manager.draw_ui(self.screen)
             pygame.display.flip()
         return scores
-
-if __name__ == "__main__":
-    game=ghost_platform()
-    game.run_with_model()
