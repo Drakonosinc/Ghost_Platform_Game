@@ -44,12 +44,17 @@ class interface(load_elements):
             pygame.display.flip()
             self.clock.tick(20)
             alpha += -15 if fade_in else 15
-    def change_mains(self,main,color=(0,0,0),limit=255,command=None):
+    def change_mains(self,main,color=(0,0,0),limit=255,command=None,command2=None):
         self.fade_transition(False,color,limit)
         self.clear_buttons()
         self.main=main
         self.draw_menus()
         if command!=None:command()
+        if command2!=None:command2()
+    def type_game(self,mode_one=False,mode_two=False,mode_three=False):
+        self.mode_game["Training AI"]=mode_one
+        self.mode_game["Player"]=mode_two
+        # if os.path.exists(self.model_path):self.mode_game["AI"]=mode_three
     def clear_buttons(self):
         for button in self.active_buttons:button.kill()
         self.active_buttons=[]
@@ -77,9 +82,11 @@ class interface(load_elements):
         if self.main==2:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Mode Game", True, "orange"),(3,10))
-            self.reset_button=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Continue',manager=self.manager)
+            self.training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_one=True)))
+            self.mode_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_two=True)))
+            self.mode_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_three=True)))
             self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
-            self.active_buttons.extend([self.reset_button,self.back_button])
+            self.active_buttons.extend([self.training_ai,self.mode_player,self.mode_ai,self.back_button])
     def pausa_menu(self):
         if self.main==3:
             self.filt(self.WIDTH,self.HEIGHT,150,self.GRAY)

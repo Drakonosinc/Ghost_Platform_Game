@@ -19,7 +19,7 @@ class ghost_platform(interface):
         self.life=100
         self.state_life=[2,False]
         self.floor_fall=False
-        self.mode_game={"Training AI":True,"Player":False,"AI":False}
+        self.mode_game={"Training AI":False,"Player":False,"AI":False}
         self.scores=self.reward=0
         self.last_movement_time = pygame.time.get_ticks()  # Initialize movement timer
         self.generation=0
@@ -132,24 +132,26 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if event.key==K_SPACE or event.key==K_w:self.jump()
+            if self.mode_game["Player"] and (event.key==K_SPACE or event.key==K_w):self.jump()
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):
-        if self.main==-1:
+        if self.mode_game["Player"] and self.main==-1:
             if self.pressed_keys[K_d]:self.object1.x+=5
             if self.pressed_keys[K_a]:self.object1.x-=5
-            self.last_movement_time = pygame.time.get_ticks()  # Update movement timer
+        if self.main==-1:self.last_movement_time = pygame.time.get_ticks()  # Update movement timer
     def draw(self):
         self.screen.fill(self.background)
         self.screen.blit(self.player,(self.object1.x-5,self.object1.y-5))
-        self.bar_life(),self.shield_draw(),self.draw_generations()
+        self.bar_life(),self.shield_draw(),self.draw_generations(),self.draw_score()
     def jump(self):
         if self.isjumper:
             self.down_gravity=self.jumper
             self.sound_jump.play(loops=0)
             self.isjumper,self.floor_fall=False,True
     def draw_generations(self):
-        self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
+        if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
+    def draw_score(self):
+        self.screen.blit(self.font6.render(f"Score: {int(self.scores)}",True,self.YELLOW),(0,self.HEIGHT-30))
     def bar_life(self):
         pygame.draw.rect(self.screen,self.BLACK,(50,8,105,20),4)
         pygame.draw.rect(self.screen,self.life_color,(52,11,self.life,15))
@@ -197,7 +199,7 @@ class ghost_platform(interface):
         elif chosen_action == 2 and self.isjumper:self.jump()
     def run_with_model(self):
         self.running = True
-        scores = self.reward = 0
+        score = self.reward = 0
         while self.running and self.game_over == False:
             self.handle_keys()
             if self.main == -1:
@@ -209,4 +211,4 @@ class ghost_platform(interface):
             self.manager.update(self.time_delta)
             self.manager.draw_ui(self.screen)
             pygame.display.flip()
-        return scores
+        return score
