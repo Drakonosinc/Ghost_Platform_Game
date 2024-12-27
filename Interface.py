@@ -20,9 +20,10 @@ class interface(load_elements):
         self.sounds_menu()
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if self.main!=-1:self.buttons_repetitive(event)
-            if self.main==0:self.buttons_main_menu(event)
-            if self.main==4:self.buttons_options_menu(event)
+            if hasattr(event, 'ui_element'):
+                if self.main!=-1:self.buttons_repetitive(event)
+                if self.main==0:self.buttons_main_menu(event)
+                if self.main==4:self.buttons_options_menu(event)
     def buttons_repetitive(self,event):
         if self.main!=0 and event.ui_element == self.back_button:self.change_mains(0)
         if self.main!=2 and event.ui_element == self.option_button:self.change_mains(4)

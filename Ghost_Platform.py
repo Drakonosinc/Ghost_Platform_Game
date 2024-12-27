@@ -29,11 +29,11 @@ class ghost_platform(interface):
         self.object3=Rect(0,0,0,0)
         self.object4=Rect(0,0,0,0)
         self.object5=Rect(0,0,0,0)
-        self.platarforms_nexts=[Rect(0,0,0,0),Rect(0,0,0,0)]
+        self.platarforms_nexts=[Rect(0,0,0,0),Rect(0,0,0,0),Rect(0,0,0,0),Rect(0,0,0,0)]
     def generate_nuances(self):
         return np.column_stack((np.random.choice(np.arange(25, self.WIDTH-50, 115), 15),np.random.choice(np.arange(-500, 0, 200), 15))).tolist()
     def nuances(self):self.matrix=[self.generate_nuances(),self.generate_nuances()]
-    def elements(self,matrix,speed_fall,object_name,width,height,type_object,image=None,restx=0,resty=0,object_name2=False,object_name3=False,current_elements=None,next_elements1=None,next_elements2=None):
+    def elements(self,matrix,speed_fall,object_name,width,height,type_object,image=None,restx=0,resty=0,current_elements=None):
         for coords in matrix:
             coords[1]+=speed_fall
             rect=Rect(coords[0],coords[1],width,height)
@@ -41,15 +41,22 @@ class ghost_platform(interface):
             self.collision(rect,type_object,coords)
             self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
         sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
+        next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
         for i, elements in enumerate(sorted_elements):
             if elements[1] < self.object1.y:
                 current_elements = elements
                 next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
                 next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
+                next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
+                next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
                 break
         if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
-        if object_name2 and next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
-        if object_name3 and next_elements2:self.platarforms_nexts[1]=Rect(next_elements2[0],next_elements2[1],width,height)
+        self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
+    def position_platforms(self,next_elements1,next_elements2,next_elements3,next_elements4,width,height):
+        if next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
+        if next_elements2:self.platarforms_nexts[1]=Rect(next_elements2[0],next_elements2[1],width,height)
+        if next_elements3:self.platarforms_nexts[2]=Rect(next_elements3[0],next_elements3[1],width,height)
+        if next_elements4:self.platarforms_nexts[3]=Rect(next_elements4[0],next_elements4[1],width,height)
     def collision(self,objects,type_object,coords):
         if self.object1.colliderect(objects):
             match type_object:
@@ -83,7 +90,7 @@ class ghost_platform(interface):
         coords[1]=random.choice(np.arange(-500, 0, 200))
         coords[0]=random.choice(np.arange(25, self.WIDTH-50, 115))
     def calls_elements(self):
-        self.elements(self.matrix[0],3,"object2",100,25,"platform",self.floor,0,10,True,True)
+        self.elements(self.matrix[0],3,"object2",100,25,"platform",self.floor,0,10)
         self.elements([self.matrix[1][0]],6,"object3",50,35,"meteorite",self.meteorite,0,45)
         self.elements([self.matrix[1][1]],2,"object4",35,25,"potion",self.potion,0,10)
         self.elements([self.matrix[1][2]],4,"object5",45,25,"shield",self.shield,5,10)
@@ -138,7 +145,7 @@ class ghost_platform(interface):
             if self.pressed_keys[K_d]:self.object1.x+=5
             if self.pressed_keys[K_a]:self.object1.x-=5
     def new_events(self,event):
-        if event.type==self.speed_game:
+        if self.main==-1 and event.type==self.speed_game:
             self.FPS+=0.5
             if not self.floor_fall:self.floor_fall=True
     def draw(self):
@@ -181,7 +188,7 @@ class ghost_platform(interface):
                     abs(self.object1.y - self.platarforms_nexts[1].y),abs(self.object1.y - self.object3.y),
                     abs(self.object1.y - self.object4.y),abs(self.object1.y - self.object5.y)]
         print(self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,"Distancias Y:", distances_y)
-        return np.array([self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
+        return np.array([self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.platarforms_nexts[2].x,self.platarforms_nexts[2].y,self.platarforms_nexts[3].x,self.platarforms_nexts[3].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
     def type_mode(self):
         if self.mode_game["Training AI"]:self.actions_AI(self.model)
         if self.mode_game["AI"]:self.actions_AI(self.model_training)
