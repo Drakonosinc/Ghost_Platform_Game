@@ -1,5 +1,6 @@
 import pygame,os
 from pygame.locals import *
+from Genetic_Algorithm import *
 
 class load_elements():
     def __init__(self,title,width=0, height=0):
@@ -60,3 +61,7 @@ class load_elements():
         self.sound_exit=pygame.mixer.Sound(os.path.join(self.sound_path,"exitbutton.wav"))
     def config(self):
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
+    def load_AI(self):
+        self.model_path=os.path.join(os.path.dirname(__file__), "AI/best_model.pth")
+        if os.path.exists(self.model_path):self.model_training = load_model(self.model_path, 12, 1)
+        else:self.model_training = None
