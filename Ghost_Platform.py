@@ -22,7 +22,6 @@ class ghost_platform(interface):
         self.floor_fall=False
         self.mode_game={"Training AI":False,"Player":False,"AI":False}
         self.scores=self.reward=0
-        self.last_movement_time = pygame.time.get_ticks()  # Initialize movement timer
         self.generation=0
     def objects(self):
         self.object1=Rect(350, self.HEIGHT-35,25,25)
@@ -89,8 +88,6 @@ class ghost_platform(interface):
         self.elements([self.matrix[1][1]],2,"object4",35,25,"potion",self.potion,0,10)
         self.elements([self.matrix[1][2]],4,"object5",45,25,"shield",self.shield,5,10)
     def events(self):
-        current_time = pygame.time.get_ticks()
-        if current_time - self.last_movement_time > 5000:self.floor_fall = True
         if self.object1.x < 0:self.object1.x = 0
         elif self.object1.x > self.WIDTH - 25:self.object1.x = self.WIDTH - 25
         if not self.isjumper:self.fall()
@@ -120,6 +117,7 @@ class ghost_platform(interface):
             self.event_quit(event)
             self.event_keydown(event)
             self.event_buttons(event)
+            self.new_events(event)
         self.pressed_keys=pygame.key.get_pressed()
         self.pressed_mouse=pygame.mouse.get_pressed()
         self.mouse_pos = pygame.mouse.get_pos()
@@ -139,7 +137,10 @@ class ghost_platform(interface):
         if self.mode_game["Player"] and self.main==-1:
             if self.pressed_keys[K_d]:self.object1.x+=5
             if self.pressed_keys[K_a]:self.object1.x-=5
-        if self.main==-1:self.last_movement_time = pygame.time.get_ticks()  # Update movement timer
+    def new_events(self,event):
+        if event.type==self.speed_game:
+            self.FPS+=0.5
+            if not self.floor_fall:self.floor_fall=True
     def draw(self):
         self.screen.fill(self.background)
         self.screen.blit(self.player,(self.object1.x-5,self.object1.y-5))

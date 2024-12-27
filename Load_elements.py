@@ -12,6 +12,7 @@ class load_elements():
         self.load_images()
         self.load_fonts()
         self.load_sounds()
+        self.additional_events()
     def define_colors(self):
         self.GRAY=(127,127,127)
         self.WHITE=(255,255,255)
@@ -65,3 +66,6 @@ class load_elements():
         self.model_path=os.path.join(os.path.dirname(__file__), "AI/best_model.pth")
         if os.path.exists(self.model_path):self.model_training = load_model(self.model_path, 12, 1)
         else:self.model_training = None
+    def additional_events(self):
+        self.speed_game=pygame.USEREVENT + 1
+        pygame.time.set_timer(self.speed_game, 5000)
