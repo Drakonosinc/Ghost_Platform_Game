@@ -183,9 +183,9 @@ class ghost_platform(interface):
         self.scores=0
     def get_state(self):
         distances_y = [abs(self.object1.y - self.object2.y),abs(self.object1.y - self.platarforms_nexts[0].y),
-                    abs(self.object1.y - self.platarforms_nexts[1].y),abs(self.object1.y - self.object3.y),
+                    abs(self.object1.y - self.platarforms_nexts[1].y),abs(self.object1.y - self.platarforms_nexts[2].y),
+                    abs(self.object1.y - self.platarforms_nexts[3].y),abs(self.object1.y - self.object3.y),
                     abs(self.object1.y - self.object4.y),abs(self.object1.y - self.object5.y)]
-        print(self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,"Distancias Y:", distances_y)
         return np.array([self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.platarforms_nexts[2].x,self.platarforms_nexts[2].y,self.platarforms_nexts[3].x,self.platarforms_nexts[3].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
     def type_mode(self):
         if self.mode_game["Training AI"]:self.actions_AI(self.model)
@@ -200,7 +200,7 @@ class ghost_platform(interface):
     def AI_actions(self, action):
         probabilities = self.softmax(action)
         chosen_action = np.argmax(probabilities)
-        # print(f"Probabilidades: {probabilities}, Acción elegida: {chosen_action}")
+        print(f"Probabilidades: {probabilities}, Acción elegida: {chosen_action}")
         if chosen_action == 0:self.object1.x -= 5
         elif chosen_action == 1:self.object1.x += 5
         elif chosen_action == 2 and self.isjumper:self.jump()
