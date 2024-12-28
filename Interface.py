@@ -27,7 +27,7 @@ class interface(load_elements):
     def buttons_repetitive(self,event):
         if self.main!=0 and event.ui_element == self.back_button:self.change_mains(0)
         if self.main!=2 and event.ui_element == self.option_button:self.change_mains(4)
-        if (self.main!=2 and self.main!=4) and event.ui_element == self.exit_button:self.close_game()
+        if (self.main!=2 and self.main!=4) and event.ui_element == self.exit_button:self.change_mains(command=self.close_game,sound=self.sound_exit)
         if (self.main!=0 and self.main!=4) and event.ui_element == self.reset_button:self.change_mains(-1,command=self.reset)
     def buttons_main_menu(self,event):
         if event.ui_element == self.play_button:self.change_mains(2)
@@ -45,8 +45,8 @@ class interface(load_elements):
             pygame.display.flip()
             self.clock.tick(20)
             alpha += -15 if fade_in else 15
-    def change_mains(self,main,color=(0,0,0),limit=255,command=None,command2=None):
-        self.sounds_play(self.sound_touchletters)
+    def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None):
+        self.sounds_play(sound=self.sound_touchletters if sound==None else sound)
         self.fade_transition(False,color,limit)
         self.clear_buttons()
         self.main=main

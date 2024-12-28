@@ -130,10 +130,8 @@ class ghost_platform(interface):
         self.mouse_pos = pygame.mouse.get_pos()
         self.press_keys()
     def event_quit(self,event):
-        if event.type==QUIT:self.close_game()
-    def close_game(self):
-        self.sound_exit.play(loops=0)
-        self.game_over=True
+        if event.type==QUIT:self.change_mains(command=self.close_game,sound=self.sound_exit)
+    def close_game(self):self.game_over=True
     def event_keydown(self,event):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
