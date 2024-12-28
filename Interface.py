@@ -6,7 +6,7 @@ class interface(load_elements):
         self.HEIGHT = height
         super().__init__("Ghost Platform",self.WIDTH,self.HEIGHT)
         self.manager = pygame_gui.UIManager((self.WIDTH,self.HEIGHT),theme_path=os.path.join(self.config_path,"theme_buttons.json"))
-        self.main=0 #-1=game, 0=menu, 1=game over, 2=game menu, 3=pausa, 4=options, 5=visuals, 6=menu keys
+        self.main=0 #-1=game, 0=menu, 1=game over, 2=game menu, 3=pausa, 4=options, 5=visuals, 6=menu keys, 7=sound menu, 8=menu AI
         self.active_buttons = []
         self.draw_menus()
     def draw_menus(self):
@@ -18,6 +18,7 @@ class interface(load_elements):
         self.visuals_menu()
         self.keys_menu()
         self.sounds_menu()
+        self.menu_AI()
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
@@ -26,7 +27,7 @@ class interface(load_elements):
                 if self.main==4:self.buttons_options_menu(event)
     def buttons_repetitive(self,event):
         if self.main!=0 and event.ui_element == self.back_button:self.change_mains(0)
-        if self.main!=2 and event.ui_element == self.option_button:self.change_mains(4)
+        if (self.main!=2 and self.main!=4) and event.ui_element == self.option_button:self.change_mains(4)
         if (self.main!=2 and self.main!=4) and event.ui_element == self.exit_button:self.change_mains(command=self.close_game,sound=self.sound_exit)
         if (self.main!=0 and self.main!=4) and event.ui_element == self.reset_button:self.change_mains(-1,command=self.reset)
     def buttons_main_menu(self,event):
@@ -88,8 +89,8 @@ class interface(load_elements):
     def mode_game_menu(self):
         if self.main==2:
             self.screen.fill(self.BLACK)
-            self.screen.blit(self.font3.render("Mode Game", True, "orange"),(3,10))
-            self.training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_one=True)))
+            self.screen.blit(self.font3.render("Mode Game", True, "White"),(3,10))
+            self.training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.manager,command=lambda:self.change_mains(8,command=self.reset,command2=lambda:self.type_game(mode_one=True)))
             self.mode_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_two=True)))
             self.mode_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_three=True)))
             self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
@@ -127,3 +128,9 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button])
+    def menu_AI(self):
+        if self.main==8:
+            self.screen.fill(self.BLACK)
+            self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
+            self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
+            self.active_buttons.extend([self.back_game_menu])
