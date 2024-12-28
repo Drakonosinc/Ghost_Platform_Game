@@ -132,7 +132,7 @@ class interface(load_elements):
         if self.main==8:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
-            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:setattr(self,"running",False),command2=lambda:self.type_game(mode_one=True)))
+            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:setattr(self,"running",False),command2=lambda:self.type_game(mode_one=True)))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.back_game_menu])
     def button(self,screen,main:int=None,font=None,text:str=None,color=None,position=None,color2=None,pressed=True,command=None,detect_mouse=True,command2=None,sound_hover=None,sound_touch=None,position2=None,type_button:int=0,button_states={}):
