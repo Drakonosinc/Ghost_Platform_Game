@@ -60,6 +60,8 @@ class load_elements():
         self.sound_game_lose=pygame.mixer.Sound(os.path.join(self.sound_path,"game_lose.flac"))
         self.sound_shield=pygame.mixer.Sound(os.path.join(self.sound_path,"shield.wav"))
         self.sound_exit=pygame.mixer.Sound(os.path.join(self.sound_path,"exitbutton.wav"))
+        self.sound_touchletters=pygame.mixer.Sound(os.path.join(self.sound_path,"touchletters.wav"))
+        self.sound_buttonletters=pygame.mixer.Sound(os.path.join(self.sound_path,"buttonletters.mp3"))
     def config(self):
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
     def load_AI(self):
