@@ -90,7 +90,7 @@ class interface(load_elements):
         if self.main==2:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Mode Game", True, "White"),(3,10))
-            self.training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.manager,command=lambda:self.change_mains(8,command=self.reset,command2=lambda:self.type_game(mode_one=True)))
+            self.training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.manager,command=lambda:self.change_mains(8,command=self.reset))
             self.mode_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_two=True)))
             self.mode_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_three=True)))
             self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
@@ -132,7 +132,7 @@ class interface(load_elements):
         if self.main==8:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
-            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:setattr(self,"running",False),command2=self.reset))
+            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:setattr(self,"running",False),command2=lambda:self.type_game(mode_one=True)))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.back_game_menu])
     def button(self,screen,main:int=None,font=None,text:str=None,color=None,position=None,color2=None,pressed=True,command=None,detect_mouse=True,command2=None,sound_hover=None,sound_touch=None,position2=None,type_button:int=0,button_states={}):

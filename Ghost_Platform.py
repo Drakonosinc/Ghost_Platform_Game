@@ -204,6 +204,13 @@ class ghost_platform(interface):
         if chosen_action == 0:self.object1.x -= 5
         elif chosen_action == 1:self.object1.x += 5
         elif chosen_action == 2 and self.isjumper:self.jump()
+    def run(self):
+        while self.running:
+            self.handle_keys()
+            self.time_delta = self.clock.tick(self.FPS)/1000.0
+            self.manager.update(self.time_delta)
+            self.manager.draw_ui(self.screen)
+            pygame.display.flip()
     def run_with_model(self):
         self.running = True
         score = self.reward = 0
