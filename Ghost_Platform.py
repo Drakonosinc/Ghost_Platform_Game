@@ -204,8 +204,8 @@ class ghost_platform(interface):
         if chosen_action == 0:self.object1.x -= 5
         elif chosen_action == 1:self.object1.x += 5
         elif chosen_action == 2 and self.isjumper:self.jump()
-    def run(self):
-        while self.running:
+    def run(self,run=True):
+        while run:
             self.handle_keys()
             self.time_delta = self.clock.tick(self.FPS)/1000.0
             self.manager.update(self.time_delta)

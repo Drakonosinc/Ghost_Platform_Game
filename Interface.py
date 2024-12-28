@@ -132,6 +132,8 @@ class interface(load_elements):
         if self.main==8:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
+            self.screen.blit(self.font6.render(f"Generation Size ", True, "White"),(10,100))
+            self.screen.blit(self.font6.render(f"Population Size", True, "White"),(10,120))
             self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:setattr(self,"running",False),command2=lambda:self.type_game(mode_one=True)))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.back_game_menu])
