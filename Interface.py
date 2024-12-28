@@ -46,12 +46,18 @@ class interface(load_elements):
             self.clock.tick(20)
             alpha += -15 if fade_in else 15
     def change_mains(self,main,color=(0,0,0),limit=255,command=None,command2=None):
+        self.sounds_play(self.sound_touchletters)
         self.fade_transition(False,color,limit)
         self.clear_buttons()
         self.main=main
         self.draw_menus()
         if command!=None:command()
         if command2!=None:command2()
+    def sounds_play(self,sound,repeat=True):
+        if repeat:
+            sound.play(loops=0)
+            repeat=False
+        else:repeat=True
     def type_game(self,mode_one=False,mode_two=False,mode_three=False):
         self.mode_game["Training AI"]=mode_one
         self.mode_game["Player"]=mode_two
