@@ -20,7 +20,7 @@ class ghost_platform(interface):
         self.life=100
         self.state_life=[2,False]
         self.floor_fall=False
-        self.mode_game={"Training AI":False,"Player":False,"AI":False}
+        self.mode_game={"Training AI":False,"Player":True,"AI":False}
         self.scores=self.reward=0
         self.generation=0
     def objects(self):

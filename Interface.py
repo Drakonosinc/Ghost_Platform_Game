@@ -28,7 +28,7 @@ class interface(load_elements):
                 if self.main==0:self.buttons_main_menu(event)
                 if self.main==4:self.buttons_options_menu(event)
     def buttons_repetitive(self,event):
-        if self.main!=0 and event.ui_element == self.back_button:self.change_mains(0)
+        if self.main!=0 and event.ui_element == self.back_button:self.change_mains(0,run=True)
         if (self.main!=2 and self.main!=4) and event.ui_element == self.option_button:self.change_mains(4)
         if (self.main!=2 and self.main!=4) and event.ui_element == self.exit_button:self.change_mains(command=self.close_game,sound=self.sound_exit)
         if (self.main!=0 and self.main!=4) and event.ui_element == self.reset_button:self.change_mains(-1,command=self.reset)
@@ -56,7 +56,7 @@ class interface(load_elements):
         self.draw_menus()
         if command!=None:command()
         if command2!=None:command2()
-        if run:setattr(self,"running",False)
+        if run:setattr(self,"running",False),setattr(self, "game_over", False)
     def sounds_play(self,sound,repeat=True):
         if repeat:
             sound.play(loops=0)
