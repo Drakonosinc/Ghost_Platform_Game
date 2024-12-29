@@ -1,17 +1,28 @@
 {
-    "button":
-    {
-        "colours":
-        {
+    "button": {
+        "colours": {
             "normal_border": "White",
             "normal_bg": "SlateGray",
             "normal_text": "White"
         },
-        "misc":
-        {
+        "misc": {
             "shape": "rounded_rectangle",
-            "shape_corner_radius": "10",
-            "border_width": "2"
+            "shape_corner_radius": 10,
+            "border_width": 2
+        }
+    },
+    "#button_on": {
+        "colours": {
+            "normal_border": "#1976D2",
+            "normal_bg": "#00fff7",
+            "normal_text": "#FFFFFF"
+        }
+    },
+    "#button_off": {
+        "colours": {
+            "normal_border": "#FF5252",
+            "normal_bg": "#FF1744",
+            "normal_text": "#FFFFFF"
         }
     }
 }
