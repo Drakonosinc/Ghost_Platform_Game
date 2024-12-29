@@ -22,7 +22,8 @@ def evaluate_population(population, game, num_trials=3):
 
 def select_parents(population, fitness_scores):
     total_fitness = sum(fitness_scores)
-    weights = [score / total_fitness for score in fitness_scores]
+    if total_fitness == 0:weights = [1 / len(fitness_scores)] * len(fitness_scores)
+    else:weights = [score / total_fitness for score in fitness_scores]
     selected = random.choices(population, weights=weights, k=len(population))
     return selected
 
