@@ -49,9 +49,9 @@ class interface(load_elements):
             pygame.display.flip()
             self.clock.tick(20)
             alpha += -15 if fade_in else 15
-    def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None,run=False):
+    def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None,run=False,fade=True):
         self.sounds_play(sound=self.sound_touchletters if sound==None else sound)
-        self.fade_transition(False,color,limit)
+        if fade:self.fade_transition(False,color,limit)
         self.clear_buttons()
         self.main=main
         self.draw_menus()
@@ -74,7 +74,9 @@ class interface(load_elements):
         background=pygame.Surface((width,height),pygame.SRCALPHA)
         background.fill((*color, number))
         self.screen.blit(background,position)
-    def on_off(self,variable):setattr(self,variable,not getattr(self,variable))
+    def on_off(self,variable,fade=True):
+        setattr(self,variable,not getattr(self,variable))
+        self.change_mains(8,fade=fade)
     def main_menu(self):
         if self.main==0:
             self.screen.fill(self.BLACK)
@@ -140,7 +142,7 @@ class interface(load_elements):
             self.screen.blit(self.font6.render(f"Generation Size {self.generation_value}", True, "White"),(10,100))
             self.screen.blit(self.font6.render(f"Population Size {self.population_value}", True, "White"),(10,120))
             self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True)))
-            self.save=pygame_gui.elements.UIButton(relative_rect=Rect(10,140, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.change_mains(8,command=lambda:self.on_off("model_save")))
+            self.save=pygame_gui.elements.UIButton(relative_rect=Rect(10,140, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off("model_save",fade=False))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.save,self.back_game_menu])
     def button(self,screen,main:int=None,font=None,text:str=None,color=None,position=None,color2=None,pressed=True,command=None,detect_mouse=True,command2=None,sound_hover=None,sound_touch=None,position2=None,type_button:int=0,button_states={}):

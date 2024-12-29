@@ -14,7 +14,7 @@
     "#button_on": {
         "colours": {
             "normal_border": "#1976D2",
-            "normal_bg": "#00fff7",
+            "normal_bg": "#00c5ff",
             "normal_text": "#FFFFFF"
         }
     },
