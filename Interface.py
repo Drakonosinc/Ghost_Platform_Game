@@ -46,7 +46,7 @@ class interface(load_elements):
             pygame.display.flip()
             self.clock.tick(20)
             alpha += -15 if fade_in else 15
-    def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None):
+    def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None,run=False):
         self.sounds_play(sound=self.sound_touchletters if sound==None else sound)
         self.fade_transition(False,color,limit)
         self.clear_buttons()
@@ -54,6 +54,7 @@ class interface(load_elements):
         self.draw_menus()
         if command!=None:command()
         if command2!=None:command2()
+        if run:setattr(self,"running",False)
     def sounds_play(self,sound,repeat=True):
         if repeat:
             sound.play(loops=0)
@@ -91,8 +92,8 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Mode Game", True, "White"),(3,10))
             self.training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.manager,command=lambda:self.change_mains(8,command=self.reset))
-            self.mode_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_two=True)))
-            self.mode_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_three=True)))
+            self.mode_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_two=True),run=True))
+            self.mode_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.manager,command=lambda:self.change_mains(-1,command=self.reset,command2=lambda:self.type_game(mode_three=True),run=True))
             self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.training_ai,self.mode_player,self.mode_ai,self.back_button])
     def pausa_menu(self):
@@ -134,7 +135,7 @@ class interface(load_elements):
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
             self.screen.blit(self.font6.render(f"Generation Size ", True, "White"),(10,100))
             self.screen.blit(self.font6.render(f"Population Size", True, "White"),(10,120))
-            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:setattr(self,"running",False),command2=lambda:self.type_game(mode_one=True)))
+            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True)))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.back_game_menu])
     def button(self,screen,main:int=None,font=None,text:str=None,color=None,position=None,color2=None,pressed=True,command=None,detect_mouse=True,command2=None,sound_hover=None,sound_touch=None,position2=None,type_button:int=0,button_states={}):
