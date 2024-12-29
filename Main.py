@@ -17,5 +17,4 @@ if __name__=="__main__":
             case {"AI": True}:
                 print("hola3")
                 game.run_with_model()
-            case _:break
 pygame.quit(),sys.exit()

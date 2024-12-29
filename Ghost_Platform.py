@@ -20,7 +20,7 @@ class ghost_platform(interface):
         self.life=100
         self.state_life=[2,False]
         self.floor_fall=False
-        self.mode_game={"Training AI":False,"Player":True,"AI":False}
+        self.mode_game={"Training AI":False,"Player":False,"AI":False}
         self.scores=self.reward=0
         self.generation=0
     def objects(self):
@@ -205,7 +205,8 @@ class ghost_platform(interface):
         elif chosen_action == 1:self.object1.x += 5
         elif chosen_action == 2 and self.isjumper:self.jump()
     def run(self):
-        while self.running:
+        self.running = True
+        while self.running and (not self.mode_game["Training AI"] and not self.mode_game["Player"] and not self.mode_game["AI"]):
             self.handle_keys()
             self.time_delta = self.clock.tick(self.FPS)/1000.0
             self.manager.update(self.time_delta)
