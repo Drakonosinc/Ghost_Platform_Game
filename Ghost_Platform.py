@@ -181,6 +181,8 @@ class ghost_platform(interface):
         self.state_life=[2,False]
         self.floor_fall=False
         self.scores=0
+        pygame.time.set_timer(self.speed_game, 0)
+        pygame.time.set_timer(self.speed_game, 5000)
     def get_state(self):
         distances_y = [abs(self.object1.y - self.object2.y),abs(self.object1.y - self.platarforms_nexts[0].y),
                     abs(self.object1.y - self.platarforms_nexts[1].y),abs(self.object1.y - self.platarforms_nexts[2].y),
