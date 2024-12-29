@@ -140,11 +140,11 @@ class interface(load_elements):
         if self.main==8:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
-            self.screen.blit(self.font6.render(f"Generation Size {self.generation_value}", True, "White"),(10,100))
-            self.screen.blit(self.font6.render(f"Population Size {self.population_value}", True, "White"),(10,120))
-            self.screen.blit(self.font6.render(f"Number of try for AI {self.try_for_ai}", True, "White"),(10,140))
+            self.screen.blit(self.font3_5.render(f"Generation Size {self.generation_value}", True, "White"),(10,80))
+            self.screen.blit(self.font3_5.render(f"Population Size {self.population_value}", True, "White"),(10,120))
+            self.screen.blit(self.font3_5.render(f"Number of try for AI {self.try_for_ai}", True, "White"),(10,160))
             self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True)))
-            self.save=pygame_gui.elements.UIButton(relative_rect=Rect(10,160, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off("model_save",fade=False))
+            self.save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off("model_save",fade=False))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.save,self.back_game_menu])
     def button(self,screen,main:int=None,font=None,text:str=None,color=None,position=None,color2=None,pressed=True,command=None,detect_mouse=True,command2=None,sound_hover=None,sound_touch=None,position2=None,type_button:int=0,button_states={}):
