@@ -10,11 +10,9 @@ if __name__=="__main__":
                 print("hola1")
                 best_model = genetic_algorithm(game, input_size=len(game.get_state()), output_size=3,generations=game.generation_value, population_size=game.population_value)
                 game.model = best_model
-                save_model(game.model, torch.optim.Adam(game.model.parameters(), lr=0.001),game.model_path)
+                # save_model(game.model, torch.optim.Adam(game.model.parameters(), lr=0.001),game.model_path)
             case {"Player": True}:
                 print("hola2")
                 game.run_with_model()
-            case {"AI": True}:
-                print("hola3")
-                game.run_with_model()
+            case {"AI": True}:game.run_with_model()
 pygame.quit(),sys.exit()
