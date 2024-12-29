@@ -10,6 +10,7 @@ class interface(load_elements):
         self.active_buttons = []
         self.generation_value=100
         self.population_value=20
+        self.model_save=False
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
@@ -137,6 +138,7 @@ class interface(load_elements):
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
             self.screen.blit(self.font6.render(f"Generation Size {self.generation_value}", True, "White"),(10,100))
             self.screen.blit(self.font6.render(f"Population Size {self.population_value}", True, "White"),(10,120))
+            self.screen.blit(self.font6.render(f"Save model {self.model_save}", True, "Skyblue" if self.model_save else "Red"),(10,140))
             self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True)))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.back_game_menu])
