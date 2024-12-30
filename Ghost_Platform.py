@@ -46,13 +46,14 @@ class ghost_platform(interface):
         sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
         next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
         for i, elements in enumerate(sorted_elements):
-            if elements[1] < self.object1.y:
-                current_elements = elements
-                next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
-                next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
-                next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
-                next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
-                break
+            for player in self.players:
+                if elements[1] < player.rect.y:
+                    current_elements = elements
+                    next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
+                    next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
+                    next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
+                    next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
+                    break
         if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
         self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
     def position_platforms(self,next_elements1,next_elements2,next_elements3,next_elements4,width,height):
@@ -100,19 +101,21 @@ class ghost_platform(interface):
         self.elements([self.matrix[1][1]],2,"object4",35,25,"potion",self.potion,0,10)
         self.elements([self.matrix[1][2]],4,"object5",45,25,"shield",self.shield,5,10)
     def events(self):
-        if self.object1.x > self.WIDTH - 25:self.object1.x = self.WIDTH - 25
-        if not self.isjumper:self.fall()
-        if self.object1.y>=self.HEIGHT-35 and not self.floor_fall:
-            self.object1.y=self.HEIGHT-35
-            self.isjumper=True
-        elif not self.object1.colliderect(self.object2):
-            self.fall()
-            if self.object1.y<=-20:
-                self.object1.y=-15
-                self.down_gravity=self.gravity
-            if self.object1.y>=self.HEIGHT+50:
-                if self.mode_game["Training AI"]:self.reward -= 30
-                self.sounddeath()
+        for player in self.players:
+            if player.active:
+                if player.rect.x > self.WIDTH - 25:player.rect.x = self.WIDTH - 25
+                if not player.isjumper:self.fall()
+                if player.rect.y>=self.HEIGHT-35 and not self.floor_fall:
+                    player.rect.y=self.HEIGHT-35
+                    player.isjumper=True
+                elif not player.check_collision(self.object2):
+                    self.fall()
+                    if player.rect.y<=-20:
+                        player.rect.y=-15
+                        player.down_gravity=self.gravity
+                    if player.rect.y>=self.HEIGHT+50:
+                        if self.mode_game["Training AI"]:player.reward -= 30
+                        self.sounddeath()
     def sounddeath(self,sound=True):
         if sound:
             self.sound_game_lose.play(loops=0)
@@ -243,3 +246,5 @@ class ghost_platform(interface):
             self.manager.draw_ui(self.screen)
             pygame.display.flip()
         return [player.reward for player in self.players]
+#nota futura para mi: luego optimiza el uso de los for player in self.players: trata de usar lo menos que puedas
+#pasandolos por un metodo general a los que lo usen asi y tambien el uso de if player.active:
