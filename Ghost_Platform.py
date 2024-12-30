@@ -15,14 +15,11 @@ class ghost_platform(interface):
         self.objects()
         self.nuances()
         self.gravity=0.25
-        self.down_gravity=0
         self.jumper=-12
         self.isjumper=False
-        self.life=100
-        self.state_life=[2,False]
         self.floor_fall=False
         self.mode_game={"Training AI":False,"Player":False,"AI":False}
-        self.scores=self.reward=0
+        self.scores=0
         self.generation=0
         self.population()
     def population(self):
@@ -103,8 +100,7 @@ class ghost_platform(interface):
         self.elements([self.matrix[1][1]],2,"object4",35,25,"potion",self.potion,0,10)
         self.elements([self.matrix[1][2]],4,"object5",45,25,"shield",self.shield,5,10)
     def events(self):
-        if self.object1.x < 0:self.object1.x = 0
-        elif self.object1.x > self.WIDTH - 25:self.object1.x = self.WIDTH - 25
+        if self.object1.x > self.WIDTH - 25:self.object1.x = self.WIDTH - 25
         if not self.isjumper:self.fall()
         if self.object1.y>=self.HEIGHT-35 and not self.floor_fall:
             self.object1.y=self.HEIGHT-35
@@ -162,10 +158,9 @@ class ghost_platform(interface):
                 self.bar_life(player),self.shield_draw(player)
         self.draw_generations(),self.draw_score()
     def jump(self):
-        if self.isjumper:
-            self.down_gravity=self.jumper
-            self.sound_jump.play(loops=0)
-            self.isjumper,self.floor_fall=False,True
+        "integrate the jump method"
+        self.sound_jump.play(loops=0)
+        self.floor_fall=False,True
     def draw_generations(self):
         if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
     def draw_score(self):
