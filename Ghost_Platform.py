@@ -177,7 +177,7 @@ class ghost_platform(interface):
         if player.life < 0:self.restart()
         if self.main==-1:self.screen.blit(self.font6.render("Life",True,self.life_color),(0,9))
     def shield_draw(self,player):
-        if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(self.player.rect.x-11,self.player.rect.y-15,50,50),3)
+        if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(player.rect.x-11,player.rect.y-15,50,50),3)
     def restart(self):
         if self.mode_game["Training AI"] and all(not player.active for player in self.players):self.reset(False)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
