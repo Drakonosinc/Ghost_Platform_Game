@@ -2,6 +2,7 @@ import random
 import numpy as np
 from Interface import *
 import torch
+from Player import *
 class ghost_platform(interface):
     def __init__(self,model=None):
         super().__init__(width=700, height=600)
@@ -23,6 +24,11 @@ class ghost_platform(interface):
         self.mode_game={"Training AI":False,"Player":False,"AI":False}
         self.scores=self.reward=0
         self.generation=0
+        self.population()
+    def population(self):
+        self.population_size=self.population_value
+        self.players = [Player(350, self.HEIGHT - 35, 25, 25) for _ in range(self.population_size)]
+        self.models = []
     def objects(self):
         self.object1=Rect(350, self.HEIGHT-35,25,25)
         self.object2=Rect(0,0,0,0)
@@ -58,34 +64,36 @@ class ghost_platform(interface):
         if next_elements3:self.platarforms_nexts[2]=Rect(next_elements3[0],next_elements3[1],width,height)
         if next_elements4:self.platarforms_nexts[3]=Rect(next_elements4[0],next_elements4[1],width,height)
     def collision(self,objects,type_object,coords):
-        if self.object1.colliderect(objects):
-            match type_object:
-                case "platform":
-                    self.object1.y=objects.y-25
-                    self.down_gravity=0
-                    self.isjumper=True
-                    if self.mode_game["Training AI"]:self.reward += 0.2
-                case "meteorite":
-                    if not self.state_life[1]:
+        for player in self.players:
+            if player.active and player.check_collision(objects):
+                match type_object:
+                    case "platform":
+                        player.rect.y=objects.y-25
+                        player.down_gravity=0
+                        player.isjumper=True
+                        self.scores=+1
+                        if self.mode_game["Training AI"]:player.reward += 0.2
+                    case "meteorite":
+                        if not player.state_life[1]:
+                            self.reset_coords(coords)
+                            player.state_life[0]=0
+                            self.sound_meteorite.play()
+                            if self.mode_game["Training AI"]:player.reward -= 20
+                        else:
+                            player.state_life[1]=False
+                            self.reset_coords(coords)
+                            self.sound_meteorite.play()
+                            if self.mode_game["Training AI"]:player.reward -= 5
+                    case "potion" if player.life<100:
+                        player.state_life[0]=1
                         self.reset_coords(coords)
-                        self.state_life[0]=0
-                        self.sound_meteorite.play()
-                        if self.mode_game["Training AI"]:self.reward -= 20
-                    else:
-                        self.state_life[1]=False
+                        self.sound_health.play()
+                        if self.mode_game["Training AI"]:player.reward += 10
+                    case "shield" if not player.state_life[1]:
+                        player.state_life[1]=True
                         self.reset_coords(coords)
-                        self.sound_meteorite.play()
-                        if self.mode_game["Training AI"]:self.reward -= 5
-                case "potion" if self.life<100:
-                    self.state_life[0]=1
-                    self.reset_coords(coords)
-                    self.sound_health.play()
-                    if self.mode_game["Training AI"]:self.reward += 10
-                case "shield" if not self.state_life[1]:
-                    self.state_life[1]=True
-                    self.reset_coords(coords)
-                    self.sound_shield.play()
-                    if self.mode_game["Training AI"]:self.reward += 15
+                        self.sound_shield.play()
+                        if self.mode_game["Training AI"]:player.reward += 15
     def reset_coords(self,coords):
         coords[1]=random.choice(np.arange(-500, 0, 200))
         coords[0]=random.choice(np.arange(25, self.WIDTH-50, 115))
@@ -116,8 +124,8 @@ class ghost_platform(interface):
             sound=False
         else:sound=True
     def fall(self):
-        self.down_gravity+=self.gravity
-        self.object1.y+=self.down_gravity
+        for player in self.players:
+            if player.active:player.fall(self.gravity)
     def handle_keys(self):
         for event in pygame.event.get():
             self.manager.process_events(event)
@@ -148,8 +156,11 @@ class ghost_platform(interface):
             if not self.floor_fall:self.floor_fall=True
     def draw(self):
         self.screen.fill(self.background)
-        self.screen.blit(self.player,(self.object1.x-5,self.object1.y-5))
-        self.bar_life(),self.shield_draw(),self.draw_generations(),self.draw_score()
+        for player in self.players:
+            if player.active:
+                self.screen.blit(self.player_ghost,(player.rect.x-5,player.rect.y-5))
+                self.bar_life(player),self.shield_draw(player)
+        self.draw_generations(),self.draw_score()
     def jump(self):
         if self.isjumper:
             self.down_gravity=self.jumper
@@ -159,22 +170,25 @@ class ghost_platform(interface):
         if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
     def draw_score(self):
         self.screen.blit(self.font6.render(f"Score: {int(self.scores)}",True,self.YELLOW),(0,self.HEIGHT-30))
-    def bar_life(self):
+    def bar_life(self,player):
         pygame.draw.rect(self.screen,self.BLACK,(50,8,105,20),4)
-        pygame.draw.rect(self.screen,self.life_color,(52,11,self.life,15))
-        self.life += 1 if self.state_life[0] == 1 else -1 if self.state_life[0] == 0 else 0
+        pygame.draw.rect(self.screen,self.life_color,(52,11,player.life,15))
+        player.life += 1 if player.state_life[0] == 1 else -1 if player.state_life[0] == 0 else 0
         states = {100: (2, self.GREEN),75: (2, self.SKYBLUE),50: (2, self.YELLOW),25: (2, self.RED),-1: (2, self.BLACK)}
-        if self.life in states:self.state_life[0], self.life_color = states[self.life]
-        if self.life < 0:self.restart()
+        if player.life in states:player.state_life[0], self.life_color = states[player.life]
+        if player.life < 0:self.restart()
         if self.main==-1:self.screen.blit(self.font6.render("Life",True,self.life_color),(0,9))
-    def shield_draw(self):
-        if self.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(self.object1.x-11,self.object1.y-15,50,50),3)
+    def shield_draw(self,player):
+        if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(self.player.rect.x-11,self.player.rect.y-15,50,50),3)
     def restart(self):
-        if self.mode_game["Training AI"]:self.reset()
+        if self.mode_game["Training AI"] and all(not player.active for player in self.players):self.reset(False)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
-    def reset(self):
+    def reset(self,running=True):
+        self.running=running
         self.FPS=60
         self.objects()
+        if self.mode_game["Training AI"]:
+            for player in self.players:player.reset(350, self.HEIGHT - 35)
         self.nuances()
         self.calls_elements()
         self.life=100
@@ -183,29 +197,35 @@ class ghost_platform(interface):
         self.scores=0
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
-    def get_state(self):
-        distances_y = [abs(self.object1.y - self.object2.y),abs(self.object1.y - self.platarforms_nexts[0].y),
-                    abs(self.object1.y - self.platarforms_nexts[1].y),abs(self.object1.y - self.platarforms_nexts[2].y),
-                    abs(self.object1.y - self.platarforms_nexts[3].y),abs(self.object1.y - self.object3.y),
-                    abs(self.object1.y - self.object4.y),abs(self.object1.y - self.object5.y)]
-        return np.array([self.object1.x, self.object1.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.platarforms_nexts[2].x,self.platarforms_nexts[2].y,self.platarforms_nexts[3].x,self.platarforms_nexts[3].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
+    def get_state(self,player=Player(350, 600 - 35, 25, 25)):
+        distances_y = [abs(player.rect.y - self.object2.y),abs(player.rect.y - self.platarforms_nexts[0].y),
+                    abs(player.rect.y - self.platarforms_nexts[1].y),abs(player.rect.y - self.platarforms_nexts[2].y),
+                    abs(player.rect.y - self.platarforms_nexts[3].y),abs(player.rect.y - self.object3.y),
+                    abs(player.rect.y - self.object4.y),abs(player.rect.y - self.object5.y)]
+        return np.array([player.rect.x, player.rect.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.platarforms_nexts[2].x,self.platarforms_nexts[2].y,self.platarforms_nexts[3].x,self.platarforms_nexts[3].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
     def type_mode(self):
-        if self.mode_game["Training AI"]:self.actions_AI(self.model)
+        if self.mode_game["Training AI"]:self.actions_AI(self.models)
         if self.mode_game["AI"]:self.actions_AI(self.model_training)
-    def actions_AI(self,model):
-        state=self.get_state()
-        action = model(torch.tensor(state, dtype=torch.float32)).detach().numpy()
-        self.AI_actions(action)
+    def actions_AI(self,models):
+        for player, model in zip(self.players, models):
+            if player.active:
+                state=self.get_state(player)
+                action = model(torch.tensor(state, dtype=torch.float32)).detach().numpy()
+                self.AI_actions(player,action)
     def softmax(self, x):
         exp_x = np.exp(x - np.max(x))
         return exp_x / exp_x.sum()
-    def AI_actions(self, action):
+    def AI_actions(self,player,action):
         probabilities = self.softmax(action)
         chosen_action = np.argmax(probabilities)
         print(f"Probabilidades: {probabilities}, Acción elegida: {chosen_action}")
-        if chosen_action == 0:self.object1.x -= 5
-        elif chosen_action == 1:self.object1.x += 5
-        elif chosen_action == 2 and self.isjumper:self.jump()
+        if chosen_action == 0:
+            player.rect.x -= 5
+            if player.rect.x < 0:player.rect.x = 0
+        elif chosen_action == 1:
+            player.rect.x += 5
+            if player.rect.x > self.WIDTH - player.rect.width:player.rect.x = self.WIDTH - player.rect.width
+        elif chosen_action == 2 and player.isjumper:player.jump(self.jumper)
     def run(self):
         self.running = True
         while self.running and (not self.mode_game["Training AI"] and not self.mode_game["Player"] and not self.mode_game["AI"]):
@@ -214,9 +234,8 @@ class ghost_platform(interface):
             self.manager.update(self.time_delta)
             self.manager.draw_ui(self.screen)
             pygame.display.flip()
-    def run_with_model(self):
+    def run_with_models(self):
         self.running = True
-        score = self.reward = 0
         while self.running and self.game_over == False:
             self.handle_keys()
             if self.main == -1:
@@ -228,4 +247,4 @@ class ghost_platform(interface):
             self.manager.update(self.time_delta)
             self.manager.draw_ui(self.screen)
             pygame.display.flip()
-        return score
+        return [player.reward for player in self.players]

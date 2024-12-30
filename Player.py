@@ -5,6 +5,7 @@ class Player:
         self.down_gravity = 0
         self.isjumper = False
         self.life = 100
+        self.state_life=[2,False]
         self.reward = 0
         self.active = True
     def jump(self, jumper_value):
@@ -20,6 +21,7 @@ class Player:
         self.isjumper = False
         self.life = 100
         self.reward = 0
+        self.state_life=[2,False]
         self.active = True
     def check_collision(self, other_rect):
         return self.rect.colliderect(other_rect)
