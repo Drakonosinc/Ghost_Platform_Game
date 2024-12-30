@@ -179,7 +179,7 @@ class ghost_platform(interface):
     def shield_draw(self,player):
         if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(player.rect.x-11,player.rect.y-15,50,50),3)
     def restart(self):
-        if self.mode_game["Training AI"] and all(not player.active for player in self.players):self.reset(False)
+        if self.mode_game["Training AI"]:self.reset(False)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
     def reset(self,running=True):
         self.running=running
@@ -241,6 +241,7 @@ class ghost_platform(interface):
                 self.draw()
                 self.events()
                 self.calls_elements()
+                if all(not player.active for player in self.players):self.reset(False)
             self.time_delta = self.clock.tick(self.FPS)/1000.0
             self.manager.update(self.time_delta)
             self.manager.draw_ui(self.screen)
