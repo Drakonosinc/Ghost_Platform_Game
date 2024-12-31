@@ -17,7 +17,6 @@ class ghost_platform(interface):
         self.gravity=0.25
         self.jumper=-12
         self.isjumper=False
-        self.floor_fall=False
         self.mode_game={"Training AI":False,"Player":False,"AI":False}
         self.scores=0
         self.generation=0
@@ -27,7 +26,6 @@ class ghost_platform(interface):
         self.players = [Player(350, self.HEIGHT - 35, 25, 25) for _ in range(self.population_size)]
         self.models = []
     def objects(self):
-        self.object1=Rect(350, self.HEIGHT-35,25,25)
         self.object2=Rect(0,0,0,0)
         self.object3=Rect(0,0,0,0)
         self.object4=Rect(0,0,0,0)
@@ -105,7 +103,7 @@ class ghost_platform(interface):
             if player.active:
                 if player.rect.x > self.WIDTH - 25:player.rect.x = self.WIDTH - 25
                 if not player.isjumper:self.fall()
-                if player.rect.y>=self.HEIGHT-35 and not self.floor_fall:
+                if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:
                     player.rect.y=self.HEIGHT-35
                     player.isjumper=True
                 elif not player.check_collision(self.object2):
@@ -145,14 +143,15 @@ class ghost_platform(interface):
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
             if self.mode_game["Player"] and (event.key==K_SPACE or event.key==K_w):self.jump()
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
-    def press_keys(self):
-        if self.mode_game["Player"] and self.main==-1:
-            if self.pressed_keys[K_d]:self.object1.x+=5
-            if self.pressed_keys[K_a]:self.object1.x-=5
+    def press_keys(self):pass
+        # if self.mode_game["Player"] and self.main==-1:
+            # if self.pressed_keys[K_d]:self.object1.x+=5
+            # if self.pressed_keys[K_a]:self.object1.x-=5
     def new_events(self,event):
         if self.main==-1 and event.type==self.speed_game:
             self.FPS+=0.5
-            if not self.floor_fall:self.floor_fall=True
+            for player in self.players:
+                if player.active and not player.floor_fall:player.floor_fall=True
     def draw(self):
         self.screen.fill(self.background)
         for player in self.players:
@@ -163,7 +162,6 @@ class ghost_platform(interface):
     def jump(self):
         "integrate the jump method"
         self.sound_jump.play(loops=0)
-        self.floor_fall=False,True
     def draw_generations(self):
         if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
     def draw_score(self):
@@ -191,7 +189,6 @@ class ghost_platform(interface):
         self.calls_elements()
         self.life=100
         self.state_life=[2,False]
-        self.floor_fall=False
         self.scores=0
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
@@ -216,7 +213,6 @@ class ghost_platform(interface):
     def AI_actions(self,player,action):
         probabilities = self.softmax(action)
         chosen_action = np.argmax(probabilities)
-        print(f"Probabilidades: {probabilities}, Acción elegida: {chosen_action}")
         if chosen_action == 0:
             player.rect.x -= 5
             if player.rect.x < 0:player.rect.x = 0

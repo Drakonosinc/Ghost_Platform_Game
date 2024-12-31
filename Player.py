@@ -7,6 +7,7 @@ class Player:
         self.life = 100
         self.state_life=[2,False]
         self.reward = 0
+        self.floor_fall=False
         self.active = True
     def jump(self, jumper_value):
         if self.isjumper:
@@ -22,6 +23,7 @@ class Player:
         self.life = 100
         self.reward = 0
         self.state_life=[2,False]
+        self.floor_fall=False
         self.active = True
     def check_collision(self, other_rect):
         return self.rect.colliderect(other_rect)
