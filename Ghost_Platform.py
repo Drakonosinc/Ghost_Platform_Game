@@ -65,7 +65,7 @@ class ghost_platform(interface):
                     case "platform":
                         player.rect.y=objects.y-25
                         player.down_gravity=0
-                        player.isjumper=True
+                        player.isjumper,player.floor_fall=True,True
                         self.scores=+1
                         if self.mode_game["Training AI"]:player.reward += 0.2
                     case "meteorite":
@@ -147,10 +147,7 @@ class ghost_platform(interface):
             # if self.pressed_keys[K_d]:self.object1.x+=5
             # if self.pressed_keys[K_a]:self.object1.x-=5
     def new_events(self,event):
-        if self.main==-1 and event.type==self.speed_game:
-            self.FPS+=0.5
-            for player in self.players:
-                if player.active and not player.floor_fall:player.floor_fall=True
+        if self.main==-1 and event.type==self.speed_game:self.FPS+=0.5
     def draw(self):
         self.screen.fill(self.background)
         for player in self.players:
