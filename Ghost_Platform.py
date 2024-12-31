@@ -4,9 +4,8 @@ from Interface import *
 import torch
 from Player import *
 class ghost_platform(interface):
-    def __init__(self,model=None):
+    def __init__(self):
         super().__init__(width=700, height=600)
-        self.model=model
         self.load_AI()
         self.running=True
         self.game_over=False
