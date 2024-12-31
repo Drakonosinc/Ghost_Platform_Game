@@ -110,11 +110,12 @@ class ghost_platform(interface):
                     if player.rect.y<=-20:
                         player.rect.y=-15
                         player.down_gravity=self.gravity
-                    if player.rect.y>=self.HEIGHT+50:
-                        if self.mode_game["Training AI"]:player.reward -= 30
-                        self.sounddeath()
-    def sounddeath(self,sound=True):
+                    if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player)
+    def sounddeath(self,sound=True,player=None):
         if sound:
+            if self.mode_game["Training AI"]:
+                player.active=False
+                player.reward -= 30
             self.sound_game_lose.play(loops=0)
             self.restart()
             sound=False
@@ -147,7 +148,10 @@ class ghost_platform(interface):
             # if self.pressed_keys[K_d]:self.object1.x+=5
             # if self.pressed_keys[K_a]:self.object1.x-=5
     def new_events(self,event):
-        if self.main==-1 and event.type==self.speed_game:self.FPS+=0.5
+        if self.main==-1 and event.type==self.speed_game:
+            self.FPS+=0.5
+            for player in self.players:
+                if player.active:player.floor_fall=True
     def draw(self):
         self.screen.fill(self.background)
         for player in self.players:
@@ -168,12 +172,12 @@ class ghost_platform(interface):
         player.life += 1 if player.state_life[0] == 1 else -1 if player.state_life[0] == 0 else 0
         states = {100: (2, self.GREEN),75: (2, self.SKYBLUE),50: (2, self.YELLOW),25: (2, self.RED),-1: (2, self.BLACK)}
         if player.life in states:player.state_life[0], self.life_color = states[player.life]
-        if player.life < 0:self.restart()
+        if player.life < 0:self.sounddeath(player=player)
         if self.main==-1:self.screen.blit(self.font6.render("Life",True,self.life_color),(0,9))
     def shield_draw(self,player):
         if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(player.rect.x-11,player.rect.y-15,50,50),3)
     def restart(self):
-        if self.mode_game["Training AI"]:self.reset(False)
+        if all(not player.active for player in self.players) and self.mode_game["Training AI"]:self.reset(False)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
     def reset(self,running=True):
         self.running=running
@@ -233,7 +237,6 @@ class ghost_platform(interface):
                 self.draw()
                 self.events()
                 self.calls_elements()
-                if all(not player.active for player in self.players):self.reset(False)
             self.time_delta = self.clock.tick(self.FPS)/1000.0
             self.manager.update(self.time_delta)
             self.manager.draw_ui(self.screen)
