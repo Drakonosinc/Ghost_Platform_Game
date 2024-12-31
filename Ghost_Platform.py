@@ -44,7 +44,7 @@ class ghost_platform(interface):
         next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
         for i, elements in enumerate(sorted_elements):
             for player in self.players:
-                if elements[1] < player.rect.y:
+                if player.active and elements[1] < player.rect.y:
                     current_elements = elements
                     next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
                     next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
