@@ -23,7 +23,7 @@ class ghost_platform(interface):
     def population(self):
         self.population_size=self.population_value
         if self.mode_game["Training AI"]:self.players = [Player(350, self.HEIGHT - 35, 25, 25) for _ in range(self.population_size)]
-        if self.mode_game["Player"] or self.mode_game["AI"]:self.players = [Player(350, self.HEIGHT - 35, 25, 25)]
+        else:self.players = [Player(350, self.HEIGHT - 35, 25, 25)]
         self.models = []
     def objects(self):
         self.object2=Rect(0,0,0,0)
@@ -67,7 +67,7 @@ class ghost_platform(interface):
                         player.rect.y=objects.y-25
                         player.down_gravity=0
                         player.isjumper,player.floor_fall=True,True
-                        self.scores=+1
+                        self.scores+=1
                         if self.mode_game["Training AI"]:player.reward += 0.2
                     case "meteorite":
                         if not player.state_life[1]:
@@ -164,7 +164,7 @@ class ghost_platform(interface):
     def draw_generations(self):
         if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
     def draw_score(self):
-        self.screen.blit(self.font6.render(f"Score: {int(self.scores)}",True,self.YELLOW),(0,self.HEIGHT-30))
+        if not self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Score: {int(self.scores)}",True,self.YELLOW),(0,self.HEIGHT-30))
     def bar_life(self,player):
         pygame.draw.rect(self.screen,self.BLACK,(50,8,105,20),4)
         pygame.draw.rect(self.screen,self.life_color,(52,11,player.life,15))
