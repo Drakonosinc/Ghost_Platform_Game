@@ -23,6 +23,7 @@ class ghost_platform(interface):
     def population(self):
         self.population_size=self.population_value
         self.players = [Player(350, self.HEIGHT - 35, 25, 25) for _ in range(self.population_size)]
+        # else:self.players = [Player(350, self.HEIGHT - 35, 25, 25)]
         self.models = []
     def objects(self):
         self.object2=Rect(0,0,0,0)
@@ -100,7 +101,8 @@ class ghost_platform(interface):
     def events(self):
         for player in self.players:
             if player.active:
-                if player.rect.x > self.WIDTH - 25:player.rect.x = self.WIDTH - 25
+                if player.rect.x < 0:player.rect.x=0
+                if player.rect.x > self.WIDTH-player.rect.width:player.rect.x=self.WIDTH-player.rect.width
                 if not player.isjumper:self.fall()
                 if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:
                     player.rect.y=self.HEIGHT-35
@@ -141,12 +143,12 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if self.mode_game["Player"] and (event.key==K_SPACE or event.key==K_w):pass
+            if self.mode_game["Player"] and (event.key==K_SPACE or event.key==K_w):self.players[0].jump(self.jumper,self.sound_jump)
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
-    def press_keys(self):pass
-        # if self.mode_game["Player"] and self.main==-1:
-            # if self.pressed_keys[K_d]:self.object1.x+=5
-            # if self.pressed_keys[K_a]:self.object1.x-=5
+    def press_keys(self):
+        if self.mode_game["Player"] and self.main==-1:
+            if self.pressed_keys[K_d]:self.players[0].rect.x+=5
+            if self.pressed_keys[K_a]:self.players[0].rect.x-=5
     def new_events(self,event):
         if self.main==-1 and event.type==self.speed_game:
             self.FPS+=0.5
@@ -180,12 +182,9 @@ class ghost_platform(interface):
         self.running=running
         self.FPS=60
         self.objects()
-        if self.mode_game["Training AI"]:
-            for player in self.players:player.reset(350, self.HEIGHT - 35)
+        for player in self.players:player.reset(350, self.HEIGHT - 35)
         self.nuances()
         self.calls_elements()
-        self.life=100
-        self.state_life=[2,False]
         self.scores=0
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
@@ -210,21 +209,19 @@ class ghost_platform(interface):
     def AI_actions(self,player,action):
         probabilities = self.softmax(action)
         chosen_action = np.argmax(probabilities)
-        if chosen_action == 0:
-            player.rect.x -= 5
-            if player.rect.x < 0:player.rect.x = 0
-        elif chosen_action == 1:
-            player.rect.x += 5
-            if player.rect.x > self.WIDTH - player.rect.width:player.rect.x = self.WIDTH - player.rect.width
+        if chosen_action == 0:player.rect.x -= 5
+        elif chosen_action == 1:player.rect.x += 5
         elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
+    def item_repeat_run(self):
+        self.time_delta = self.clock.tick(self.FPS)/1000.0
+        self.manager.update(self.time_delta)
+        self.manager.draw_ui(self.screen)
+        pygame.display.flip()
     def run(self):
         self.running = True
         while self.running and (not self.mode_game["Training AI"] and not self.mode_game["Player"] and not self.mode_game["AI"]):
             self.handle_keys()
-            self.time_delta = self.clock.tick(self.FPS)/1000.0
-            self.manager.update(self.time_delta)
-            self.manager.draw_ui(self.screen)
-            pygame.display.flip()
+            self.item_repeat_run()
     def run_with_models(self):
         self.running = True
         while self.running and self.game_over == False:
@@ -234,10 +231,7 @@ class ghost_platform(interface):
                 self.draw()
                 self.events()
                 self.calls_elements()
-            self.time_delta = self.clock.tick(self.FPS)/1000.0
-            self.manager.update(self.time_delta)
-            self.manager.draw_ui(self.screen)
-            pygame.display.flip()
+            self.item_repeat_run()
         return [player.reward for player in self.players]
 #nota futura para mi: luego optimiza el uso de los for player in self.players: trata de usar lo menos que puedas
 #pasandolos por un metodo general a los que lo usen asi y tambien el uso de if player.active:
