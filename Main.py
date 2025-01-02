@@ -4,6 +4,7 @@ from Genetic_Algorithm import *
 if __name__=="__main__":
     while True:
         (game:=ghost_platform()).run()
+        if game.exit:break
         game.game_over=False
         match game.mode_game:
             case {"Training AI": True}:

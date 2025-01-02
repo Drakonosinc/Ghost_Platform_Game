@@ -9,6 +9,7 @@ class ghost_platform(interface):
         self.load_AI()
         self.running=True
         self.game_over=False
+        self.exit=False
         self.clock=pygame.time.Clock()
         self.FPS=60
         self.objects()
@@ -138,7 +139,7 @@ class ghost_platform(interface):
         self.press_keys()
     def event_quit(self,event):
         if event.type==QUIT:self.change_mains(command=self.close_game,sound=self.sound_exit)
-    def close_game(self):self.game_over=True
+    def close_game(self):self.game_over,self.running,self.exit=True,False,True
     def event_keydown(self,event):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
