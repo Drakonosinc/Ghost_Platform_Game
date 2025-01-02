@@ -141,7 +141,7 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if self.mode_game["Player"] and (event.key==K_SPACE or event.key==K_w):self.jump()
+            if self.mode_game["Player"] and (event.key==K_SPACE or event.key==K_w):pass
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):pass
         # if self.mode_game["Player"] and self.main==-1:
@@ -159,9 +159,6 @@ class ghost_platform(interface):
                 self.screen.blit(self.player_ghost,(player.rect.x-5,player.rect.y-5))
                 self.bar_life(player),self.shield_draw(player)
         self.draw_generations(),self.draw_score()
-    def jump(self):
-        "integrate the jump method"
-        self.sound_jump.play(loops=0)
     def draw_generations(self):
         if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
     def draw_score(self):
@@ -219,7 +216,7 @@ class ghost_platform(interface):
         elif chosen_action == 1:
             player.rect.x += 5
             if player.rect.x > self.WIDTH - player.rect.width:player.rect.x = self.WIDTH - player.rect.width
-        elif chosen_action == 2 and player.isjumper:player.jump(self.jumper)
+        elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
     def run(self):
         self.running = True
         while self.running and (not self.mode_game["Training AI"] and not self.mode_game["Player"] and not self.mode_game["AI"]):

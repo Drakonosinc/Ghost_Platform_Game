@@ -1,4 +1,4 @@
-from pygame import Rect
+from pygame import *
 class Player:
     def __init__(self, x, y, width, height):
         self.rect = Rect(x, y, width, height)
@@ -9,9 +9,10 @@ class Player:
         self.reward = 0
         self.floor_fall=False
         self.active = True
-    def jump(self, jumper_value):
+    def jump(self, jumper_value,sound):
         if self.isjumper:
             self.down_gravity = jumper_value
+            sound.play()
             self.isjumper = False
     def fall(self, gravity):
         self.down_gravity += gravity
