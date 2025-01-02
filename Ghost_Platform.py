@@ -220,8 +220,7 @@ class ghost_platform(interface):
     def run(self):
         self.running = True
         while self.running and (not self.mode_game["Training AI"] and not self.mode_game["Player"] and not self.mode_game["AI"]):
-            self.handle_keys()
-            self.item_repeat_run()
+            self.handle_keys(),self.item_repeat_run()
     def run_with_models(self):
         self.running = True
         while self.running and self.game_over == False:
