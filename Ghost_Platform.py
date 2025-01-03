@@ -180,7 +180,6 @@ class ghost_platform(interface):
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
     def reset(self,running=True):
         self.running=running
-        pygame.time.set_timer(self.speed_game, 0)
         self.FPS=60
         self.objects()
         self.population()
@@ -188,6 +187,7 @@ class ghost_platform(interface):
         self.nuances()
         self.calls_elements()
         self.scores=0
+        pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
     def get_state(self,player=Player(350, 600 - 35, 25, 25)):
         distances_y = [abs(player.rect.y - self.object2.y),abs(player.rect.y - self.platarforms_nexts[0].y),
