@@ -116,9 +116,8 @@ class ghost_platform(interface):
                     if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player)
     def sounddeath(self,sound=True,player=None):
         if sound:
-            if self.mode_game["Training AI"]:
-                player.active=False
-                player.reward -= 30
+            if self.mode_game["Training AI"]:player.reward -= 30
+            player.active=False
             self.sound_game_lose.play(loops=0)
             self.restart()
             sound=False
@@ -181,6 +180,7 @@ class ghost_platform(interface):
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
     def reset(self,running=True):
         self.running=running
+        pygame.time.set_timer(self.speed_game, 0)
         self.FPS=60
         self.objects()
         self.population()
@@ -188,7 +188,6 @@ class ghost_platform(interface):
         self.nuances()
         self.calls_elements()
         self.scores=0
-        pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
     def get_state(self,player=Player(350, 600 - 35, 25, 25)):
         distances_y = [abs(player.rect.y - self.object2.y),abs(player.rect.y - self.platarforms_nexts[0].y),
@@ -204,8 +203,10 @@ class ghost_platform(interface):
             state=self.get_state(player)
             action = model(torch.tensor(state, dtype=torch.float32)).detach().numpy()
             self.AI_actions(player,action)
-        for player, model in zip(self.players, models):
-            if player.active:actions(player,model)
+        try:
+            for player, model in zip(self.players, models):
+                if player.active:actions(player,model)
+        except:actions(self.players[0],models)
     def softmax(self, x):
         exp_x = np.exp(x - np.max(x))
         return exp_x / exp_x.sum()
