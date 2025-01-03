@@ -66,7 +66,7 @@ class load_elements():
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
     def load_AI(self):
         self.model_path=os.path.join(os.path.dirname(__file__), "AI/best_model.pth")
-        if os.path.exists(self.model_path):self.model_training = load_model(self.model_path, 12, 1)
+        if os.path.exists(self.model_path):self.model_training = load_model(self.model_path, 26, 3)
         else:self.model_training = None
     def additional_events(self):
         self.speed_game=pygame.USEREVENT + 1

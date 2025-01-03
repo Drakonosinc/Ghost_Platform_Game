@@ -144,7 +144,7 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if self.mode_game["Player"] and (event.key==K_SPACE or event.key==K_w):self.players[0].jump(self.jumper,self.sound_jump)
+            if (self.mode_game["Player"] and self.main==-1) and (event.key==K_SPACE or event.key==K_w):self.players[0].jump(self.jumper,self.sound_jump)
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):
         if self.mode_game["Player"] and self.main==-1:
@@ -200,11 +200,12 @@ class ghost_platform(interface):
         if self.mode_game["Training AI"]:self.actions_AI(self.models)
         if self.mode_game["AI"]:self.actions_AI(self.model_training)
     def actions_AI(self,models):
+        def actions(player,model):
+            state=self.get_state(player)
+            action = model(torch.tensor(state, dtype=torch.float32)).detach().numpy()
+            self.AI_actions(player,action)
         for player, model in zip(self.players, models):
-            if player.active:
-                state=self.get_state(player)
-                action = model(torch.tensor(state, dtype=torch.float32)).detach().numpy()
-                self.AI_actions(player,action)
+            if player.active:actions(player,model)
     def softmax(self, x):
         exp_x = np.exp(x - np.max(x))
         return exp_x / exp_x.sum()
