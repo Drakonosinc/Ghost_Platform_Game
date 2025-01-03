@@ -4,7 +4,6 @@ from Genetic_Algorithm import *
 if __name__=="__main__":
     while True:
         (game:=ghost_platform()).run()
-        if game.exit:break
         game.game_over=False
         match game.mode_game:
             case {"Training AI": True}:
@@ -12,4 +11,5 @@ if __name__=="__main__":
                 game.model = best_model
                 if game.model_save:save_model(game.model, torch.optim.Adam(game.model.parameters(), lr=0.001),game.model_path)
             case {"Player": True} | {"AI": True}:game.run_with_models()
+        if game.exit:break
 pygame.quit(),sys.exit()
