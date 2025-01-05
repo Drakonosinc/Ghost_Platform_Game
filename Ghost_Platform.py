@@ -82,14 +82,12 @@ class ghost_platform(interface):
                             self.sound_meteorite.play()
                             if self.mode_game["Training AI"]:player.reward -= 5
                     case "potion" if player.life<100:
-                        player.state_life[0]=1
-                        self.reset_coords(coords)
-                        self.sound_health.play()
+                        self.repeat_in_collision(player,coords,self.sound_health,0,0,1)
                         if self.mode_game["Training AI"]:player.reward += 10
                     case "shield" if not player.state_life[1]:
                         self.repeat_in_collision(player,coords,self.sound_shield,0,1,True)
                         if self.mode_game["Training AI"]:player.reward += 15
-    def repeat_in_collision(self,player,coords,sound,reward,statelife1:int,statelife2:bool):
+    def repeat_in_collision(self,player,coords,sound,reward,statelife1,statelife2):
         player.state_life[statelife1]=statelife2
         self.reset_coords(coords)
         sound.play()
