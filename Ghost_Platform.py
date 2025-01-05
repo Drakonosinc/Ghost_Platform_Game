@@ -99,17 +99,15 @@ class ghost_platform(interface):
         self.elements([self.matrix[1][0]],6,"object3",50,35,"meteorite",self.meteorite,0,45)
         self.elements([self.matrix[1][1]],2,"object4",35,25,"potion",self.potion,0,10)
         self.elements([self.matrix[1][2]],4,"object5",45,25,"shield",self.shield,5,10)
-    def events(self):
-        for player in self.players:
-            if player.active:
+    def events(self,player):
                 if player.rect.x < 0:player.rect.x=0
                 if player.rect.x > self.WIDTH-player.rect.width:player.rect.x=self.WIDTH-player.rect.width
-                if not player.isjumper:self.fall()
+                if not player.isjumper:self.fall(player)
                 if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:
                     player.rect.y=self.HEIGHT-35
                     player.isjumper=True
                 elif not player.check_collision(self.object2):
-                    self.fall()
+                    self.fall(player)
                     if player.rect.y<=-20:
                         player.rect.y=-15
                         player.down_gravity=self.gravity
@@ -122,9 +120,8 @@ class ghost_platform(interface):
             self.restart()
             sound=False
         else:sound=True
-    def fall(self):
-        for player in self.players:
-            if player.active:player.fall(self.gravity)
+    def fall(self,player):
+        player.fall(self.gravity)
     def handle_keys(self):
         for event in pygame.event.get():
             self.manager.process_events(event)
@@ -154,12 +151,9 @@ class ghost_platform(interface):
             self.FPS+=0.5
             for player in self.players:
                 if player.active:player.floor_fall=True
-    def draw(self):
-        self.screen.fill(self.background)
-        for player in self.players:
-            if player.active:
-                self.screen.blit(self.player_ghost,(player.rect.x-5,player.rect.y-5))
-                self.bar_life(player),self.shield_draw(player)
+    def draw(self,player):
+        self.screen.blit(self.player_ghost,(player.rect.x-5,player.rect.y-5))
+        self.bar_life(player),self.shield_draw(player)
         self.draw_generations(),self.draw_score()
     def draw_generations(self):
         if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
@@ -230,8 +224,11 @@ class ghost_platform(interface):
             self.handle_keys()
             if self.main == -1:
                 if self.mode_game["AI"] or self.mode_game["Training AI"]:self.type_mode()
-                self.draw()
-                self.events()
+                self.screen.fill(self.background)
+                for player in self.players:
+                    if player.active:
+                        self.draw(player)
+                        self.events(player)
                 self.calls_elements()
             self.item_repeat_run()
         return [player.reward for player in self.players]
