@@ -22,7 +22,6 @@ class Player:
         self.down_gravity = 0
         self.isjumper = False
         self.life = 100
-        self.reward = 0
         self.state_life=[2,False]
         self.floor_fall=False
         self.active = True
