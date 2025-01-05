@@ -236,5 +236,3 @@ class ghost_platform(interface):
                 self.calls_elements()
             self.item_repeat_run()
         return [player.reward for player in self.players]
-#nota futura para mi: luego optimiza el uso de los for player in self.players: trata de usar lo menos que puedas
-#pasandolos por un metodo general a los que lo usen asi y tambien el uso de if player.active:
