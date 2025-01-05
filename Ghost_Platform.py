@@ -87,15 +87,13 @@ class ghost_platform(interface):
                         self.sound_health.play()
                         if self.mode_game["Training AI"]:player.reward += 10
                     case "shield" if not player.state_life[1]:
-                        player.state_life[1]=True
-                        self.reset_coords(coords)
-                        self.sound_shield.play()
+                        self.repeat_in_collision(player,coords,self.sound_shield,0,1,True)
                         if self.mode_game["Training AI"]:player.reward += 15
-    def repeat_items_collision(self,player,coords,sound,reward,statelife1,statelife2):
+    def repeat_in_collision(self,player,coords,sound,reward,statelife1:int,statelife2:bool):
         player.state_life[statelife1]=statelife2
         self.reset_coords(coords)
         sound.play()
-        if self.mode_game["Training AI"]:player.reward -= reward
+        # if self.mode_game["Training AI"]:player.reward -= reward
     def reset_coords(self,coords):
         coords[1]=random.choice(np.arange(-500, 0, 200))
         coords[0]=random.choice(np.arange(25, self.WIDTH-50, 115))
