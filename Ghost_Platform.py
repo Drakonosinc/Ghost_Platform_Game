@@ -196,8 +196,7 @@ class ghost_platform(interface):
                     abs(player.rect.y - self.object4.y),abs(player.rect.y - self.object5.y)]
         return np.array([player.rect.x, player.rect.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.platarforms_nexts[2].x,self.platarforms_nexts[2].y,self.platarforms_nexts[3].x,self.platarforms_nexts[3].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
     def type_mode(self):
-        if self.mode_game["Training AI"]:self.actions_AI(self.models)
-        if self.mode_game["AI"]:self.actions_AI(self.model_training)
+        self.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
     def actions_AI(self,models):
         def actions(player,model):
             state=self.get_state(player)
