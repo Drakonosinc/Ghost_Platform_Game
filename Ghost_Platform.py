@@ -72,14 +72,10 @@ class ghost_platform(interface):
                         if self.mode_game["Training AI"]:player.reward += 0.2
                     case "meteorite":
                         if not player.state_life[1]:
-                            self.reset_coords(coords)
-                            player.state_life[0]=0
-                            self.sound_meteorite.play()
+                            self.repeat_in_collision(player,coords,self.sound_meteorite,0,0,0)
                             if self.mode_game["Training AI"]:player.reward -= 20
                         else:
-                            player.state_life[1]=False
-                            self.reset_coords(coords)
-                            self.sound_meteorite.play()
+                            self.repeat_in_collision(player,coords,self.sound_meteorite,0,1,False)
                             if self.mode_game["Training AI"]:player.reward -= 5
                     case "potion" if player.life<100:
                         self.repeat_in_collision(player,coords,self.sound_health,0,0,1)
@@ -91,7 +87,7 @@ class ghost_platform(interface):
         player.state_life[statelife1]=statelife2
         self.reset_coords(coords)
         sound.play()
-        # if self.mode_game["Training AI"]:player.reward -= reward
+        # if self.mode_game["Training AI"]:player.reward += reward
     def reset_coords(self,coords):
         coords[1]=random.choice(np.arange(-500, 0, 200))
         coords[0]=random.choice(np.arange(25, self.WIDTH-50, 115))
