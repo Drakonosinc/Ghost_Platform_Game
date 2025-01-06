@@ -91,12 +91,12 @@ class ghost_platform(interface):
     def events(self,player):
                 if player.rect.x < 0:player.rect.x=0
                 if player.rect.x > self.WIDTH-player.rect.width:player.rect.x=self.WIDTH-player.rect.width
-                if not player.isjumper:self.fall(player)
+                if not player.isjumper:player.fall(self.gravity)
                 if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:
                     player.rect.y=self.HEIGHT-35
                     player.isjumper=True
                 elif not player.check_collision(self.object2):
-                    self.fall(player)
+                    player.fall(self.gravity)
                     if player.rect.y<=-20:
                         player.rect.y=-15
                         player.down_gravity=self.gravity
@@ -109,8 +109,6 @@ class ghost_platform(interface):
             self.restart()
             sound=False
         else:sound=True
-    def fall(self,player):
-        player.fall(self.gravity)
     def handle_keys(self):
         for event in pygame.event.get():
             self.manager.process_events(event)
