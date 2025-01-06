@@ -42,15 +42,16 @@ class ghost_platform(interface):
             self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
         sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
         next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
-        for i, elements in enumerate(sorted_elements):
-            for player in self.players:
-                if player.active and elements[1] < player.rect.y:
-                    current_elements = elements
-                    next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
-                    next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
-                    next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
-                    next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
-                    break
+        for player in self.players:
+            if player.active:
+                for i, elements in enumerate(sorted_elements):
+                    if elements[1] < player.rect.y:
+                        current_elements = elements
+                        next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
+                        next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
+                        next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
+                        next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
+                        break
         if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
         self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
     def position_platforms(self,next_elements1,next_elements2,next_elements3,next_elements4,width,height):
