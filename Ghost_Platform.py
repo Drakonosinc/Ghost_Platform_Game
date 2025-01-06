@@ -71,23 +71,15 @@ class ghost_platform(interface):
                         self.scores+=1
                         if self.mode_game["Training AI"]:player.reward += 0.2
                     case "meteorite":
-                        if not player.state_life[1]:
-                            self.repeat_in_collision(player,coords,self.sound_meteorite,0,0,0)
-                            if self.mode_game["Training AI"]:player.reward -= 20
-                        else:
-                            self.repeat_in_collision(player,coords,self.sound_meteorite,0,1,False)
-                            if self.mode_game["Training AI"]:player.reward -= 5
-                    case "potion" if player.life<100:
-                        self.repeat_in_collision(player,coords,self.sound_health,0,0,1)
-                        if self.mode_game["Training AI"]:player.reward += 10
-                    case "shield" if not player.state_life[1]:
-                        self.repeat_in_collision(player,coords,self.sound_shield,0,1,True)
-                        if self.mode_game["Training AI"]:player.reward += 15
+                        if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_meteorite,-20,0,0)
+                        else:self.repeat_in_collision(player,coords,self.sound_meteorite,-5,1,False)
+                    case "potion" if player.life<100:self.repeat_in_collision(player,coords,self.sound_health,10,0,1)
+                    case "shield" if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_shield,15,1,True)
     def repeat_in_collision(self,player,coords,sound,reward,statelife1,statelife2):
         player.state_life[statelife1]=statelife2
         self.reset_coords(coords)
         sound.play()
-        # if self.mode_game["Training AI"]:player.reward += reward
+        if self.mode_game["Training AI"]:player.reward += reward
     def reset_coords(self,coords):
         coords[1]=random.choice(np.arange(-500, 0, 200))
         coords[0]=random.choice(np.arange(25, self.WIDTH-50, 115))
