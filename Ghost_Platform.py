@@ -173,7 +173,6 @@ class ghost_platform(interface):
         self.running=running
         self.FPS=60
         self.objects()
-        self.population()
         for player in self.players:player.reset(350, self.HEIGHT - 35)
         self.nuances()
         self.calls_elements()
@@ -217,6 +216,7 @@ class ghost_platform(interface):
             self.handle_keys(),self.item_repeat_run()
     def run_with_models(self):
         self.running = True
+        for player in self.players:player.reward = 0
         while self.running and self.game_over == False:
             self.handle_keys()
             if self.main == -1:
