@@ -1,7 +1,6 @@
-import random
+import random,torch
 import numpy as np
 from Interface import *
-import torch
 from Player import *
 class ghost_platform(interface):
     def __init__(self):
@@ -89,18 +88,18 @@ class ghost_platform(interface):
         self.elements([self.matrix[1][1]],2,"object4",35,25,"potion",self.potion,0,10)
         self.elements([self.matrix[1][2]],4,"object5",45,25,"shield",self.shield,5,10)
     def events(self,player):
-                if player.rect.x < 0:player.rect.x=0
-                if player.rect.x > self.WIDTH-player.rect.width:player.rect.x=self.WIDTH-player.rect.width
-                if not player.isjumper:player.fall(self.gravity)
-                if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:
-                    player.rect.y=self.HEIGHT-35
-                    player.isjumper=True
-                elif not player.check_collision(self.object2):
-                    player.fall(self.gravity)
-                    if player.rect.y<=-20:
-                        player.rect.y=-15
-                        player.down_gravity=self.gravity
-                    if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player)
+        if player.rect.x < 0:player.rect.x=0
+        if player.rect.x > self.WIDTH-player.rect.width:player.rect.x=self.WIDTH-player.rect.width
+        if not player.isjumper:player.fall(self.gravity)
+        if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:
+            player.rect.y=self.HEIGHT-35
+            player.isjumper=True
+        elif not player.check_collision(self.object2):
+            player.fall(self.gravity)
+            if player.rect.y<=-20:
+                player.rect.y=-15
+                player.down_gravity=self.gravity
+            if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player)
     def sounddeath(self,sound=True,player=None):
         if sound:
             if self.mode_game["Training AI"]:player.reward -= 30
