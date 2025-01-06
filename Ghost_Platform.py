@@ -163,8 +163,7 @@ class ghost_platform(interface):
         self.FPS=60
         self.objects()
         for player in self.players:player.reset(350, self.HEIGHT - 35)
-        self.nuances()
-        self.calls_elements()
+        self.nuances(),self.calls_elements()
         self.scores=0
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
