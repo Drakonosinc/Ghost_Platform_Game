@@ -63,10 +63,7 @@ class ghost_platform(interface):
         for player in self.players:
             if player.active and player.check_collision(objects):
                 match type_object:
-                    case "platform":
-                        self.repeat_in_events_collision(player,objects.y-25,0,True,True,True)
-                        self.scores+=1
-                        if self.mode_game["Training AI"]:player.reward += 0.2
+                    case "platform":self.repeat_in_events_collision(player,objects.y-25,0,True,True,True,1,True)
                     case "meteorite":self.repeat_in_collision(*(player,coords,self.sound_meteorite,-20,0,0) if not player.state_life[1] else (player,coords,self.sound_meteorite,-5,1,False))
                     case "potion" if player.life<100:self.repeat_in_collision(player,coords,self.sound_health,10,0,1)
                     case "shield" if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_shield,15,1,True)
@@ -92,11 +89,13 @@ class ghost_platform(interface):
             player.fall(self.gravity)
             if player.rect.y<=-20:self.repeat_in_events_collision(player,-15,self.gravity,True)
             if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player)
-    def repeat_in_events_collision(self,player,number=0,number2=0,gravity=False,jumper=False,floor=False):
+    def repeat_in_events_collision(self,player,number=0,number2=0,gravity=False,jumper=False,floor=False,reward=0,score=False):
         player.rect.y=number
         if gravity:player.down_gravity=number2
         if jumper:player.isjumper=True
         if floor:player.floor_fall=True
+        if self.mode_game["Training AI"]:player.reward += reward
+        if score:self.scores+=1
     def sounddeath(self,sound=True,player=None):
         if sound:
             if self.mode_game["Training AI"]:player.reward -= 30
