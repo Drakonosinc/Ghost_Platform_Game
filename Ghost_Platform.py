@@ -69,9 +69,7 @@ class ghost_platform(interface):
                         player.isjumper,player.floor_fall=True,True
                         self.scores+=1
                         if self.mode_game["Training AI"]:player.reward += 0.2
-                    case "meteorite":
-                        if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_meteorite,-20,0,0)
-                        else:self.repeat_in_collision(player,coords,self.sound_meteorite,-5,1,False)
+                    case "meteorite":self.repeat_in_collision(*(player,coords,self.sound_meteorite,-20,0,0) if not player.state_life[1] else (player,coords,self.sound_meteorite,-5,1,False))
                     case "potion" if player.life<100:self.repeat_in_collision(player,coords,self.sound_health,10,0,1)
                     case "shield" if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_shield,15,1,True)
     def repeat_in_collision(self,player,coords,sound,reward,statelife1,statelife2):
