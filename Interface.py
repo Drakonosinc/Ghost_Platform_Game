@@ -141,40 +141,15 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
             self.screen.blit(self.font3_5.render(f"Generation Size {self.generation_value}", True, "White"),(10,80))
+            increase_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 80, 50, 50),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1))
+            decrease_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 80, 50, 50),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1))
             self.screen.blit(self.font3_5.render(f"Population Size {self.population_value}", True, "White"),(10,120))
             self.screen.blit(self.font3_5.render(f"Number of try for AI {self.try_for_ai}", True, "White"),(10,160))
             self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=self.population))
             self.save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off("model_save",fade=False))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
-            self.active_buttons.extend([self.play,self.save,self.back_game_menu])
-    def button(self,screen,main:int=None,font=None,text:str=None,color=None,position=None,color2=None,pressed=True,command=None,detect_mouse=True,command2=None,sound_hover=None,sound_touch=None,position2=None,type_button:int=0,button_states={}):
-        button_id = (text, position)
-        if button_id not in button_states:button_states[button_id] = {'hover_played': False, 'click_played': False, 'is_hovering': False}
-        state = button_states[button_id]
-        if type_button==0:button=screen.blit(font.render(text,True,color),position)
-        if type_button==1:button=pygame.draw.polygon(self.screen, color, position)
-        is_hovering_now = button.collidepoint(self.mouse_pos)
-        self.mouse_collision(screen,type_button,detect_mouse,is_hovering_now,font,text,color2,position,state,sound_hover,position2)
-        if pressed:self.pressed_button(is_hovering_now,state,sound_touch,main,command,command2)
-        else:return button
-    def mouse_collision(self,screen,type_button,detect_mouse,is_hovering_now,font,text,color2,position,state,sound_hover,position2):
-        if detect_mouse:
-            if is_hovering_now:
-                if type_button==0:screen.blit(font.render(text,True,color2),position)
-                if type_button==1:pygame.draw.polygon(self.screen, color2, position2)
-                if not state['is_hovering']:
-                    if not state['hover_played']:
-                        sound_hover.play(loops=0)
-                        state['hover_played'] = True
-                    state['is_hovering'] = True
-            else:state['is_hovering'],state['hover_played']=False,False
-    def pressed_button(self,is_hovering_now,state,sound_touch,main,command=None,command2=None):
-        if self.pressed_mouse[0]:
-            if is_hovering_now:
-                if not state['click_played']:
-                    sound_touch.play(loops=0)
-                    state['click_played'] = True
-                    if main!=None:self.main=main
-                    if command!=None:command()
-                    if command2!=None:command2()
-        else:state['click_played'] = False
+            self.active_buttons.extend([self.play,self.save,self.back_game_menu,increase_generation,decrease_generation])
+    def increase_decrease_variable(self,variable,number,population=False):
+        setattr(self,variable,getattr(self,variable)+number)
+        self.draw_menus()
+        if population:self.population()
