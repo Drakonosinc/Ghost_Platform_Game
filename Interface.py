@@ -69,8 +69,12 @@ class interface(load_elements):
         self.mode_game["Player"]=mode_two
         if os.path.exists(self.model_path):self.mode_game["AI"]=mode_three
     def clear_buttons(self):
-        for button in self.active_buttons:button.kill()
-        self.active_buttons=[]
+        try:
+            for button in self.active_buttons:button.kill()
+            self.active_buttons=[]
+        except:
+            self.active_buttons=[]
+            self.clear_buttons()
     def filt(self,width,height,number,color=(0,0,0),position=(0,0)):
         background=pygame.Surface((width,height),pygame.SRCALPHA)
         background.fill((*color, number))
