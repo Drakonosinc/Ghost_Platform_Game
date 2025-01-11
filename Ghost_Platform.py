@@ -17,7 +17,6 @@ class ghost_platform(interface):
         self.jumper=-12
         self.isjumper=False
         self.mode_game={"Training AI":False,"Player":False,"AI":False}
-        self.scores=0
         self.generation=0
         self.population()
     def population(self):
@@ -95,7 +94,7 @@ class ghost_platform(interface):
         if jumper:player.isjumper=True
         if floor:player.floor_fall=True
         if self.mode_game["Training AI"]:player.reward += reward
-        if score:self.scores+=1
+        if score:player.scores+=1
     def sounddeath(self,sound=True,player=None):
         if sound:
             if self.mode_game["Training AI"]:player.reward -= 30
@@ -135,12 +134,11 @@ class ghost_platform(interface):
                 if player.active:player.floor_fall=True
     def draw(self,player):
         self.screen.blit(self.player_ghost,(player.rect.x-5,player.rect.y-5))
-        self.bar_life(player),self.shield_draw(player)
-        self.draw_generations(),self.draw_score()
+        self.bar_life(player),self.shield_draw(player),self.draw_score(player),self.draw_generations()
     def draw_generations(self):
         if self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Generation: {self.generation}",True,self.YELLOW),(0,30))
-    def draw_score(self):
-        if not self.mode_game["Training AI"]:self.screen.blit(self.font6.render(f"Score: {int(self.scores)}",True,self.YELLOW),(0,self.HEIGHT-30))
+    def draw_score(self,player):
+        self.screen.blit(self.font6.render(f"Score: {int(player.scores)}",True,self.YELLOW),(0,self.HEIGHT-30))
     def bar_life(self,player):
         pygame.draw.rect(self.screen,self.BLACK,(50,8,105,20),4)
         pygame.draw.rect(self.screen,self.life_color,(52,11,player.life,15))
@@ -160,7 +158,6 @@ class ghost_platform(interface):
         self.objects()
         for player in self.players:player.reset(350, self.HEIGHT - 35)
         self.nuances(),self.calls_elements()
-        self.scores=0
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
     def get_state(self,player=Player(350, 600 - 35, 25, 25)):

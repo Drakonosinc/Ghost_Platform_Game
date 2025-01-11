@@ -7,6 +7,7 @@ class Player:
         self.life = 100
         self.state_life=[2,False]
         self.reward = 0
+        self.scores=0
         self.floor_fall=False
         self.active = True
     def jump(self, jumper_value,sound):
@@ -21,7 +22,7 @@ class Player:
         self.rect.x, self.rect.y = x, y
         self.down_gravity = 0
         self.isjumper = False
-        self.life = 100
+        self.life,self.scores = 100,0
         self.state_life=[2,False]
         self.floor_fall=False
         self.active = True
