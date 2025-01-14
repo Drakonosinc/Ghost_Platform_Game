@@ -80,13 +80,13 @@ class interface(load_elements):
         background=pygame.Surface((width,height),pygame.SRCALPHA)
         background.fill((*color, number))
         self.screen.blit(background,position)
-    def on_off(self,main,variable,fade=True,dic=None):
+    def on_off(self,main,variable,fade=True,dic=None,command=False):
         if dic is None:setattr(self, variable, not getattr(self, variable))
         else:
             if isinstance(getattr(self, variable), dict):
                 current_dict = getattr(self, variable)
                 current_dict[dic] = not current_dict[dic]
-        self.change_mains(main,fade=fade)
+        self.change_mains(main,fade=fade,command=command)
     def main_menu(self):
         if self.main==0:
             self.screen.fill(self.BLACK)
