@@ -129,19 +129,21 @@ class interface(load_elements):
     def visuals_menu(self):
         if self.main==5:
             self.screen.fill(self.BLACK)
+            self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button])
     def keys_menu(self):
         if self.main==6:
             self.screen.fill(self.BLACK)
+            self.screen.blit(self.font3.render("Keys", True, "White"),(3,10))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button])
     def sounds_menu(self):
         if self.main==7:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
-            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Sound Menu ON',manager=self.manager)
-            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Sound Game ON',manager=self.manager)
+            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text='Sound Menu ON',manager=self.manager)
+            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text='Sound Game ON',manager=self.manager)
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,sound_menu,sound_game])
     def menu_AI(self):
