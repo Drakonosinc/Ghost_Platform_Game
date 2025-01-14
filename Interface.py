@@ -12,6 +12,7 @@ class interface(load_elements):
         self.population_value=20
         self.model_save=False
         self.try_for_ai=3
+        self.sounds={}
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
@@ -138,8 +139,11 @@ class interface(load_elements):
     def sounds_menu(self):
         if self.main==7:
             self.screen.fill(self.BLACK)
+            self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
+            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Sound Menu ON',manager=self.manager)
+            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Sound Game ON',manager=self.manager)
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
-            self.active_buttons.extend([self.option_button])
+            self.active_buttons.extend([self.option_button,sound_menu,sound_game])
     def menu_AI(self):
         if self.main==8:
             self.screen.fill(self.BLACK)
