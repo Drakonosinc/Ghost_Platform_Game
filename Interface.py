@@ -80,9 +80,13 @@ class interface(load_elements):
         background=pygame.Surface((width,height),pygame.SRCALPHA)
         background.fill((*color, number))
         self.screen.blit(background,position)
-    def on_off(self,variable,fade=True,dic=None):
-        setattr(self,variable if dic is None else variable[dic],not getattr(self,variable))
-        self.change_mains(8,fade=fade)
+    def on_off(self,main,variable,fade=True,dic=None):
+        if dic is None:setattr(self, variable, not getattr(self, variable))
+        else:
+            if isinstance(getattr(self, variable), dict):
+                current_dict = getattr(self, variable)
+                current_dict[dic] = not current_dict[dic]
+        self.change_mains(main,fade=fade)
     def main_menu(self):
         if self.main==0:
             self.screen.fill(self.BLACK)
@@ -142,8 +146,8 @@ class interface(load_elements):
         if self.main==7:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
-            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text='Sound Menu '+"ON" if self.sounds["sound menu"] else "OFF",object_id="#button_on" if self.sounds["sound menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off("sounds",fade=False,dic="sound menu"))
-            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text='Sound Game '+"ON" if self.sounds["sound game"] else "OFF",object_id="#button_on" if self.sounds["sound game"] else "#button_off",manager=self.manager,command=lambda:self.on_off("sounds",fade=False,dic="sound game"))
+            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text='Sound Menu '+"ON" if self.sounds["sound menu"] else "OFF",object_id="#button_on" if self.sounds["sound menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound menu"))
+            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text='Sound Game '+"ON" if self.sounds["sound game"] else "OFF",object_id="#button_on" if self.sounds["sound game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound game"))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,sound_menu,sound_game])
     def menu_AI(self):
@@ -160,7 +164,7 @@ class interface(load_elements):
             increase_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 160, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",1))
             decrease_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 160, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",-1)) if self.try_for_ai>1 else None
             self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=self.population))
-            self.save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off("model_save",fade=False))
+            self.save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off(8,"model_save",fade=False))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.save,self.back_game_menu,increase_generation,decrease_generation,increase_population,decrease_population,increase_try_for_ai,decrease_try_for_ai])
     def increase_decrease_variable(self,variable,number,population=False,fade=False):
