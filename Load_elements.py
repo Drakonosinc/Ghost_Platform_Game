@@ -65,7 +65,6 @@ class load_elements():
         self.sound_buttonletters=pygame.mixer.Sound(os.path.join(self.sound_path,"buttonletters.mp3"))
     def load_config(self):
         try:
-            print("hola")
             self.config_path = os.path.join(os.path.dirname(__file__), "Config")
             with open(os.path.join(self.config_path,"config.json"), 'r') as file:config = json.load(file)
             self.config_sounds = config["config_sounds"]
@@ -74,7 +73,6 @@ class load_elements():
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
         self.config_sounds={"sound_menu":True,"sound_game":True}
     def save_config(self):
-        print("desde el save")
         config = {"config_sounds":self.config_sounds}
         with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)
     def load_AI(self):
