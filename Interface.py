@@ -24,7 +24,8 @@ class interface(load_elements):
         self.keys_menu()
         self.sounds_menu()
         self.menu_AI()
-        self.change_sounds(*(self.sound_game,self.sounds["sound game"]) if self.main==-1 else (self.sound_menu,self.sounds["sound menu"]))
+        self.change_sounds(*(self.sound_game,self.sounds["sound game"]) if self.main==-1 else (self.sound_game,False))
+        if self.main==0:self.change_sounds(self.sound_menu,self.sounds["sound menu"])
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
