@@ -13,7 +13,6 @@ class interface(load_elements):
         self.model_save=False
         self.try_for_ai=3
         self.sounds={"sound menu":True,"sound game":True}
-        self.sound_menu.play(loops=-1) if self.sounds["sound menu"] else self.sound_menu.stop()
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
@@ -25,6 +24,7 @@ class interface(load_elements):
         self.keys_menu()
         self.sounds_menu()
         self.menu_AI()
+        self.change_sounds(*(self.sound_game,self.sounds["sound game"]) if self.main==-1 else (self.sound_menu,self.sounds["sound menu"]))
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
