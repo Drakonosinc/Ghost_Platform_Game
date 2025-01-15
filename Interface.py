@@ -172,4 +172,4 @@ class interface(load_elements):
         setattr(self,variable,getattr(self,variable)+number)
         self.change_mains(8,fade=fade)
         if population:self.population()
-    def change_sounds(self,sound,type_sound):sound.play if type_sound else sound.stop()
+    def change_sounds(self,sound,type_sound):sound.play(loops=-1) if type_sound else sound.stop()
