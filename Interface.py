@@ -146,8 +146,8 @@ class interface(load_elements):
         if self.main==7:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
-            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.sounds["sound menu"] else "OFF"}",object_id="#button_on" if self.sounds["sound menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound menu"))
-            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.sounds["sound game"] else "OFF"}",object_id="#button_on" if self.sounds["sound game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound game"))
+            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.sounds["sound menu"] else "OFF"}",object_id="#button_on" if self.sounds["sound menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound menu",command=self.change_sounds(self.sound_menu,self.sounds["sound menu"])))
+            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.sounds["sound game"] else "OFF"}",object_id="#button_on" if self.sounds["sound game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound game",command=self.change_sounds(self.sound_game,self.sounds["sound game"])))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,sound_menu,sound_game])
     def menu_AI(self):
@@ -171,3 +171,4 @@ class interface(load_elements):
         setattr(self,variable,getattr(self,variable)+number)
         self.change_mains(8,fade=fade)
         if population:self.population()
+    def change_sounds(self,sound,type_sound):sound.play if type_sound else sound.stop()
