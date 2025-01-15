@@ -12,7 +12,6 @@ class interface(load_elements):
         self.population_value=20
         self.model_save=False
         self.try_for_ai=3
-        self.sounds={"sound menu":True,"sound game":True}
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
@@ -24,8 +23,8 @@ class interface(load_elements):
         self.keys_menu()
         self.sounds_menu()
         self.menu_AI()
-        self.change_sounds(*(self.sound_game,self.sounds["sound game"]) if self.main==-1 else (self.sound_game,False))
-        if self.main==0:self.change_sounds(self.sound_menu,self.sounds["sound menu"])
+        self.change_sounds(*(self.sound_game,self.config_sounds["sound_game"]) if self.main==-1 else (self.sound_game,False))
+        if self.main==0:self.change_sounds(self.sound_menu,self.config_sounds["sound_menu"])
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
@@ -148,8 +147,8 @@ class interface(load_elements):
         if self.main==7:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
-            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.sounds["sound menu"] else "OFF"}",object_id="#button_on" if self.sounds["sound menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound menu",command=self.change_sounds(self.sound_menu,self.sounds["sound menu"])))
-            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.sounds["sound game"] else "OFF"}",object_id="#button_on" if self.sounds["sound game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"sounds",fade=False,dic="sound game",command=self.change_sounds(self.sound_game,self.sounds["sound game"])))
+            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.config_sounds["sound_menu"] else "OFF"}",object_id="#button_on" if self.config_sounds["sound_menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_menu",command=self.change_sounds(self.sound_menu,self.config_sounds["sound_menu"],True)))
+            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.config_sounds["sound_game"] else "OFF"}",object_id="#button_on" if self.config_sounds["sound_game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_game",command=self.change_sounds(self.sound_game,self.config_sounds["sound_game"],True)))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,sound_menu,sound_game])
     def menu_AI(self):
@@ -173,4 +172,6 @@ class interface(load_elements):
         setattr(self,variable,getattr(self,variable)+number)
         self.change_mains(8,fade=fade)
         if population:self.population()
-    def change_sounds(self,sound,type_sound):sound.play(loops=-1) if type_sound else sound.stop()
+    def change_sounds(self,sound,type_sound,command=False):
+        sound.play(loops=-1) if type_sound else sound.stop()
+        if command:self.save_config()
