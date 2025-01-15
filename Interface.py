@@ -146,8 +146,8 @@ class interface(load_elements):
         if self.main==7:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
-            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.config_sounds["sound_menu"] else "OFF"}",object_id="#button_on" if self.config_sounds["sound_menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_menu",command=self.change_sounds(self.sound_menu,self.config_sounds["sound_menu"],True)))
-            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.config_sounds["sound_game"] else "OFF"}",object_id="#button_on" if self.config_sounds["sound_game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_game",command=self.change_sounds(self.sound_game,self.config_sounds["sound_game"],True)))
+            sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.config_sounds["sound_menu"] else "OFF"}",object_id="#button_on" if self.config_sounds["sound_menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_menu",command=lambda:self.change_sounds(self.sound_menu,self.config_sounds["sound_menu"],True)))
+            sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.config_sounds["sound_game"] else "OFF"}",object_id="#button_on" if self.config_sounds["sound_game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_game",command=lambda:self.change_sounds(self.sound_game,self.config_sounds["sound_game"],True)))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,sound_menu,sound_game])
     def menu_AI(self):
