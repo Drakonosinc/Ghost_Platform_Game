@@ -1,4 +1,4 @@
-import pygame,os
+import pygame,os,json
 from pygame.locals import *
 from Genetic_Algorithm import *
 
@@ -7,7 +7,8 @@ class load_elements():
         pygame.init()
         pygame.display.set_caption(title)
         self.screen = pygame.display.set_mode((width, height))
-        self.config()
+        self.load_config()
+        self.save_config()
         self.define_colors()
         self.load_images()
         self.load_fonts()
@@ -63,8 +64,18 @@ class load_elements():
         self.sound_exit=pygame.mixer.Sound(os.path.join(self.sound_path,"exitbutton.wav"))
         self.sound_touchletters=pygame.mixer.Sound(os.path.join(self.sound_path,"touchletters.wav"))
         self.sound_buttonletters=pygame.mixer.Sound(os.path.join(self.sound_path,"buttonletters.mp3"))
+    def load_config(self):
+        try:
+            self.config_path = os.path.join(os.path.dirname(__file__), "Config")
+            with open(os.path.join(self.config_path,"config.json"), 'r') as file:config = json.load(file)
+            self.config_sounds = config["config_sounds"]
+        except:self.config()
     def config(self):
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
+        self.config_sounds={"sound_menu":True,"sound_game":True}
+    def save_config(self):
+        config = {"config_sounds":self.config_sounds}
+        with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)
     def load_AI(self):
         self.model_path=os.path.join(os.path.dirname(__file__), "AI/best_model.pth")
         if os.path.exists(self.model_path):self.model_training = load_model(self.model_path, 26, 3)
