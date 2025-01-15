@@ -11,8 +11,8 @@ class interface(load_elements):
         self.generation_value=100
         self.population_value=20
         self.model_save=False
+        self.play_music()
         self.try_for_ai=3
-        self.sound_menu.play(loops=-1) if self.config_sounds["sound_menu"] else self.sound_menu.stop()
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
@@ -24,6 +24,8 @@ class interface(load_elements):
         self.keys_menu()
         self.sounds_menu()
         self.menu_AI()
+    def play_music(self):
+        self.sound_menu.play(loops=-1) if self.config_sounds["sound_menu"] else self.sound_menu.stop()
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
@@ -108,8 +110,8 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Mode Game", True, "White"),(3,10))
             self.training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.manager,command=lambda:self.change_mains(8))
-            self.mode_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:self.type_game(mode_two=True),run=True,command2=self.population))
-            self.mode_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:self.type_game(mode_three=True),run=True,command2=self.population))
+            self.mode_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:self.type_game(mode_two=True),run=True,command2=lambda:self.more_options(self.population,lambda:self.sound_menu.stop())))
+            self.mode_ai=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.manager,command=lambda:self.change_mains(-1,command=lambda:self.type_game(mode_three=True),run=True,command2=lambda:self.more_options(self.population,lambda:self.sound_menu.stop())))
             self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.training_ai,self.mode_player,self.mode_ai,self.back_button])
     def pausa_menu(self):
@@ -163,7 +165,7 @@ class interface(load_elements):
             self.screen.blit(self.font3_5.render(f"Number of try for AI {self.try_for_ai}", True, "White"),(10,160))
             increase_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 160, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",1))
             decrease_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 160, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",-1)) if self.try_for_ai>1 else None
-            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=self.population))
+            self.play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=lambda:self.more_options(self.population,lambda:self.sound_menu.stop())))
             self.save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off(8,"model_save",fade=False))
             self.back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([self.play,self.save,self.back_game_menu,increase_generation,decrease_generation,increase_population,decrease_population,increase_try_for_ai,decrease_try_for_ai])
@@ -174,3 +176,7 @@ class interface(load_elements):
     def change_sounds(self,sound,type_sound,command=False):
         sound.play(loops=-1) if type_sound else sound.stop()
         if command:self.save_config()
+    def more_options(self,command=False,command2=False,command3=False):
+        if command:command()
+        if command2:command2()
+        if command3:command3()
