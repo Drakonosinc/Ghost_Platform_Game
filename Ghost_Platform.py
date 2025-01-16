@@ -87,7 +87,7 @@ class ghost_platform(interface):
         elif not player.check_collision(self.object2):
             player.fall(self.gravity)
             if player.rect.y<=-20:self.repeat_in_events_collision(player,-15,self.gravity,True)
-            if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player)
+            if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player,sound_play=self.check_sound(self.sound_game_lose,"game_over"))
     def repeat_in_events_collision(self,player,number=0,number2=0,gravity=False,jumper=False,floor=False,reward=0,score=False):
         player.rect.y=number
         if gravity:player.down_gravity=number2
@@ -95,11 +95,11 @@ class ghost_platform(interface):
         if floor:player.floor_fall=True
         if self.mode_game["Training AI"]:player.reward += reward
         if score:player.scores+=1
-    def sounddeath(self,sound=True,player=None):
+    def sounddeath(self,sound=True,player=None,sound_play=None):
         if sound:
             if self.mode_game["Training AI"]:player.reward -= 30
             player.active=False
-            self.sound_game_lose.play(loops=0)
+            if sound_play!=None:sound_play.play(loops=0)
             self.restart()
             sound=False
         else:sound=True
@@ -145,10 +145,11 @@ class ghost_platform(interface):
         player.life += 1 if player.state_life[0] == 1 else -1 if player.state_life[0] == 0 else 0
         states = {100: (2, self.GREEN),75: (2, self.SKYBLUE),50: (2, self.YELLOW),25: (2, self.RED),-1: (2, self.BLACK)}
         if player.life in states:player.state_life[0], self.life_color = states[player.life]
-        if player.life < 0:self.sounddeath(player=player)
+        if player.life < 0:self.sounddeath(player=player,sound_play=self.check_sound(self.sound_game_lose,"game_over"))
         if self.main==-1:self.screen.blit(self.font6.render("Life",True,self.life_color),(0,9))
     def shield_draw(self,player):
         if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(player.rect.x-11,player.rect.y-15,50,50),3)
+    def check_sound(self,sound,type_sound):return sound if self.config_sounds[type_sound] else None
     def restart(self):
         if all(not player.active for player in self.players) and self.mode_game["Training AI"]:self.reset(False)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
