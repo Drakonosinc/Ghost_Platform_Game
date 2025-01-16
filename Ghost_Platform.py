@@ -63,13 +63,13 @@ class ghost_platform(interface):
             if player.active and player.check_collision(objects):
                 match type_object:
                     case "platform":self.repeat_in_events_collision(player,objects.y-25,0,True,True,True,1,True)
-                    case "meteorite":self.repeat_in_collision(*(player,coords,self.sound_meteorite,-20,0,0) if not player.state_life[1] else (player,coords,self.sound_meteorite,-5,1,False))
-                    case "potion" if player.life<100:self.repeat_in_collision(player,coords,self.sound_health,10,0,1)
-                    case "shield" if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_shield,15,1,True)
-    def repeat_in_collision(self,player,coords,sound,reward,statelife1,statelife2):
+                    case "meteorite":self.repeat_in_collision(*(player,coords,self.sound_meteorite,"sound_damage",-20,0,0) if not player.state_life[1] else (player,coords,self.sound_meteorite,"sound_damage",-5,1,False))
+                    case "potion" if player.life<100:self.repeat_in_collision(player,coords,self.sound_health,"sound_potion",10,0,1)
+                    case "shield" if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_shield,"sound_shield",15,1,True)
+    def repeat_in_collision(self,player,coords,sound,type_sound,reward,statelife1,statelife2):
         player.state_life[statelife1]=statelife2
         self.reset_coords(coords)
-        sound.play()
+        self.check_sound(sound,type_sound).play()
         if self.mode_game["Training AI"]:player.reward += reward
     def reset_coords(self,coords):
         coords[1]=random.choice(np.arange(-500, 0, 200))
@@ -121,7 +121,7 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if (self.mode_game["Player"] and self.main==-1) and (event.key==self.config_keys["up1"] or event.key==self.config_keys["up2"]):self.players[0].jump(self.jumper,self.sound_jump)
+            if (self.mode_game["Player"] and self.main==-1) and (event.key==self.config_keys["up1"] or event.key==self.config_keys["up2"]):self.players[0].jump(self.jumper,self.check_sound(self.sound_jump,"sound_jump"))
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):
         if self.mode_game["Player"] and self.main==-1:
