@@ -24,8 +24,7 @@ class interface(load_elements):
         self.keys_menu()
         self.sounds_menu()
         self.menu_AI()
-    def play_music(self):
-        self.sound_menu.play(loops=-1) if self.config_sounds["sound_menu"] else self.sound_menu.stop()
+    def play_music(self):self.sound_menu.play(loops=-1) if self.config_sounds["sound_menu"] else self.sound_menu.stop()
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
@@ -33,7 +32,7 @@ class interface(load_elements):
                 if self.main==0:self.buttons_main_menu(event)
                 if self.main==4:self.buttons_options_menu(event)
     def buttons_repetitive(self,event):
-        if self.main!=0 and event.ui_element == self.back_button:self.change_mains(0,command=self.type_game,run=True)
+        if self.main!=0 and event.ui_element == self.back_button:self.change_mains(0,command=self.type_game,command2=lambda:[self.on_off_sound(x,y,False) for x,y in zip([self.sound_menu,self.sound_game],["sound_menu","sound_game"])],run=True)
         if (self.main!=2 and self.main!=4) and event.ui_element == self.option_button:self.change_mains(4)
         if (self.main!=2 and self.main!=4) and event.ui_element == self.exit_button:self.change_mains(command=self.close_game,sound=self.sound_exit)
         if (self.main!=0 and self.main!=4) and event.ui_element == self.reset_button:self.change_mains(-1,command=self.reset)
