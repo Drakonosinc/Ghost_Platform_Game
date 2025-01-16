@@ -29,15 +29,15 @@ class load_elements():
         self.image_path=os.path.join(os.path.dirname(__file__), "images")
         self.space=pygame.image.load(os.path.join(self.image_path,"espacio.png"))
         self.space=pygame.transform.scale(self.space,(700,400))
-        self.player_ghost=pygame.image.load(os.path.join(self.image_path,"flyghost.png")).convert_alpha()
+        self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config_visuals["player"])).convert_alpha()
         self.player_ghost=pygame.transform.scale(self.player_ghost,(35,35))
-        self.floor=pygame.image.load(os.path.join(self.image_path,"suelo1.png")).convert_alpha()
+        self.floor=pygame.image.load(os.path.join(self.image_path,self.config_visuals["floor"])).convert_alpha()
         self.floor=pygame.transform.scale(self.floor,(100,40))
-        self.meteorite=pygame.image.load(os.path.join(self.image_path,"meteorito.png")).convert_alpha()
+        self.meteorite=pygame.image.load(os.path.join(self.image_path,self.config_visuals["meteorite"])).convert_alpha()
         self.meteorite=pygame.transform.scale(self.meteorite,(50,85))
-        self.potion=pygame.image.load(os.path.join(self.image_path,"pocion1.png")).convert_alpha()
+        self.potion=pygame.image.load(os.path.join(self.image_path,self.config_visuals["potion"])).convert_alpha()
         self.potion=pygame.transform.scale(self.potion,(35,40))
-        self.shield=pygame.image.load(os.path.join(self.image_path,"shield1.png")).convert_alpha()
+        self.shield=pygame.image.load(os.path.join(self.image_path,self.config_visuals["shield"])).convert_alpha()
         self.shield=pygame.transform.scale(self.shield,(50,50))
     def load_fonts(self):
         self.font_path=os.path.join(os.path.dirname(__file__), "fonts")
@@ -76,13 +76,9 @@ class load_elements():
         self.config_sounds={"sound_menu":True,"sound_game":True,
                             "sound_jump":True,"game_over":True,
                             "sound_damage":True,"sound_potion":True,"sound_shield":True}
-        self.config_keys={"up1":K_SPACE,"up2":K_w,
-                        "left":K_a,"right":K_d}
-        self.config_visuals={"player":"flyghost.png",
-                            "floor":"suelo1.png",
-                            "meteorite":"meteorito.png",
-                            "potion":"pocion1.png",
-                            "shield":"shield1.png"}
+        self.config_keys={"up1":K_SPACE,"up2":K_w,"left":K_a,"right":K_d}
+        self.config_visuals={"player":"flyghost.png","floor":"suelo1.png",
+                            "meteorite":"meteorito.png","potion":"pocion1.png","shield":"shield1.png"}
     def save_config(self):
         config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals}
         with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)

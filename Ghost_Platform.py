@@ -121,12 +121,12 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if (self.mode_game["Player"] and self.main==-1) and (event.key==K_SPACE or event.key==K_w):self.players[0].jump(self.jumper,self.sound_jump)
+            if (self.mode_game["Player"] and self.main==-1) and (event.key==self.config_keys["up1"] or event.key==self.config_keys["up2"]):self.players[0].jump(self.jumper,self.sound_jump)
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):
         if self.mode_game["Player"] and self.main==-1:
-            if self.pressed_keys[K_d]:self.players[0].rect.x+=5
-            if self.pressed_keys[K_a]:self.players[0].rect.x-=5
+            if self.pressed_keys[self.config_keys["right"]]:self.players[0].rect.x+=5
+            if self.pressed_keys[self.config_keys["left"]]:self.players[0].rect.x-=5
     def new_events(self,event):
         if self.main==-1 and event.type==self.speed_game:
             self.FPS+=0.5
