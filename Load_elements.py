@@ -73,7 +73,9 @@ class load_elements():
         except:self.config()
     def config(self):
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
-        self.config_sounds={"sound_menu":True,"sound_game":True}
+        self.config_sounds={"sound_menu":True,"sound_game":True,
+                            "sound_jump":True,"game_over":True,
+                            "sound_damage":True,"sound_potion":True,"sound_shield":True}
         self.config_keys={"up1":K_SPACE,"up2":K_w,
                         "left":K_a,"right":K_d}
         self.config_visuals={"player":"flyghost.png",
