@@ -68,12 +68,21 @@ class load_elements():
             self.config_path = os.path.join(os.path.dirname(__file__), "Config")
             with open(os.path.join(self.config_path,"config.json"), 'r') as file:config = json.load(file)
             self.config_sounds = config["config_sounds"]
+            self.config_keys = config["config_keys"]
+            self.config_visuals = config["config_visuals"]
         except:self.config()
     def config(self):
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
         self.config_sounds={"sound_menu":True,"sound_game":True}
+        self.config_keys={"up1":K_SPACE,"up2":K_w,
+                        "left":K_a,"right":K_d}
+        self.config_visuals={"player":"flyghost.png",
+                            "floor":"suelo1.png",
+                            "meteorite":"meteorito.png",
+                            "potion":"pocion1.png",
+                            "shield":"shield1.png"}
     def save_config(self):
-        config = {"config_sounds":self.config_sounds}
+        config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals}
         with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)
     def load_AI(self):
         self.model_path=os.path.join(os.path.dirname(__file__), "AI/best_model.pth")
