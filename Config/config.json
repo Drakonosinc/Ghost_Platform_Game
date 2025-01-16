@@ -1,6 +1,6 @@
 {
     "config_sounds": {
         "sound_menu": true,
-        "sound_game": true
+        "sound_game": false
     }
 }
