@@ -69,7 +69,7 @@ class ghost_platform(interface):
     def repeat_in_collision(self,player,coords,sound,type_sound,reward,statelife1,statelife2):
         player.state_life[statelife1]=statelife2
         self.reset_coords(coords)
-        self.check_sound(sound,type_sound).play()
+        if (sound_touch:=self.check_sound(sound,type_sound)):sound_touch.play()
         if self.mode_game["Training AI"]:player.reward += reward
     def reset_coords(self,coords):
         coords[1]=random.choice(np.arange(-500, 0, 200))

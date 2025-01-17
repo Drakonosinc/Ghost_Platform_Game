@@ -13,7 +13,7 @@ class Player:
     def jump(self, jumper_value,sound):
         if self.isjumper:
             self.down_gravity = jumper_value
-            sound.play()
+            if sound!=None:sound.play()
             self.isjumper = False
     def fall(self, gravity):
         self.down_gravity += gravity
