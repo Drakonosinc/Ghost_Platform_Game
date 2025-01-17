@@ -153,8 +153,11 @@ class interface(load_elements):
             on_off_jump=pygame_gui.elements.UIButton(relative_rect=Rect(220, 200, 50, 40),text=f"{self.config_sounds["sound_jump"]}",object_id="#button_on" if self.config_sounds["sound_jump"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_jump",command=self.save_config))
             self.screen.blit(self.font3_5.render(f"Game Over", True, "White"),(10,240))
             on_off_game_over=pygame_gui.elements.UIButton(relative_rect=Rect(220, 240, 50, 40),text=f"{self.config_sounds["game_over"]}",object_id="#button_on" if self.config_sounds["game_over"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"game_over",command=self.save_config))
+            self.screen.blit(self.font3_5.render(f"Damage", True, "White"),(10,280))
+            on_off_damage=pygame_gui.elements.UIButton(relative_rect=Rect(220, 280, 50, 40),text=f"{self.config_sounds["sound_damage"]}",object_id="#button_on" if self.config_sounds["sound_damage"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_damage",command=self.save_config))
+            
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
-            self.active_buttons.extend([self.option_button,sound_menu,sound_game,on_off_jump,on_off_game_over])
+            self.active_buttons.extend([self.option_button,sound_menu,sound_game,on_off_jump,on_off_game_over,on_off_damage])
     def menu_AI(self):
         if self.main==8:
             self.screen.fill(self.BLACK)
