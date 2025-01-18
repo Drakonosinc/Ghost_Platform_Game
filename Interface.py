@@ -141,8 +141,13 @@ class interface(load_elements):
         if self.main==6:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Keys", True, "White"),(3,10))
+            self.screen.blit(self.font3_5.render(f"Jump One", True, "White"),(10,100))
+            key_up1=pygame_gui.elements.UIButton(relative_rect=Rect(220, 100, 50, 50),text=f"{self.config_keys["name_up1"]}",manager=self.manager)
+            self.screen.blit(self.font3_5.render(f"Jump Two", True, "White"),(10,150))
+            key_up2=pygame_gui.elements.UIButton(relative_rect=Rect(220, 150, 50, 50),text=f"{self.config_keys["name_up2"]}",manager=self.manager)
+            
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
-            self.active_buttons.extend([self.option_button])
+            self.active_buttons.extend([self.option_button,key_up1,key_up2])
     def sounds_menu(self):
         if self.main==7:
             self.screen.fill(self.BLACK)
