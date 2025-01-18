@@ -203,8 +203,7 @@ class interface(load_elements):
         self.key_name=key_name
         self.utils_keys[self.key]= not self.utils_keys[self.key]
     def event_keys(self,event):
-        if self.key!=None:
-            if self.utils_keys[self.key] and event.type==KEYDOWN:
-                self.config_keys[self.key]=event.key
-                self.config_keys[self.key_name]=event.unicode.upper()
-                self.utils_keys[self.key]= not self.utils_keys[self.key]
+        if self.key!=None and (self.utils_keys[self.key] and event.type==KEYDOWN):
+            self.config_keys[self.key]=event.key
+            self.config_keys[self.key_name]=event.unicode.upper()
+            self.utils_keys[self.key]= not self.utils_keys[self.key]
