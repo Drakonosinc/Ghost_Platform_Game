@@ -10,9 +10,13 @@
     },
     "config_keys": {
         "up1": 32,
+        "name_up1": "Space",
         "up2": 119,
+        "name_up2": "W",
         "left": 97,
-        "right": 100
+        "nane_left": "A",
+        "right": 100,
+        "name_right": "D"
     },
     "config_visuals": {
         "player": "flyghost.png",
