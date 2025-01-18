@@ -198,3 +198,13 @@ class interface(load_elements):
         if command:command()
         if command2:command2()
         if command3:command3()
+    def change_keys(self,key,key_name):
+        self.key=key
+        self.key_name=key_name
+        self.utils_keys[self.key]= not self.utils_keys[self.key]
+    def event_keys(self,event):
+        if self.key!=None:
+            if self.utils_keys[self.key] and event.type==KEYDOWN:
+                self.config_keys[self.key]=event.key
+                self.config_keys[self.key_name]=event.unicode.upper()
+                self.utils_keys[self.key]= not self.utils_keys[self.key]
