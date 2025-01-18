@@ -77,7 +77,7 @@ class load_elements():
                             "sound_jump":True,"game_over":True,
                             "sound_damage":True,"sound_potion":True,"sound_shield":True}
         self.config_keys={"up1":K_SPACE,"name_up1":"Space","up2":K_w,"name_up2":"W",
-                        "left":K_a,"nane_left":"A","right":K_d,"name_right":"D"}
+                        "left":K_a,"name_left":"A","right":K_d,"name_right":"D"}
         self.config_visuals={"player":"flyghost.png","floor":"suelo1.png",
                             "meteorite":"meteorito.png","potion":"pocion1.png","shield":"shield1.png"}
     def save_config(self):
