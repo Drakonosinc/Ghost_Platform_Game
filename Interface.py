@@ -13,6 +13,8 @@ class interface(load_elements):
         self.model_save=False
         self.play_music()
         self.try_for_ai=3
+        self.key=None
+        self.keys_active={}
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
