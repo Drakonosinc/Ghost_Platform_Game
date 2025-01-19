@@ -14,7 +14,7 @@ class interface(load_elements):
         self.play_music()
         self.try_for_ai=3
         self.key=None
-        self.keys_active={}
+        self.keys_active={"up1":False,"up2":False,"left":False,"right":False}
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
