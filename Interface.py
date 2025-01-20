@@ -149,7 +149,7 @@ class interface(load_elements):
             key_up2=pygame_gui.elements.UIButton(relative_rect=Rect(220, 150, 50, 50),text=f"{self.config_keys["name_up2"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["up2"] else None,command=lambda:self.change_keys("up2","name_up2"))
             self.screen.blit(self.font3_5.render(f"Move Left", True, "White"),(10,200))
             key_left=pygame_gui.elements.UIButton(relative_rect=Rect(220, 200, 50, 50),text=f"{self.config_keys["name_left"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["left"] else None,command=lambda:self.change_keys("left","name_left"))
-            self.screen.blit(self.font3_5.render(f"Move Left", True, "White"),(10,250))
+            self.screen.blit(self.font3_5.render(f"Move Right", True, "White"),(10,250))
             key_right=pygame_gui.elements.UIButton(relative_rect=Rect(220, 250, 50, 50),text=f"{self.config_keys["name_right"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["right"] else None,command=lambda:self.change_keys("right","name_right"))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,key_up1,key_up2,key_left,key_right])
@@ -208,6 +208,6 @@ class interface(load_elements):
     def event_change_keys(self,event):
         if self.key!=None and (self.utils_keys[self.key] and event.type==KEYDOWN):
             self.config_keys[self.key]=event.key
-            self.config_keys[self.key_name]=event.unicode.upper()
+            self.config_keys[self.key_name]=event.unicode.upper() if self.config_keys[self.key]!=32 else "Space"
             self.utils_keys[self.key]= not self.utils_keys[self.key]
             self.change_mains(6,fade=False),self.save_config()
