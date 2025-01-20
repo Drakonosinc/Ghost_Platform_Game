@@ -204,9 +204,11 @@ class interface(load_elements):
         self.key=key
         self.key_name=key_name
         self.utils_keys[self.key]= not self.utils_keys[self.key]
+        self.change_mains(6,fade=False)
     def event_change_keys(self,event):
         if self.key!=None and (self.utils_keys[self.key] and event.type==KEYDOWN):
             self.config_keys[self.key]=event.key
             self.config_keys[self.key_name]=event.unicode.upper()
             self.utils_keys[self.key]= not self.utils_keys[self.key]
             self.change_mains(6,fade=False)
+            self.save_config()
