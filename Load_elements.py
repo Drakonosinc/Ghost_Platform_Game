@@ -1,7 +1,6 @@
 import pygame,os,json
 from pygame.locals import *
 from Genetic_Algorithm import *
-
 class load_elements():
     def __init__(self,title,width=0, height=0):
         pygame.init()
