@@ -148,9 +148,9 @@ class interface(load_elements):
             self.screen.blit(self.font3_5.render(f"Jump Two", True, "White"),(10,150))
             key_up2=pygame_gui.elements.UIButton(relative_rect=Rect(220, 150, 50, 50),text=f"{self.config_keys["name_up2"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["up2"] else None,command=lambda:self.change_keys("up2","name_up2"))
             self.screen.blit(self.font3_5.render(f"Move Left", True, "White"),(10,200))
-            key_left=pygame_gui.elements.UIButton(relative_rect=Rect(220, 200, 50, 50),text=f"{self.config_keys["name_left"]}",manager=self.manager)
+            key_left=pygame_gui.elements.UIButton(relative_rect=Rect(220, 200, 50, 50),text=f"{self.config_keys["name_left"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["left"] else None,command=lambda:self.change_keys("left","name_left"))
             self.screen.blit(self.font3_5.render(f"Move Left", True, "White"),(10,250))
-            key_right=pygame_gui.elements.UIButton(relative_rect=Rect(220, 250, 50, 50),text=f"{self.config_keys["name_right"]}",manager=self.manager)
+            key_right=pygame_gui.elements.UIButton(relative_rect=Rect(220, 250, 50, 50),text=f"{self.config_keys["name_right"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["right"] else None,command=lambda:self.change_keys("right","name_right"))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,key_up1,key_up2,key_left,key_right])
     def sounds_menu(self):
