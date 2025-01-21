@@ -80,7 +80,7 @@ class load_elements():
                         "left":K_a,"name_left":"A","right":K_d,"name_right":"D"}
         self.config_visuals={"player":"flyghost.png","floor":"suelo1.png",
                             "meteorite":"meteorito.png","potion":"pocion1.png","shield":"shield1.png"}
-        self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3}
+        self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3,"model_save":False}
     def save_config(self):
         config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals,"config_AI":self.config_AI}
         with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)

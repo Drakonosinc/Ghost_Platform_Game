@@ -8,7 +8,6 @@ class interface(load_elements):
         self.manager = pygame_gui.UIManager((self.WIDTH,self.HEIGHT),theme_path=os.path.join(self.config_path,"theme_buttons.json"))
         self.main=0 #-1=game, 0=menu, 1=game over, 2=game menu, 3=pausa, 4=options, 5=visuals, 6=menu keys, 7=sound menu, 8=menu AI
         self.active_buttons = []
-        self.model_save=False
         self.play_music()
         self.key=None
         self.utils_keys={"up1":False,"up2":False,"left":False,"right":False}
@@ -182,7 +181,7 @@ class interface(load_elements):
             increase_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 160, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",1,dic=self.config_AI))
             decrease_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 160, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",-1,dic=self.config_AI)) if self.config_AI["try_for_ai"]>1 else None
             play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=lambda:self.more_options(self.population,lambda:self.on_off_sound(self.sound_menu,"sound_menu",False,game=True))))
-            save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off(8,"model_save",fade=False))
+            save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.config_AI["model_save"]}",object_id="#button_on" if self.config_AI["model_save"] else "#button_off",manager=self.manager,command=lambda:self.on_off(8,"model_save",fade=False))
             back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([play,save,back_game_menu,increase_generation,decrease_generation,increase_population,decrease_population,increase_try_for_ai,decrease_try_for_ai])
     def increase_decrease_variable(self,variable,number,population=False,fade=False,dic=None):
