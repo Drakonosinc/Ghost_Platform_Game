@@ -165,8 +165,10 @@ class interface(load_elements):
             on_off_potion=pygame_gui.elements.UIButton(relative_rect=Rect(220, 320, 50, 40),text=f"{self.config_sounds["sound_potion"]}",object_id="#button_on" if self.config_sounds["sound_potion"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_potion",command=self.save_config))
             self.screen.blit(self.font3_5.render(f"Shield", True, "White"),(10,360))
             on_off_shield=pygame_gui.elements.UIButton(relative_rect=Rect(220, 360, 50, 40),text=f"{self.config_sounds["sound_shield"]}",object_id="#button_on" if self.config_sounds["sound_shield"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,"config_sounds",False,"sound_shield",command=self.save_config))
+            self.screen.blit(self.font3_5.render(f"To Restart Config", True, "White"),(10,200))
+            restar_config_sound=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 200, 110, 50),text="Press",object_id="#button_on",manager=self.manager,command=lambda:self.more_options(command=lambda:self.config(sounds=True),command2=self.save_config,command3=lambda:self.change_mains(7,fade=False)))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
-            self.active_buttons.extend([self.option_button,sound_menu,sound_game,on_off_jump,on_off_game_over,on_off_damage,on_off_potion,on_off_shield])
+            self.active_buttons.extend([self.option_button,sound_menu,sound_game,on_off_jump,on_off_game_over,on_off_damage,on_off_potion,on_off_shield,restar_config_sound])
     def menu_AI(self):
         if self.main==8:
             self.screen.fill(self.BLACK)
