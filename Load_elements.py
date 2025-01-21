@@ -69,6 +69,7 @@ class load_elements():
             self.config_sounds = config["config_sounds"]
             self.config_keys = config["config_keys"]
             self.config_visuals = config["config_visuals"]
+            self.config_AI = config["config_AI"]
         except:self.config()
     def config(self):
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
@@ -81,7 +82,7 @@ class load_elements():
                             "meteorite":"meteorito.png","potion":"pocion1.png","shield":"shield1.png"}
         self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3}
     def save_config(self):
-        config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals}
+        config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals,"config_AI":self.config_AI}
         with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)
     def load_AI(self):
         self.model_path=os.path.join(os.path.dirname(__file__), "AI/best_model.pth")

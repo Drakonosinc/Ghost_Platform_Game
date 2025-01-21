@@ -12,7 +12,6 @@ class interface(load_elements):
         self.population_value=20
         self.model_save=False
         self.play_music()
-        self.try_for_ai=3
         self.key=None
         self.utils_keys={"up1":False,"up2":False,"left":False,"right":False}
         self.draw_menus()
@@ -181,9 +180,9 @@ class interface(load_elements):
             self.screen.blit(self.font3_5.render(f"Population Size {self.population_value}", True, "White"),(10,120))
             increase_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 120, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("population_value",1,True))
             decrease_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 120, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("population_value",-1,True)) if self.population_value>1 else None
-            self.screen.blit(self.font3_5.render(f"Number of try for AI {self.try_for_ai}", True, "White"),(10,160))
+            self.screen.blit(self.font3_5.render(f"Number of try for AI {self.config_AI["try_for_ai"]}", True, "White"),(10,160))
             increase_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 160, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",1))
-            decrease_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 160, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",-1)) if self.try_for_ai>1 else None
+            decrease_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 160, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",-1)) if self.config_AI["try_for_ai"]>1 else None
             play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=lambda:self.more_options(self.population,lambda:self.on_off_sound(self.sound_menu,"sound_menu",False,game=True))))
             save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.model_save}",object_id="#button_on" if self.model_save else "#button_off",manager=self.manager,command=lambda:self.on_off(8,"model_save",fade=False))
             back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
