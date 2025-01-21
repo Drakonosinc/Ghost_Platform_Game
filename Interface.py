@@ -8,7 +8,6 @@ class interface(load_elements):
         self.manager = pygame_gui.UIManager((self.WIDTH,self.HEIGHT),theme_path=os.path.join(self.config_path,"theme_buttons.json"))
         self.main=0 #-1=game, 0=menu, 1=game over, 2=game menu, 3=pausa, 4=options, 5=visuals, 6=menu keys, 7=sound menu, 8=menu AI
         self.active_buttons = []
-        self.generation_value=100
         self.population_value=20
         self.model_save=False
         self.play_music()
@@ -174,9 +173,9 @@ class interface(load_elements):
         if self.main==8:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
-            self.screen.blit(self.font3_5.render(f"Generation Size {self.generation_value}", True, "White"),(10,80))
+            self.screen.blit(self.font3_5.render(f"Generation Size {self.config_AI["generation_value"]}", True, "White"),(10,80))
             increase_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 80, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1))
-            decrease_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 80, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1)) if self.generation_value>1 else None
+            decrease_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 80, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1)) if self.config_AI["generation_value"]>1 else None
             self.screen.blit(self.font3_5.render(f"Population Size {self.population_value}", True, "White"),(10,120))
             increase_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 120, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("population_value",1,True))
             decrease_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 120, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("population_value",-1,True)) if self.population_value>1 else None
