@@ -28,15 +28,15 @@ class load_elements():
         self.image_path=os.path.join(os.path.dirname(__file__), "images")
         self.space=pygame.image.load(os.path.join(self.image_path,self.config_visuals["background"][self.config_visuals["background_value"]]))
         self.space=pygame.transform.scale(self.space,(700,400))
-        self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config_visuals["player"])).convert_alpha()
+        self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config_visuals["player"][self.config_visuals["player_value"]])).convert_alpha()
         self.player_ghost=pygame.transform.scale(self.player_ghost,(35,35))
-        self.floor=pygame.image.load(os.path.join(self.image_path,self.config_visuals["floor"])).convert_alpha()
+        self.floor=pygame.image.load(os.path.join(self.image_path,self.config_visuals["floor"][self.config_visuals["floor_value"]])).convert_alpha()
         self.floor=pygame.transform.scale(self.floor,(100,40))
-        self.meteorite=pygame.image.load(os.path.join(self.image_path,self.config_visuals["meteorite"])).convert_alpha()
+        self.meteorite=pygame.image.load(os.path.join(self.image_path,self.config_visuals["meteorite"][self.config_visuals["meteorite_value"]])).convert_alpha()
         self.meteorite=pygame.transform.scale(self.meteorite,(50,85))
-        self.potion=pygame.image.load(os.path.join(self.image_path,self.config_visuals["potion"])).convert_alpha()
+        self.potion=pygame.image.load(os.path.join(self.image_path,self.config_visuals["potion"][self.config_visuals["potion_value"]])).convert_alpha()
         self.potion=pygame.transform.scale(self.potion,(35,40))
-        self.shield=pygame.image.load(os.path.join(self.image_path,self.config_visuals["shield"])).convert_alpha()
+        self.shield=pygame.image.load(os.path.join(self.image_path,self.config_visuals["shield"][self.config_visuals["shield_value"]])).convert_alpha()
         self.shield=pygame.transform.scale(self.shield,(50,50))
     def load_fonts(self):
         self.font_path=os.path.join(os.path.dirname(__file__), "fonts")
@@ -78,11 +78,11 @@ class load_elements():
         if keys or alls:self.config_keys={"up1":K_SPACE,"name_up1":"Space","up2":K_w,"name_up2":"W",
                         "left":K_a,"name_left":"A","right":K_d,"name_right":"D"}
         if visuals or alls:self.config_visuals={"background":["espacio.png"],"background_value":0,
-                                                "player":"flyghost.png",
-                                                "floor":"suelo1.png",
-                                                "meteorite":"meteorito.png",
-                                                "potion":"pocion1.png",
-                                                "shield":"shield1.png"}
+                                                "player":["flyghost.png"],"player_value":0,
+                                                "floor":["suelo1.png"],"floor_value":0,
+                                                "meteorite":["meteorito.png"],"meteorite_value":0,
+                                                "potion":["pocion1.png"],"potion_value":0,
+                                                "shield":["shield1.png"],"shield_value":0}
         if AI or alls:self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3,"model_save":False}
     def save_config(self):
         config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals,"config_AI":self.config_AI}
