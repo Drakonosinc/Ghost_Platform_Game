@@ -26,7 +26,7 @@ class load_elements():
         self.life_color=self.GREEN
     def load_images(self):
         self.image_path=os.path.join(os.path.dirname(__file__), "images")
-        self.space=pygame.image.load(os.path.join(self.image_path,"espacio.png"))
+        self.space=pygame.image.load(os.path.join(self.image_path,self.config_visuals["background"][self.config_visuals["background_value"]]))
         self.space=pygame.transform.scale(self.space,(700,400))
         self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config_visuals["player"])).convert_alpha()
         self.player_ghost=pygame.transform.scale(self.player_ghost,(35,35))
@@ -77,8 +77,12 @@ class load_elements():
                             "sound_damage":True,"sound_potion":True,"sound_shield":True}
         if keys or alls:self.config_keys={"up1":K_SPACE,"name_up1":"Space","up2":K_w,"name_up2":"W",
                         "left":K_a,"name_left":"A","right":K_d,"name_right":"D"}
-        if visuals or alls:self.config_visuals={"player":"flyghost.png","floor":"suelo1.png",
-                            "meteorite":"meteorito.png","potion":"pocion1.png","shield":"shield1.png"}
+        if visuals or alls:self.config_visuals={"background":["espacio.png"],"background_value":0,
+                                                "player":"flyghost.png",
+                                                "floor":"suelo1.png",
+                                                "meteorite":"meteorito.png",
+                                                "potion":"pocion1.png",
+                                                "shield":"shield1.png"}
         if AI or alls:self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3,"model_save":False}
     def save_config(self):
         config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals,"config_AI":self.config_AI}
