@@ -147,8 +147,10 @@ class interface(load_elements):
             key_left=pygame_gui.elements.UIButton(relative_rect=Rect(220, 200, 50, 50),text=f"{self.config_keys["name_left"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["left"] else None,command=lambda:self.change_keys("left","name_left"))
             self.screen.blit(self.font3_5.render(f"Move Right", True, "White"),(10,250))
             key_right=pygame_gui.elements.UIButton(relative_rect=Rect(220, 250, 50, 50),text=f"{self.config_keys["name_right"]}",manager=self.manager,object_id="#button_on" if self.utils_keys["right"] else None,command=lambda:self.change_keys("right","name_right"))
+            self.screen.blit(self.font3_5.render(f"To Restart Config", True, "White"),(10,400))
+            restar_config_key=pygame_gui.elements.UIButton(relative_rect=Rect(360, 400, 80, 50),text="Press",object_id="#button_on",manager=self.manager,command=lambda:self.more_options(command=lambda:self.config(keys=True),command2=self.save_config,command3=lambda:self.change_mains(7,fade=False)))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
-            self.active_buttons.extend([self.option_button,key_up1,key_up2,key_left,key_right])
+            self.active_buttons.extend([self.option_button,key_up1,key_up2,key_left,key_right,restar_config_key])
     def sounds_menu(self):
         if self.main==7:
             self.screen.fill(self.BLACK)
