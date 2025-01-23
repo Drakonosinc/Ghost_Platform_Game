@@ -130,8 +130,9 @@ class ghost_platform(interface):
     def new_events(self,event):
         if self.main==-1 and event.type==self.speed_game:
             self.FPS+=0.5
-            for player in self.players:
-                if player.active:player.floor_fall=True
+            if self.mode_game["Training AI"]:
+                for player in self.players:
+                    if player.active:player.floor_fall=True
     def draw(self,player):
         self.screen.blit(self.player_ghost,(player.rect.x-5,player.rect.y-5))
         self.bar_life(player),self.shield_draw(player),self.draw_score(player),self.draw_generations()
