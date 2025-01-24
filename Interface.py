@@ -130,6 +130,11 @@ class interface(load_elements):
         if self.main==5:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
+            self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
+            self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
+            self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
+            self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
+            self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button])
     def keys_menu(self):
