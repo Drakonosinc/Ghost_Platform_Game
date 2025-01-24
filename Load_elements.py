@@ -89,8 +89,7 @@ class load_elements():
         with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)
     def load_AI(self):
         self.model_path=os.path.join(os.path.dirname(__file__), "AI/best_model.pth")
-        if os.path.exists(self.model_path):self.model_training = load_model(self.model_path, 26, 3)
-        else:self.model_training = None
+        self.model_training = load_model(self.model_path, 26, 3) if os.path.exists(self.model_path) else None
     def additional_events(self):
         self.speed_game=pygame.USEREVENT + 1
         pygame.time.set_timer(self.speed_game, 5000)
