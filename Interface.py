@@ -131,20 +131,20 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
             self.screen.blit(self.floor,(150,100))
-            increase_floor=pygame_gui.elements.UIButton(relative_rect=Rect(290, 100, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1,dic=self.config_AI))
-            decrease_floor=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1,dic=self.config_AI)) if self.config_AI["generation_value"]>1 else None
+            increase_floor=pygame_gui.elements.UIButton(relative_rect=Rect(290, 100, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",1,dic=self.config_visuals,length="floor"))
+            decrease_floor=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",-1,dic=self.config_visuals,length="floor"))
             self.screen.blit(self.meteorite,(150,150))
-            increase_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(290, 200, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1,dic=self.config_AI))
-            decrease_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1,dic=self.config_AI)) if self.config_AI["generation_value"]>1 else None
+            increase_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(290, 200, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",1,dic=self.config_visuals,length="meteorite"))
+            decrease_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",-1,dic=self.config_visuals,length="meteorite"))
             self.screen.blit(self.potion,(150,300))
-            increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1,dic=self.config_AI))
-            decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1,dic=self.config_AI)) if self.config_AI["generation_value"]>1 else None
+            increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",1,dic=self.config_visuals,length="potion"))
+            decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",-1,dic=self.config_visuals,length="potion"))
             self.screen.blit(self.shield,(150,400))
-            increase_shield=pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1,dic=self.config_AI))
-            decrease_shield=pygame_gui.elements.UIButton(relative_rect=Rect(10, 400, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1,dic=self.config_AI)) if self.config_AI["generation_value"]>1 else None
+            increase_shield=pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",1,dic=self.config_visuals,length="shield"))
+            decrease_shield=pygame_gui.elements.UIButton(relative_rect=Rect(10, 400, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",-1,dic=self.config_visuals,length="shield"))
             self.screen.blit(self.player_ghost,(150,500))
-            increase_player=pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1,dic=self.config_AI))
-            decrease_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 500, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1,dic=self.config_AI)) if self.config_AI["generation_value"]>1 else None
+            increase_player=pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",1,dic=self.config_visuals,length="player"))
+            decrease_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 500, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",-1,dic=self.config_visuals,length="player"))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,increase_floor,decrease_floor,increase_meteorite,decrease_meteorite,increase_potion,decrease_potion,increase_shield,decrease_shield,increase_player,decrease_player])
     def keys_menu(self):
@@ -188,24 +188,25 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
             self.screen.blit(self.font3_5.render(f"Generation Size {self.config_AI["generation_value"]}", True, "White"),(10,80))
-            increase_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 80, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",1,dic=self.config_AI))
-            decrease_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 80, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("generation_value",-1,dic=self.config_AI)) if self.config_AI["generation_value"]>1 else None
+            increase_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 80, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"generation_value",1,dic=self.config_AI))
+            decrease_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 80, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"generation_value",-1,dic=self.config_AI)) if self.config_AI["generation_value"]>1 else None
             self.screen.blit(self.font3_5.render(f"Population Size {self.config_AI["population_value"]}", True, "White"),(10,120))
-            increase_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 120, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("population_value",1,True,dic=self.config_AI))
-            decrease_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 120, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("population_value",-1,True,dic=self.config_AI)) if self.config_AI["population_value"]>1 else None
+            increase_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 120, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"population_value",1,True,dic=self.config_AI))
+            decrease_population=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 120, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"population_value",-1,True,dic=self.config_AI)) if self.config_AI["population_value"]>1 else None
             self.screen.blit(self.font3_5.render(f"Number of try for AI {self.config_AI["try_for_ai"]}", True, "White"),(10,160))
-            increase_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 160, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",1,dic=self.config_AI))
-            decrease_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 160, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable("try_for_ai",-1,dic=self.config_AI)) if self.config_AI["try_for_ai"]>1 else None
+            increase_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 160, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"try_for_ai",1,dic=self.config_AI))
+            decrease_try_for_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 160, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"try_for_ai",-1,dic=self.config_AI)) if self.config_AI["try_for_ai"]>1 else None
             self.screen.blit(self.font3_5.render(f"To Restart Config", True, "White"),(10,200))
             restar_config_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 200, 110, 50),text="Press",object_id="#button_on",manager=self.manager,command=lambda:self.more_options(command=lambda:self.config(AI=True),command2=self.save_config,command3=lambda:self.change_mains(8,fade=False)))
             play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=lambda:self.more_options(self.population,lambda:self.on_off_sound(self.sound_menu,"sound_menu",False,game=True))))
             save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.config_AI["model_save"]}",object_id="#button_on" if self.config_AI["model_save"] else "#button_off",manager=self.manager,command=lambda:self.on_off(8,self.config_AI,False,"model_save",command=self.save_config))
             back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([play,save,back_game_menu,increase_generation,decrease_generation,increase_population,decrease_population,increase_try_for_ai,decrease_try_for_ai,restar_config_ai])
-    def increase_decrease_variable(self,variable,number,population=False,fade=False,dic=None):
-        if dic!=None:dic[variable]+=number
+    def increase_decrease_variable(self,main,variable,number,population=False,fade=False,dic=None,length=None):
+        if dic!=None and length!=None:dic[variable]=((dic[variable] + number) % len(dic[length]))
+        elif dic!=None:dic[variable]+=number
         else:setattr(self,variable,getattr(self,variable)+number)
-        self.change_mains(8,fade=fade),self.save_config()
+        self.change_mains(main=main,fade=fade),self.save_config()
         if population:self.population()
     def on_off_sound(self,sound,type_sound,play=True,game=False,command=False):
         sound.play(loops=-1) if play and self.config_sounds[type_sound] else sound.stop()
