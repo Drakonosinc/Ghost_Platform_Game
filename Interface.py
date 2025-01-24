@@ -130,7 +130,7 @@ class interface(load_elements):
         if self.main==5:
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
-            self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
+            self.screen.blit(self.floor,(self.WIDTH/2,self.HEIGHT/2))
             self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
             self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
             self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
