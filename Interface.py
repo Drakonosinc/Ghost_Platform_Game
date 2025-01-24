@@ -134,6 +134,7 @@ class interface(load_elements):
             self.screen.blit(self.meteorite,(self.WIDTH/3,self.HEIGHT/2))
             self.screen.blit(self.potion,(self.WIDTH/4,self.HEIGHT/3))
             self.screen.blit(self.shield,(self.WIDTH/3,self.HEIGHT/4))
+            self.screen.blit(self.player_ghost,(self.WIDTH/2,self.HEIGHT-50))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button])
     def keys_menu(self):
