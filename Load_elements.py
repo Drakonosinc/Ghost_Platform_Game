@@ -80,7 +80,7 @@ class load_elements():
         if visuals or alls:self.config_visuals={"background":["espacio.png"],"background_value":0,
                                                 "player":["flyghost.png"],"player_value":0,
                                                 "floor":["suelo1.png"],"floor_value":0,
-                                                "meteorite":["meteorito.png"],"meteorite_value":0,
+                                                "meteorite":["meteorito.png","fire.png"],"meteorite_value":0,
                                                 "potion":["pocion1.png"],"potion_value":0,
                                                 "shield":["shield1.png"],"shield_value":0}
         if AI or alls:self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3,"model_save":False}

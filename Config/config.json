@@ -35,7 +35,7 @@
             "meteorito.png",
             "fire.png"
         ],
-        "meteorite_value": 0,
+        "meteorite_value": 1,
         "potion": [
             "pocion1.png"
         ],
