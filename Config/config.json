@@ -32,7 +32,8 @@
         ],
         "floor_value": 0,
         "meteorite": [
-            "meteorito.png"
+            "meteorito.png",
+            "fire.png"
         ],
         "meteorite_value": 0,
         "potion": [
