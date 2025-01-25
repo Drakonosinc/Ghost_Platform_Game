@@ -35,7 +35,7 @@
             "meteorito.png",
             "fire.png"
         ],
-        "meteorite_value": 1,
+        "meteorite_value": 0,
         "potion": [
             "pocion1.png"
         ],
@@ -47,7 +47,7 @@
     },
     "config_AI": {
         "generation_value": 1000,
-        "population_value": 20,
+        "population_value": 19,
         "try_for_ai": 3,
         "model_save": false
     }

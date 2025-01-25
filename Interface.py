@@ -50,7 +50,7 @@ class interface(load_elements):
             pygame.display.flip()
             self.clock.tick(20)
             alpha += -15 if fade_in else 15
-    def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None,run=False,fade=True):
+    def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None,run=False,fade=True,recursive=False):
         self.sounds_play(sound=self.sound_touchletters if sound==None else sound)
         if fade:self.fade_transition(False,color,limit)
         self.clear_buttons()
@@ -58,6 +58,7 @@ class interface(load_elements):
         self.draw_menus()
         if command!=None:command()
         if command2!=None:command2()
+        if recursive:self.change_mains(main,fade=fade)
         if run:setattr(self,"running",False),setattr(self, "game_over", True)
     def sounds_play(self,sound,repeat=True):
         if repeat:
@@ -131,20 +132,20 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
             self.screen.blit(self.floor,(150,100))
-            increase_floor=pygame_gui.elements.UIButton(relative_rect=Rect(290, 100, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",1,dic=self.config_visuals,length="floor",command=self.load_images))
-            decrease_floor=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",-1,dic=self.config_visuals,length="floor",command=self.load_images))
+            increase_floor=pygame_gui.elements.UIButton(relative_rect=Rect(290, 100, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",1,dic=self.config_visuals,length="floor",command=self.load_images,recu=True))
+            decrease_floor=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",-1,dic=self.config_visuals,length="floor",command=self.load_images,recu=True))
             self.screen.blit(self.meteorite,(150,150))
-            increase_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(290, 200, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",1,dic=self.config_visuals,length="meteorite",command=self.load_images))
-            decrease_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",-1,dic=self.config_visuals,length="meteorite",command=self.load_images))
+            increase_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(290, 200, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",1,dic=self.config_visuals,length="meteorite",command=self.load_images,recu=True))
+            decrease_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",-1,dic=self.config_visuals,length="meteorite",command=self.load_images,recu=True))
             self.screen.blit(self.potion,(150,300))
-            increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",1,dic=self.config_visuals,length="potion",command=self.load_images))
-            decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",-1,dic=self.config_visuals,length="potion",command=self.load_images))
+            increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",1,dic=self.config_visuals,length="potion",command=self.load_images,recu=True))
+            decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",-1,dic=self.config_visuals,length="potion",command=self.load_images,recu=True))
             self.screen.blit(self.shield,(150,400))
-            increase_shield=pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",1,dic=self.config_visuals,length="shield",command=self.load_images))
-            decrease_shield=pygame_gui.elements.UIButton(relative_rect=Rect(10, 400, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",-1,dic=self.config_visuals,length="shield",command=self.load_images))
+            increase_shield=pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",1,dic=self.config_visuals,length="shield",command=self.load_images,recu=True))
+            decrease_shield=pygame_gui.elements.UIButton(relative_rect=Rect(10, 400, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",-1,dic=self.config_visuals,length="shield",command=self.load_images,recu=True))
             self.screen.blit(self.player_ghost,(150,500))
-            increase_player=pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",1,dic=self.config_visuals,length="player",command=self.load_images))
-            decrease_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 500, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",-1,dic=self.config_visuals,length="player",command=self.load_images))
+            increase_player=pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",1,dic=self.config_visuals,length="player",command=self.load_images,recu=True))
+            decrease_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 500, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",-1,dic=self.config_visuals,length="player",command=self.load_images,recu=True))
             self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
             self.active_buttons.extend([self.option_button,increase_floor,decrease_floor,increase_meteorite,decrease_meteorite,increase_potion,decrease_potion,increase_shield,decrease_shield,increase_player,decrease_player])
     def keys_menu(self):
@@ -202,11 +203,11 @@ class interface(load_elements):
             save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.config_AI["model_save"]}",object_id="#button_on" if self.config_AI["model_save"] else "#button_off",manager=self.manager,command=lambda:self.on_off(8,self.config_AI,False,"model_save",command=self.save_config))
             back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
             self.active_buttons.extend([play,save,back_game_menu,increase_generation,decrease_generation,increase_population,decrease_population,increase_try_for_ai,decrease_try_for_ai,restar_config_ai])
-    def increase_decrease_variable(self,main,variable,number,population=False,fade=False,dic=None,length=None,command=None):
+    def increase_decrease_variable(self,main,variable,number,population=False,fade=False,dic=None,length=None,command=None,recu=False):
         if dic!=None and length!=None:dic[variable]=((dic[variable] + number) % len(dic[length]))
         elif dic!=None:dic[variable]+=number
         else:setattr(self,variable,getattr(self,variable)+number)
-        self.change_mains(main=main,fade=fade,command=self.save_config,command2=command)
+        self.change_mains(main=main,fade=fade,command=self.save_config,command2=command,recursive=recu)
         if population:self.population()
     def on_off_sound(self,sound,type_sound,play=True,game=False,command=False):
         sound.play(loops=-1) if play and self.config_sounds[type_sound] else sound.stop()
