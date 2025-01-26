@@ -7,15 +7,13 @@ class ghost_platform(interface):
         super().__init__(width=700, height=600)
         self.load_AI()
         self.running=True
-        self.game_over=False
-        self.exit=False
+        self.game_over,self.exit=False,False
         self.clock=pygame.time.Clock()
         self.FPS=60
         self.objects()
         self.nuances()
         self.gravity=0.25
         self.jumper=-12
-        self.isjumper=False
         self.mode_game={"Training AI":False,"Player":False,"AI":False}
         self.generation=0
         self.population()
