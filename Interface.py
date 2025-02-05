@@ -2,15 +2,15 @@ import pygame_gui
 from Load_elements import *
 class interface(load_elements):
     def __init__(self,width=0, height=0):
-        self.WIDTH = width
-        self.HEIGHT = height
-        super().__init__("Ghost Platform",self.WIDTH,self.HEIGHT)
+        super().__init__("Ghost Platform",width,height)
+        self.WIDTH:int = width
+        self.HEIGHT:int = height
         self.manager = pygame_gui.UIManager((self.WIDTH,self.HEIGHT),theme_path=os.path.join(self.config_path,"theme_buttons.json"))
-        self.main=0 #-1=game, 0=menu, 1=game over, 2=game menu, 3=pausa, 4=options, 5=visuals, 6=menu keys, 7=sound menu, 8=menu AI
-        self.active_buttons = []
+        self.main:int=0 #-1=game, 0=menu, 1=game over, 2=game menu, 3=pausa, 4=options, 5=visuals, 6=menu keys, 7=sound menu, 8=menu AI
+        self.active_buttons:list = []
         self.play_music()
         self.key=None
-        self.utils_keys={"up1":False,"up2":False,"left":False,"right":False}
+        self.utils_keys:dict[str, bool]={"up1":False,"up2":False,"left":False,"right":False}
         self.draw_menus()
     def draw_menus(self):
         self.main_menu()
