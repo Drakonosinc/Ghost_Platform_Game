@@ -2,14 +2,14 @@ from pygame import *
 class Player:
     def __init__(self, x, y, width, height):
         self.rect = Rect(x, y, width, height)
-        self.down_gravity = 0
-        self.isjumper = False
-        self.life = 100
-        self.state_life=[2,False]
-        self.reward = 0
-        self.scores=0
-        self.floor_fall=False
-        self.active = True
+        self.down_gravity:float = 0
+        self.isjumper:bool = False
+        self.life:int = 100
+        self.state_life:list=[2,False]
+        self.reward:int = 0
+        self.scores:int=0
+        self.floor_fall:bool=False
+        self.active:bool = True
     def jump(self, jumper_value,sound):
         if self.isjumper:
             self.down_gravity = jumper_value
