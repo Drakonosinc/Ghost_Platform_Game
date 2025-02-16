@@ -70,7 +70,7 @@ class load_elements():
             self.config_keys = config["config_keys"]
             self.config_visuals = config["config_visuals"]
             self.config_AI = config["config_AI"]
-        except:self.config(alls=True)
+        except:self.config(alls=True),self.save_config()
     def config(self,sounds=False,keys=False,visuals=False,AI=False,alls=False):
         self.config_path = os.path.join(os.path.dirname(__file__), "Config")
         if sounds or alls:self.config_sounds={"sound_menu":True,"sound_game":True,"sound_jump":True,"game_over":True,
