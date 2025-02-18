@@ -39,18 +39,18 @@ class ghost_platform(interface):
                     if coords[1]>=self.HEIGHT:self.reset_coords(coords)
                     self.collision(player,rect,type_object,coords)
                     self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
-                sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
-                next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
-                for i, elements in enumerate(sorted_elements):
-                    if elements[1] < player.rect.y:
-                        current_elements = elements
-                        next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
-                        next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
-                        next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
-                        next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
-                        break
-                if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
-                self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
+                    sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
+                    next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
+                    for i, elements in enumerate(sorted_elements):
+                        if elements[1] < player.rect.y:
+                            current_elements = elements
+                            next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
+                            next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
+                            next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
+                            next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
+                            break
+                    if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
+                    self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
     def position_platforms(self,next_elements1,next_elements2,next_elements3,next_elements4,width,height):
         if next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
         if next_elements2:self.platarforms_nexts[1]=Rect(next_elements2[0],next_elements2[1],width,height)
@@ -185,6 +185,7 @@ class ghost_platform(interface):
         elif chosen_action == 1:player.rect.x += 5
         elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
     def item_repeat_run(self):
+        self.handle_keys()
         self.time_delta = self.clock.tick(self.FPS)/1000.0
         self.manager.update(self.time_delta)
         self.manager.draw_ui(self.screen)
@@ -192,7 +193,7 @@ class ghost_platform(interface):
     def run(self):
         self.running = True
         while self.running and (not self.mode_game["Training AI"] and not self.mode_game["Player"] and not self.mode_game["AI"]):
-            self.handle_keys(),self.item_repeat_run()
+            self.item_repeat_run()
     def main_run(self):
         if self.mode_game["AI"] or self.mode_game["Training AI"]:self.type_mode()
         self.screen.fill(self.background)
@@ -203,7 +204,6 @@ class ghost_platform(interface):
         self.running = True
         for player in self.players:player.reward = 0
         while self.running and self.game_over == False:
-            self.handle_keys()
             if self.main == -1:self.main_run()
             self.item_repeat_run()
         return [player.reward for player in self.players]
