@@ -33,14 +33,14 @@ class ghost_platform(interface):
     def elements(self,matrix,speed_fall,object_name,width,height,type_object,image=None,restx=0,resty=0,current_elements=None):
         for coords in matrix:
             coords[1]+=speed_fall
-            rect=Rect(coords[0],coords[1],width,height)
-            if coords[1]>=self.HEIGHT:self.reset_coords(coords)
-            self.collision(rect,type_object,coords)
-            self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
-        sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
-        next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
-        for player in self.players:
-            if player.active:
+            for player in self.players:
+                if player.active:
+                    rect=Rect(coords[0],coords[1],width,height)
+                    if coords[1]>=self.HEIGHT:self.reset_coords(coords)
+                    self.collision(player,rect,type_object,coords)
+                    self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
+                sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
+                next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
                 for i, elements in enumerate(sorted_elements):
                     if elements[1] < player.rect.y:
                         current_elements = elements
@@ -49,21 +49,20 @@ class ghost_platform(interface):
                         next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
                         next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
                         break
-        if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
-        self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
+                if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
+                self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
     def position_platforms(self,next_elements1,next_elements2,next_elements3,next_elements4,width,height):
         if next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
         if next_elements2:self.platarforms_nexts[1]=Rect(next_elements2[0],next_elements2[1],width,height)
         if next_elements3:self.platarforms_nexts[2]=Rect(next_elements3[0],next_elements3[1],width,height)
         if next_elements4:self.platarforms_nexts[3]=Rect(next_elements4[0],next_elements4[1],width,height)
-    def collision(self,objects,type_object,coords):
-        for player in self.players:
-            if player.active and player.check_collision(objects):
-                match type_object:
-                    case "platform":self.repeat_in_events_collision(player,objects.y-25,0,True,True,True,1,True)
-                    case "meteorite":self.repeat_in_collision(*(player,coords,self.sound_meteorite,"sound_damage",-20,0,0) if not player.state_life[1] else (player,coords,self.sound_meteorite,"sound_damage",-5,1,False))
-                    case "potion" if player.life<100:self.repeat_in_collision(player,coords,self.sound_health,"sound_potion",10,0,1)
-                    case "shield" if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_shield,"sound_shield",15,1,True)
+    def collision(self,player,objects,type_object,coords):
+        if player.check_collision(objects):
+            match type_object:
+                case "platform":self.repeat_in_events_collision(player,objects.y-25,0,True,True,True,1,True)
+                case "meteorite":self.repeat_in_collision(*(player,coords,self.sound_meteorite,"sound_damage",-20,0,0) if not player.state_life[1] else (player,coords,self.sound_meteorite,"sound_damage",-5,1,False))
+                case "potion" if player.life<100:self.repeat_in_collision(player,coords,self.sound_health,"sound_potion",10,0,1)
+                case "shield" if not player.state_life[1]:self.repeat_in_collision(player,coords,self.sound_shield,"sound_shield",15,1,True)
     def repeat_in_collision(self,player,coords,sound,type_sound,reward,statelife1,statelife2):
         player.state_life[statelife1]=statelife2
         self.reset_coords(coords)
@@ -157,7 +156,7 @@ class ghost_platform(interface):
         self.FPS=60
         self.objects()
         for player in self.players:player.reset(350, self.HEIGHT - 35)
-        self.nuances(),self.calls_elements()
+        self.nuances()
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
     def get_state(self,player=Player(350, 600 - 35, 25, 25)):
