@@ -30,7 +30,7 @@ class ghost_platform(interface):
     def generate_nuances(self):
         return np.column_stack((np.random.choice(np.arange(25, self.WIDTH-50, 115), 15),np.random.choice(np.arange(-500, 0, 200), 15))).tolist()
     def nuances(self):self.matrix=[self.generate_nuances(),self.generate_nuances()]
-    def elements(self,matrix,speed_fall,object_name,width,height,type_object,image=None,restx=0,resty=0,current_elements=None):
+    def elements(self,matrix,speed_fall,object_name,width,height,type_object,image=None,restx=0,resty=0):
         for coords in matrix:
             coords[1]+=speed_fall
             for player in self.players:
@@ -39,19 +39,18 @@ class ghost_platform(interface):
                     if coords[1]>=self.HEIGHT:self.reset_coords(coords)
                     self.collision(player,rect,type_object,coords)
                     self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
-                    sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
-                    next_elements1,next_elements2,next_elements3,next_elements4=None,None,None,None
-                    for i, elements in enumerate(sorted_elements):
-                        if elements[1] < player.rect.y:
-                            current_elements = elements
-                            next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
-                            next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
-                            next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
-                            next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
-                            break
-                    if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
-                    self.position_platforms(next_elements1,next_elements2,next_elements3,next_elements4,width,height)
-    def position_platforms(self,next_elements1,next_elements2,next_elements3,next_elements4,width,height):
+        self.next_position_platforms(player,matrix,object_name,width,height)
+    def next_position_platforms(self,player,matrix,object_name,width,height,current_elements=None,next_elements1=None,next_elements2=None,next_elements3=None,next_elements4=None):
+        sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
+        for i, elements in enumerate(sorted_elements):
+            if elements[1] < player.rect.y:
+                current_elements = elements
+                next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
+                next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
+                next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
+                next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
+                break
+        if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
         if next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
         if next_elements2:self.platarforms_nexts[1]=Rect(next_elements2[0],next_elements2[1],width,height)
         if next_elements3:self.platarforms_nexts[2]=Rect(next_elements3[0],next_elements3[1],width,height)
