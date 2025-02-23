@@ -183,6 +183,12 @@ class ghost_platform(interface):
         if chosen_action == 0:player.rect.x -= 5
         elif chosen_action == 1:player.rect.x += 5
         elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
+    def get_reward(self,reward:list)->list:
+        for player in self.players:
+            reward.append(player.reward)
+            player.reward = 0
+            player.reset(350, self.HEIGHT - 35)
+        return reward
     def item_repeat_run(self):
         self.handle_keys()
         self.time_delta = self.clock.tick(self.FPS)/1000.0
