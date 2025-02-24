@@ -201,14 +201,13 @@ class ghost_platform(interface):
     def main_run(self,reward):
         if self.mode_game["AI"] or self.mode_game["Training AI"]:self.type_mode()
         self.screen.fill(self.background)
+        self.calls_elements()
         for player in self.players:
             if player.active:
                 if self.active_floor:player.floor_fall=True
                 self.draw(player),self.events(player)
-            elif not player.active and not self.active_floor:
-                reward.append(player.reward)
+            if not player.active:reward.append(player.reward)
         return reward
-        self.calls_elements()
     def run_with_models(self):
         self.running = True
         while self.running and self.game_over == False:

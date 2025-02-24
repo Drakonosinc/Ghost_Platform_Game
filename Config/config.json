@@ -47,7 +47,7 @@
     },
     "config_AI": {
         "generation_value": 1000,
-        "population_value": 19,
+        "population_value": 20,
         "try_for_ai": 3,
         "model_save": false
     }
