@@ -182,16 +182,11 @@ class ghost_platform(interface):
         if chosen_action == 0:player.rect.x -= 5
         elif chosen_action == 1:player.rect.x += 5
         elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
-    def process_in_players(self,reward=None,recursive=False):
+    def get_reward(self,reward:list)->list:
         for player in self.players:
-            if player.active:
-                if self.active_floor:player.floor_fall=True
-                self.draw(player),self.events(player)
-            if recursive:
-                reward.append(player.reward)
-                player.reward = 0
-                player.reset(350, self.HEIGHT - 35)
-        if not player.active:reward=self.process_in_players([],True)
+            reward.append(player.reward)
+            player.reward = 0
+            player.reset(350, self.HEIGHT - 35)
         return reward
     def item_repeat_run(self):
         self.handle_keys()
@@ -206,11 +201,14 @@ class ghost_platform(interface):
     def main_run(self):
         if self.mode_game["AI"] or self.mode_game["Training AI"]:self.type_mode()
         self.screen.fill(self.background)
+        for player in self.players:
+            if player.active:
+                if self.active_floor:player.floor_fall=True
+                self.draw(player),self.events(player)
         self.calls_elements()
-        return self.process_in_players()
     def run_with_models(self):
         self.running = True
         while self.running and self.game_over == False:
-            if self.main == -1:reward=self.main_run()
+            if self.main == -1:self.main_run()
             self.item_repeat_run()
-        return reward
+        return self.get_reward([])
