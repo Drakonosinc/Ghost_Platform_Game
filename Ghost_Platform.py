@@ -198,17 +198,22 @@ class ghost_platform(interface):
         self.running = True
         while self.running and (not self.mode_game["Training AI"] and not self.mode_game["Player"] and not self.mode_game["AI"]):
             self.item_repeat_run()
-    def main_run(self):
+    def main_run(self,reward):
         if self.mode_game["AI"] or self.mode_game["Training AI"]:self.type_mode()
         self.screen.fill(self.background)
         for player in self.players:
             if player.active:
                 if self.active_floor:player.floor_fall=True
                 self.draw(player),self.events(player)
+            elif not player.active and not self.active_floor:
+                reward.append(player.reward)
+        return reward
         self.calls_elements()
     def run_with_models(self):
         self.running = True
         while self.running and self.game_over == False:
-            if self.main == -1:self.main_run()
+            if self.main == -1:reward=self.main_run([])
             self.item_repeat_run()
+        print(reward)
+        print("-------------------------------------------------")
         return self.get_reward([])
