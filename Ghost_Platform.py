@@ -17,6 +17,7 @@ class ghost_platform(interface):
         self.jumper:int=-12
         self.mode_game:dict[str, bool]={"Training AI":False,"Player":False,"AI":False}
         self.generation:int=0
+        self.active_floor:bool=False
         self.population()
     def population(self):
         self.players = [Player(350, self.HEIGHT - 35, 25, 25) for _ in range(self.config_AI["population_value"] if self.mode_game["Training AI"] else 1)]
@@ -126,9 +127,7 @@ class ghost_platform(interface):
     def new_events(self,event):
         if self.main==-1 and event.type==self.speed_game:
             self.FPS+=0.5
-            if self.mode_game["Training AI"]:
-                for player in self.players:
-                    if player.active:player.floor_fall=True
+            if self.mode_game["Training AI"]:self.active_floor=True
     def draw(self,player):
         self.screen.blit(self.player_ghost,(player.rect.x-5,player.rect.y-5))
         self.bar_life(player),self.shield_draw(player),self.draw_score(player),self.draw_generations()
@@ -155,6 +154,7 @@ class ghost_platform(interface):
         self.FPS=60
         self.objects()
         self.nuances()
+        self.active_floor=False
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
     def get_state(self,player=Player(350, 600 - 35, 25, 25)):
@@ -202,7 +202,9 @@ class ghost_platform(interface):
         if self.mode_game["AI"] or self.mode_game["Training AI"]:self.type_mode()
         self.screen.fill(self.background)
         for player in self.players:
-            if player.active:self.draw(player),self.events(player)
+            if player.active:
+                
+                self.draw(player),self.events(player)
         self.calls_elements()
     def run_with_models(self):
         self.running = True
