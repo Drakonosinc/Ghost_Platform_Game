@@ -209,4 +209,4 @@ class ghost_platform(interface):
         while self.running and self.game_over == False:
             if self.main == -1:self.main_run()
             self.item_repeat_run()
-        return 
+        return self.get_reward([])
