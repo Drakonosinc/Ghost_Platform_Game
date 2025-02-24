@@ -191,8 +191,7 @@ class ghost_platform(interface):
                 reward.append(player.reward)
                 player.reward = 0
                 player.reset(350, self.HEIGHT - 35)
-        print(len(reward))
-        if len(reward)<1:reward=self.process_in_players([],True)
+        if not player.active:reward=self.process_in_players([],True)
         return reward
     def item_repeat_run(self):
         self.handle_keys()
@@ -208,7 +207,7 @@ class ghost_platform(interface):
         if self.mode_game["AI"] or self.mode_game["Training AI"]:self.type_mode()
         self.screen.fill(self.background)
         self.calls_elements()
-        return self.process_in_players([])
+        return self.process_in_players()
     def run_with_models(self):
         self.running = True
         while self.running and self.game_over == False:
