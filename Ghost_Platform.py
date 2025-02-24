@@ -182,12 +182,6 @@ class ghost_platform(interface):
         if chosen_action == 0:player.rect.x -= 5
         elif chosen_action == 1:player.rect.x += 5
         elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
-    def get_reward(self,reward:list)->list:
-        for player in self.players:
-            reward.append(player.reward)
-            player.reward = 0
-            player.reset(350, self.HEIGHT - 35)
-        return reward
     def item_repeat_run(self):
         self.handle_keys()
         self.time_delta = self.clock.tick(self.FPS)/1000.0
@@ -206,13 +200,14 @@ class ghost_platform(interface):
             if player.active:
                 if self.active_floor:player.floor_fall=True
                 self.draw(player),self.events(player)
-            if not player.active:reward.append(player.reward)
+            else:break
+                # reward.append(player.reward)
+                # player.reward = 0
+                # player.reset(350, self.HEIGHT - 35)
         return reward
     def run_with_models(self):
         self.running = True
         while self.running and self.game_over == False:
             if self.main == -1:reward=self.main_run([])
             self.item_repeat_run()
-        print(reward)
-        print("-------------------------------------------------")
-        return self.get_reward([])
+        return reward
