@@ -203,7 +203,7 @@ class ghost_platform(interface):
         self.screen.fill(self.background)
         for player in self.players:
             if player.active:
-                
+                player.floor_fall=True
                 self.draw(player),self.events(player)
         self.calls_elements()
     def run_with_models(self):
