@@ -187,11 +187,12 @@ class ghost_platform(interface):
             if player.active:
                 if self.active_floor:player.floor_fall=True
                 self.draw(player),self.events(player)
-            else:break
             if recursive:
                 reward.append(player.reward)
                 player.reward = 0
                 player.reset(350, self.HEIGHT - 35)
+        print(len(reward))
+        if len(reward)<1:reward=self.process_in_players([],True)
         return reward
     def item_repeat_run(self):
         self.handle_keys()
