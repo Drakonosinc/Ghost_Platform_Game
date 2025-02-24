@@ -154,7 +154,6 @@ class ghost_platform(interface):
         self.running=running
         self.FPS=60
         self.objects()
-        for player in self.players:player.reset(350, self.HEIGHT - 35)
         self.nuances()
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
@@ -207,8 +206,7 @@ class ghost_platform(interface):
         self.calls_elements()
     def run_with_models(self):
         self.running = True
-        for player in self.players:player.reward = 0
         while self.running and self.game_over == False:
             if self.main == -1:self.main_run()
             self.item_repeat_run()
-        return [player.reward for player in self.players]
+        return 
