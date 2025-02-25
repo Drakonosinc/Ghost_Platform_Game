@@ -79,10 +79,10 @@ class ghost_platform(interface):
     def events(self,player):
         if player.rect.x < 0:player.rect.x=0
         if player.rect.x > self.WIDTH-player.rect.width:player.rect.x=self.WIDTH-player.rect.width
-        if not player.isjumper:player.fall(self.gravity)
+        if not player.isjumper:self.physics.apply_gravity(player)
         if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:self.repeat_in_events_collision(player,self.HEIGHT-35,jumper=True)
         elif not player.check_collision(self.object2):
-            player.fall(self.gravity)
+            self.physics.apply_gravity(player)
             if player.rect.y<=-20:self.repeat_in_events_collision(player,-15,self.gravity,True)
             if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player,sound_play=self.check_sound(self.sound_game_lose,"game_over"))
     def repeat_in_events_collision(self,player,number=0,number2=0,gravity=False,jumper=False,floor=False,reward=0,score=False):

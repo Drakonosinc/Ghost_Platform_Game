@@ -13,7 +13,7 @@ class Player:
     def jump(self, jumper_value,sound):
         if self.isjumper:
             self.dy = jumper_value
-            if sound!=None:sound.play()
+            
             self.isjumper = False
     def reset(self, x, y):
         self.rect.x, self.rect.y = x, y
