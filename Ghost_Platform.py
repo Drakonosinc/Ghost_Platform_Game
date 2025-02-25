@@ -83,7 +83,7 @@ class ghost_platform(interface):
         if player.rect.y>=self.HEIGHT-35 and not player.floor_fall:self.repeat_in_events_collision(player,self.HEIGHT-35,jumper=True)
         elif not player.check_collision(self.object2):
             self.physics.apply_gravity(player)
-            if player.rect.y<=-20:self.repeat_in_events_collision(player,-15,self.gravity,True)
+            if player.rect.y<=-20:self.repeat_in_events_collision(player,-15,self.physics.gravity,True)
             if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player,sound_play=self.check_sound(self.sound_game_lose,"game_over"))
     def repeat_in_events_collision(self,player,number=0,number2=0,gravity=False,jumper=False,floor=False,reward=0,score=False):
         player.rect.y=number
@@ -181,7 +181,7 @@ class ghost_platform(interface):
         chosen_action = np.argmax(probabilities)
         if chosen_action == 0:player.rect.x -= 5
         elif chosen_action == 1:player.rect.x += 5
-        elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
+        elif chosen_action == 2 and player.isjumper:player.jump(self.physics.jump_force,self.sound_jump)
     def get_reward(self,reward:list)->list:
         for player in self.players:
             reward.append(player.reward)
