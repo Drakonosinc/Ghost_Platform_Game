@@ -6,3 +6,6 @@ class PhysicsHandler:
     def apply_gravity(self, player):
         player.dy += self.gravity
         player.rect.y += player.dy
+
+    def handle_jump(self, player):
+        player.dy = self.jump_force
