@@ -2,7 +2,7 @@ from pygame import *
 class Player:
     def __init__(self, x, y, width, height):
         self.rect = Rect(x, y, width, height)
-        self.down_gravity:float = 0
+        self.dy:float = 0
         self.isjumper:bool = False
         self.life:int = 100
         self.state_life:list=[2,False]
@@ -12,15 +12,15 @@ class Player:
         self.active:bool = True
     def jump(self, jumper_value,sound):
         if self.isjumper:
-            self.down_gravity = jumper_value
+            self.dy = jumper_value
             if sound!=None:sound.play()
             self.isjumper = False
     def fall(self, gravity):
-        self.down_gravity += gravity
-        self.rect.y += self.down_gravity
+        self.dy += gravity
+        self.rect.y += self.dy
     def reset(self, x, y):
         self.rect.x, self.rect.y = x, y
-        self.down_gravity = 0
+        self.dy = 0
         self.isjumper = False
         self.life,self.scores = 100,0
         self.state_life=[2,False]
