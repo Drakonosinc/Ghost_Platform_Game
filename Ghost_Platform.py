@@ -2,10 +2,12 @@ import random,torch
 import numpy as np
 from Interface import *
 from Player import *
+from PhysicsHandler import *
 class ghost_platform(interface):
     def __init__(self):
         super().__init__(width=700, height=600)
         self.load_AI()
+        self.physics = PhysicsHandler()
         self.running:bool=True
         self.game_over:bool=False
         self.exit:bool=False
@@ -13,8 +15,6 @@ class ghost_platform(interface):
         self.FPS:int=60
         self.objects()
         self.nuances()
-        self.gravity:float=0.25
-        self.jumper:int=-12
         self.mode_game:dict[str, bool]={"Training AI":False,"Player":False,"AI":False}
         self.generation:int=0
         self.active_floor:bool=False
@@ -87,7 +87,7 @@ class ghost_platform(interface):
             if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player,sound_play=self.check_sound(self.sound_game_lose,"game_over"))
     def repeat_in_events_collision(self,player,number=0,number2=0,gravity=False,jumper=False,floor=False,reward=0,score=False):
         player.rect.y=number
-        if gravity:player.down_gravity=number2
+        if gravity:player.dy=number2
         if jumper:player.isjumper=True
         if floor:player.floor_fall=True
         if self.mode_game["Training AI"]:player.reward += reward

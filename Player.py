@@ -15,9 +15,6 @@ class Player:
             self.dy = jumper_value
             if sound!=None:sound.play()
             self.isjumper = False
-    def fall(self, gravity):
-        self.dy += gravity
-        self.rect.y += self.dy
     def reset(self, x, y):
         self.rect.x, self.rect.y = x, y
         self.dy = 0
