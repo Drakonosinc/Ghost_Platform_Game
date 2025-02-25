@@ -118,7 +118,7 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if (self.mode_game["Player"] and self.main==-1) and (event.key==self.config_keys["up1"] or event.key==self.config_keys["up2"]):self.players[0].jump(self.jumper,self.check_sound(self.sound_jump,"sound_jump"))
+            if (self.mode_game["Player"] and self.main==-1) and (event.key==self.config_keys["up1"] or event.key==self.config_keys["up2"]):self.physics.handle_jump(self.players[0],self.check_sound(self.sound_jump,"sound_jump"))
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):
         if self.mode_game["Player"] and self.main==-1:
@@ -181,7 +181,7 @@ class ghost_platform(interface):
         chosen_action = np.argmax(probabilities)
         if chosen_action == 0:player.rect.x -= 5
         elif chosen_action == 1:player.rect.x += 5
-        elif chosen_action == 2 and player.isjumper:player.jump(self.jumper,self.sound_jump)
+        elif chosen_action == 2:self.physics.handle_jump(player,self.check_sound(self.sound_jump,"sound_jump"))
     def get_reward(self,reward:list)->list:
         for player in self.players:
             reward.append(player.reward)
