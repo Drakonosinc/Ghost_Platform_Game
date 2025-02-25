@@ -7,8 +7,6 @@ class PhysicsHandler:
         player.dy += self.gravity
         player.rect.y += player.dy
 
-    def handle_jump(self, player,is_jumper,sound=None):
-        if is_jumper:
-            player.dy = self.jump_force
-            if sound!=None:sound.play()
-            is_jumper = False
+    def handle_jump(self, player,sound=None):
+        player.dy = self.jump_force
+        if sound!=None:sound.play()
