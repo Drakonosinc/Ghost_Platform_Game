@@ -1,6 +1,6 @@
 import sys
 from Ghost_Platform import *
-from Genetic_Algorithm import *
+from ai.Genetic_Algorithm import *
 if __name__=="__main__":
     while True:
         (game:=ghost_platform()).run()
