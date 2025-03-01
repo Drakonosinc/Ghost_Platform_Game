@@ -2,7 +2,7 @@ import random,torch
 import numpy as np
 from Interface import *
 from Entities.Player import *
-from Physics_Handler import *
+from Physics.Physics_Handler import *
 class ghost_platform(interface):
     def __init__(self):
         super().__init__(width=700, height=600)
