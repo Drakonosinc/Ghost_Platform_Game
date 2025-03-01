@@ -1,7 +1,7 @@
 import random,torch
 import numpy as np
 from Interface import *
-from Player import *
+from Entities.Player import *
 from Physics_Handler import *
 class ghost_platform(interface):
     def __init__(self):
