@@ -28,11 +28,11 @@ class load_elements():
         self.life_color=self.GREEN
     def load_images(self):
         self.image_path=os.path.join(self.config.base_dir, "images")
-        self.space=pygame.image.load(os.path.join(self.image_path,self.config_visuals["background"][self.config_visuals["background_value"]]))
+        self.space=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["background"][self.config.config_visuals["background_value"]]))
         self.space=pygame.transform.scale(self.space,(700,400))
-        self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config_visuals["player"][self.config_visuals["player_value"]])).convert_alpha()
+        self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["player"][self.config.config_visuals["player_value"]])).convert_alpha()
         self.player_ghost=pygame.transform.scale(self.player_ghost,(35,35))
-        self.floor=pygame.image.load(os.path.join(self.image_path,self.config_visuals["floor"][self.config_visuals["floor_value"]])).convert_alpha()
+        self.floor=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["floor"][self.config.config_visuals["floor_value"]])).convert_alpha()
         self.floor=pygame.transform.scale(self.floor,(100,40))
         self.meteorite=pygame.image.load(os.path.join(self.image_path,self.config_visuals["meteorite"][self.config_visuals["meteorite_value"]])).convert_alpha()
         self.meteorite=pygame.transform.scale(self.meteorite,(50,85))
