@@ -118,12 +118,12 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if (self.mode_game["Player"] and self.main==-1) and (event.key==self.config_keys["up1"] or event.key==self.config_keys["up2"]):self.players[0].jump(self.physics.jump_force,self.check_sound(self.sound_jump,"sound_jump"))
+            if (self.mode_game["Player"] and self.main==-1) and (event.key==self.config.config_keys["up1"] or event.key==self.config.config_keys["up2"]):self.players[0].jump(self.physics.jump_force,self.check_sound(self.sound_jump,"sound_jump"))
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):
         if self.mode_game["Player"] and self.main==-1:
-            if self.pressed_keys[self.config_keys["right"]]:self.players[0].rect.x+=5
-            if self.pressed_keys[self.config_keys["left"]]:self.players[0].rect.x-=5
+            if self.pressed_keys[self.config.config_keys["right"]]:self.players[0].rect.x+=5
+            if self.pressed_keys[self.config.config_keys["left"]]:self.players[0].rect.x-=5
     def new_events(self,event):
         if self.main==-1 and event.type==self.speed_game:
             self.FPS+=0.5
@@ -145,7 +145,7 @@ class ghost_platform(interface):
         if self.main==-1:self.screen.blit(self.font6.render("Life",True,self.life_color),(0,9))
     def shield_draw(self,player):
         if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(player.rect.x-11,player.rect.y-15,50,50),3)
-    def check_sound(self,sound,type_sound):return sound if self.config_sounds[type_sound] else None
+    def check_sound(self,sound,type_sound):return sound if self.config.config_sounds[type_sound] else None
     def restart(self):
         if all(not player.active for player in self.players) and self.mode_game["Training AI"]:self.reset(False)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
