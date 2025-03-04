@@ -7,7 +7,6 @@ class load_elements():
         pygame.init()
         pygame.display.set_caption(title)
         self.screen = pygame.display.set_mode((width, height))
-        self.base_dir = os.path.dirname(os.path.dirname(__file__))
         self.config=Config()
         self.config.load_config()
         self.define_colors()
@@ -28,7 +27,7 @@ class load_elements():
         self.background=self.GRAY
         self.life_color=self.GREEN
     def load_images(self):
-        self.image_path=os.path.join(self.base_dir, "images")
+        self.image_path=os.path.join(self.config.base_dir, "images")
         self.space=pygame.image.load(os.path.join(self.image_path,self.config_visuals["background"][self.config_visuals["background_value"]]))
         self.space=pygame.transform.scale(self.space,(700,400))
         self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config_visuals["player"][self.config_visuals["player_value"]])).convert_alpha()
@@ -42,7 +41,7 @@ class load_elements():
         self.shield=pygame.image.load(os.path.join(self.image_path,self.config_visuals["shield"][self.config_visuals["shield_value"]])).convert_alpha()
         self.shield=pygame.transform.scale(self.shield,(50,50))
     def load_fonts(self):
-        self.font_path=os.path.join(self.base_dir, "fonts")
+        self.font_path=os.path.join(self.config.base_dir, "fonts")
         self.font=pygame.font.Font(None,25)
         self.font1=pygame.font.SysFont("times new roman", 80)
         self.font2=pygame.font.Font(None,35)
@@ -54,7 +53,7 @@ class load_elements():
         self.font6=pygame.font.Font(os.path.join(self.font_path,"ka1.ttf"),16)
     def load_sounds(self):
         pygame.mixer.init()
-        self.sound_path=os.path.join(self.base_dir, "sounds")
+        self.sound_path=os.path.join(self.config.base_dir, "sounds")
         self.sound_jump=pygame.mixer.Sound(os.path.join(self.sound_path,"jump.aiff"))
         self.sound_meteorite=pygame.mixer.Sound(os.path.join(self.sound_path,"meteor.mp3"))
         self.sound_health=pygame.mixer.Sound(os.path.join(self.sound_path,"health.flac"))
@@ -66,7 +65,7 @@ class load_elements():
         self.sound_touchletters=pygame.mixer.Sound(os.path.join(self.sound_path,"touchletters.wav"))
         self.sound_buttonletters=pygame.mixer.Sound(os.path.join(self.sound_path,"buttonletters.mp3"))
     def load_AI(self):
-        self.model_path=os.path.join(self.base_dir, "AI/best_model.pth")
+        self.model_path=os.path.join(self.config.base_dir, "AI/best_model.pth")
         self.model_training = load_model(self.model_path, 26, 3) if os.path.exists(self.model_path) else None
     def additional_events(self):
         self.speed_game=pygame.USEREVENT + 1
