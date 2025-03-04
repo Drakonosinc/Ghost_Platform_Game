@@ -207,12 +207,12 @@ class interface(load_elements):
         if dic!=None and length!=None:dic[variable]=((dic[variable] + number) % len(dic[length]))
         elif dic!=None:dic[variable]+=number
         else:setattr(self,variable,getattr(self,variable)+number)
-        self.change_mains(main=main,fade=fade,command=self.save_config,command2=command,recursive=recu)
+        self.change_mains(main=main,fade=fade,command=self.config.save_config,command2=command,recursive=recu)
         if population:self.population()
     def on_off_sound(self,sound,type_sound,play=True,game=False,command=False):
-        sound.play(loops=-1) if play and self.config_sounds[type_sound] else sound.stop()
+        sound.play(loops=-1) if play and self.config.config_sounds[type_sound] else sound.stop()
         if game:self.on_off_sound(self.sound_game,"sound_game")
-        if command:self.save_config()
+        if command:self.config.save_config()
     def more_options(self,command=False,command2=False,command3=False):
         if command:command()
         if command2:command2()
