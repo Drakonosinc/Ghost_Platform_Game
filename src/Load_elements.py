@@ -1,13 +1,14 @@
 import pygame,os,json
 from pygame.locals import *
 from AI.Genetic_Algorithm import *
+from Config_Loader import *
 class load_elements():
     def __init__(self,title,width=0, height=0):
         pygame.init()
         pygame.display.set_caption(title)
         self.screen = pygame.display.set_mode((width, height))
         self.base_dir = os.path.dirname(os.path.dirname(__file__))
-        self.load_config()
+        self.config.load_config()
         self.define_colors()
         self.load_images()
         self.load_fonts()
