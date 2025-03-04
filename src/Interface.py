@@ -5,7 +5,7 @@ class interface(load_elements):
         super().__init__("Ghost Platform",width,height)
         self.WIDTH:int = width
         self.HEIGHT:int = height
-        self.manager = pygame_gui.UIManager((self.WIDTH,self.HEIGHT),theme_path=os.path.join(self.config_path,"theme_buttons.json"))
+        self.manager = pygame_gui.UIManager((self.WIDTH,self.HEIGHT),theme_path=os.path.join(self.config.config_path,"theme_buttons.json"))
         self.main:int=0 #-1=game, 0=menu, 1=game over, 2=game menu, 3=pausa, 4=options, 5=visuals, 6=menu keys, 7=sound menu, 8=menu AI
         self.active_buttons:list = []
         self.play_music()
@@ -22,7 +22,7 @@ class interface(load_elements):
         self.keys_menu()
         self.sounds_menu()
         self.menu_AI()
-    def play_music(self):self.sound_menu.play(loops=-1) if self.config_sounds["sound_menu"] else self.sound_menu.stop()
+    def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
@@ -132,16 +132,16 @@ class interface(load_elements):
             self.screen.fill(self.BLACK)
             self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
             self.screen.blit(self.floor,(150,100))
-            increase_floor=pygame_gui.elements.UIButton(relative_rect=Rect(290, 100, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",1,dic=self.config_visuals,length="floor",command=self.load_images,recu=True))
-            decrease_floor=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",-1,dic=self.config_visuals,length="floor",command=self.load_images,recu=True))
+            increase_floor=pygame_gui.elements.UIButton(relative_rect=Rect(290, 100, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",1,dic=self.config.config_visuals,length="floor",command=self.load_images,recu=True))
+            decrease_floor=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",-1,dic=self.config.config_visuals,length="floor",command=self.load_images,recu=True))
             self.screen.blit(self.meteorite,(150,150))
-            increase_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(290, 200, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",1,dic=self.config_visuals,length="meteorite",command=self.load_images,recu=True))
-            decrease_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",-1,dic=self.config_visuals,length="meteorite",command=self.load_images,recu=True))
+            increase_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(290, 200, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",1,dic=self.config.config_visuals,length="meteorite",command=self.load_images,recu=True))
+            decrease_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",-1,dic=self.config.config_visuals,length="meteorite",command=self.load_images,recu=True))
             self.screen.blit(self.potion,(150,300))
-            increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",1,dic=self.config_visuals,length="potion",command=self.load_images,recu=True))
-            decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",-1,dic=self.config_visuals,length="potion",command=self.load_images,recu=True))
+            increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",1,dic=self.config.config_visuals,length="potion",command=self.load_images,recu=True))
+            decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",-1,dic=self.config.config_visuals,length="potion",command=self.load_images,recu=True))
             self.screen.blit(self.shield,(150,400))
-            increase_shield=pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",1,dic=self.config_visuals,length="shield",command=self.load_images,recu=True))
+            increase_shield=pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",1,dic=self.config.config_visuals,length="shield",command=self.load_images,recu=True))
             decrease_shield=pygame_gui.elements.UIButton(relative_rect=Rect(10, 400, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",-1,dic=self.config_visuals,length="shield",command=self.load_images,recu=True))
             self.screen.blit(self.player_ghost,(150,500))
             increase_player=pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",1,dic=self.config_visuals,length="player",command=self.load_images,recu=True))
