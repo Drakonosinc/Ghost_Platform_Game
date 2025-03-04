@@ -20,7 +20,7 @@ class ghost_platform(interface):
         self.active_floor:bool=False
         self.population()
     def population(self):
-        self.players = [Player(350, self.HEIGHT - 35, 25, 25) for _ in range(self.config_AI["population_value"] if self.mode_game["Training AI"] else 1)]
+        self.players = [Player(350, self.HEIGHT - 35, 25, 25) for _ in range(self.config.config_AI["population_value"] if self.mode_game["Training AI"] else 1)]
         self.models = []
     def objects(self):
         self.object2=Rect(0,0,0,0)
