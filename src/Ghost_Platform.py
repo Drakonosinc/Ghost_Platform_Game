@@ -150,7 +150,7 @@ class ghost_platform(interface):
     def restart(self):
         if all(not player.active for player in self.players) and self.mode_game["Training AI"]:self.reset(False)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
-    def reset(self,running=True):
+    def reset(self,running=True,type_reset=0):
         self.running=running
         self.FPS=60
         self.objects()
@@ -158,12 +158,7 @@ class ghost_platform(interface):
         self.active_floor=False
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
-    def get_state(self,player=Player(350, 600 - 35, 25, 25)):
-        distances_y = [abs(player.rect.y - self.object2.y),abs(player.rect.y - self.platarforms_nexts[0].y),
-                    abs(player.rect.y - self.platarforms_nexts[1].y),abs(player.rect.y - self.platarforms_nexts[2].y),
-                    abs(player.rect.y - self.platarforms_nexts[3].y),abs(player.rect.y - self.object3.y),
-                    abs(player.rect.y - self.object4.y),abs(player.rect.y - self.object5.y)]
-        return np.array([player.rect.x, player.rect.y, self.object2.x, self.object2.y,self.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.platarforms_nexts[2].x,self.platarforms_nexts[2].y,self.platarforms_nexts[3].x,self.platarforms_nexts[3].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
+        if type_reset==0:self.players[0].reset(40, 40)
     def type_mode(self):self.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
     def actions_AI(self,models):
         def actions(player,model):
