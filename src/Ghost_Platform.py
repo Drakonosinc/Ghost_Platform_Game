@@ -148,7 +148,7 @@ class ghost_platform(interface):
         if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(player.rect.x-11,player.rect.y-15,50,50),3)
     def check_sound(self,sound,type_sound):return sound if self.config.config_sounds[type_sound] else None
     def restart(self):
-        if all(not player.active for player in self.players) and self.mode_game["Training AI"]:self.reset(False)
+        if all(not player.active for player in self.players) and self.mode_game["Training AI"]:self.reset(False,1)
         if self.mode_game["Player"] or self.mode_game["AI"]:self.change_mains(1,self.RED,150,self.reset)
     def reset(self,running=True,type_reset=0):
         self.running=running
@@ -160,6 +160,7 @@ class ghost_platform(interface):
         pygame.time.set_timer(self.speed_game, 5000)
         if type_reset==0:self.players[0].reset(350, self.HEIGHT - 35)
     def type_mode(self):self.ai_handler.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
+    def get_reward(self, reward: list) -> list:return self.ai_handler.get_reward(reward)
     def item_repeat_run(self):
         self.handle_keys()
         self.time_delta = self.clock.tick(self.FPS)/1000.0
