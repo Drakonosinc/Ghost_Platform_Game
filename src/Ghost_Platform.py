@@ -160,15 +160,6 @@ class ghost_platform(interface):
         pygame.time.set_timer(self.speed_game, 5000)
         if type_reset==0:self.players[0].reset(40, 40)
     def type_mode(self):self.ai_handler.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
-    def softmax(self, x):
-        exp_x = np.exp(x - np.max(x))
-        return exp_x / exp_x.sum()
-    def AI_actions(self,player,action):
-        probabilities = self.softmax(action)
-        chosen_action = np.argmax(probabilities)
-        if chosen_action == 0:player.rect.x -= 5
-        elif chosen_action == 1:player.rect.x += 5
-        elif chosen_action == 2 and player.isjumper:player.jump(self.physics.jump_force,self.sound_jump)
     def get_reward(self,reward:list)->list:
         for player in self.players:
             reward.append(player.reward)
