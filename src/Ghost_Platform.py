@@ -159,16 +159,7 @@ class ghost_platform(interface):
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
         if type_reset==0:self.players[0].reset(40, 40)
-    def type_mode(self):self.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
-    def actions_AI(self,models):
-        def actions(player,model):
-            state=self.get_state(player)
-            action = model(torch.tensor(state, dtype=torch.float32)).detach().numpy()
-            self.AI_actions(player,action)
-        try:
-            for player, model in zip(self.players, models):
-                if player.active:actions(player,model)
-        except:actions(self.players[0],models)
+    def type_mode(self):self.ai_handler.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
     def softmax(self, x):
         exp_x = np.exp(x - np.max(x))
         return exp_x / exp_x.sum()
