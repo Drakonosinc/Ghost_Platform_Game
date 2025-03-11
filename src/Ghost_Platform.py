@@ -9,6 +9,7 @@ class ghost_platform(interface):
         super().__init__(width=700, height=600)
         self.load_AI()
         self.physics = PhysicsHandler()
+        self.ai_handler = AIHandler(self)
         self.running:bool=True
         self.game_over:bool=False
         self.exit:bool=False
