@@ -9,7 +9,11 @@ class AIHandler:
                     abs(player.rect.y - self.game.platarforms_nexts[1].y),abs(player.rect.y - self.game.platarforms_nexts[2].y),
                     abs(player.rect.y - self.game.platarforms_nexts[3].y),abs(player.rect.y - self.game.object3.y),
                     abs(player.rect.y - self.game.object4.y),abs(player.rect.y - self.game.object5.y)]
-        return np.array([player.rect.x, player.rect.y, self.game.object2.x, self.game.object2.y,self.game.platarforms_nexts[0].x,self.platarforms_nexts[0].y,self.platarforms_nexts[1].x,self.platarforms_nexts[1].y,self.platarforms_nexts[2].x,self.platarforms_nexts[2].y,self.platarforms_nexts[3].x,self.platarforms_nexts[3].y,self.object3.x,self.object3.y,self.object4.x,self.object4.y,self.object5.x,self.object5.y,*distances_y])
+        return np.array([player.rect.x, player.rect.y, self.game.object2.x, self.game.object2.y,self.game.platarforms_nexts[0].x,
+                        self.game.platarforms_nexts[0].y,self.game.platarforms_nexts[1].x,self.game.platarforms_nexts[1].y,
+                        self.game.platarforms_nexts[2].x,self.game.platarforms_nexts[2].y,self.game.platarforms_nexts[3].x,
+                        self.game.platarforms_nexts[3].y,self.game.object3.x,self.game.object3.y,self.game.object4.x,
+                        self.game.object4.y,self.game.object5.x,self.game.object5.y,*distances_y])
     def softmax(self, x):
         exp_x = np.exp(x - np.max(x))
         return exp_x / exp_x.sum()
