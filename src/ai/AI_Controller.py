@@ -1,9 +1,7 @@
 import torch
 import numpy as np
 class AIHandler:
-    def __init__(self, game):
-        self.game = game
-        self.models = []
+    def __init__(self, game):self.game = game
     def get_state(self, player):
         distances_y = [abs(player.rect.y - self.game.object2.y),abs(player.rect.y - self.game.platarforms_nexts[0].y),
                     abs(player.rect.y - self.game.platarforms_nexts[1].y),abs(player.rect.y - self.game.platarforms_nexts[2].y),
