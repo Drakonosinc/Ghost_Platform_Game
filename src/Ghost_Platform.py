@@ -95,13 +95,6 @@ class ghost_platform(interface):
         if floor:player.floor_fall=True
         if self.mode_game["Training AI"]:player.reward += reward
         if score:player.scores+=1
-    def sounddeath(self,sound=True,player=None,sound_play=None):
-        if sound:
-            if self.mode_game["Training AI"]:player.reward -= 30
-            player.active=False
-            if sound_play!=None:sound_play.play(loops=0)
-            self.restart()
-            sound=False
     def handle_keys(self):
         for event in pygame.event.get():
             self.manager.process_events(event)
