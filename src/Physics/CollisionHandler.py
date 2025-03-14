@@ -15,9 +15,11 @@ class CollisionHandler:
                 current_object = object
                 next_object1 = sorted_objects[i + 1] if i + 1 < len(sorted_objects) else None
                 next_object2 = sorted_objects[i + 2] if i + 2 < len(sorted_objects) else None
-                return current_object, next_object1, next_object2
+                next_elements3 = sorted_objects[i + 3] if i + 3 < len(sorted_objects) else None
+                next_elements4 = sorted_objects[i + 4] if i + 4 < len(sorted_objects) else None
+                return current_object, next_object1, next_object2, next_elements3, next_elements4
         return None, None, None
-    def update_objects(self, objects, current_object, next_object1, next_object2):
+    def update_objects(self, objects, current_object, next_object1, next_object2, next_elements3, next_elements4):
         if current_object:setattr(self.game, objects, current_object.rect)
         if next_object1:setattr(self.game, "object4", next_object1.rect)
         if next_object2:setattr(self.game, "object5", next_object2.rect)
