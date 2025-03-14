@@ -10,6 +10,7 @@ class ghost_platform(interface):
         self.load_AI()
         self.physics = PhysicsHandler()
         self.ai_handler = AIHandler(self)
+        self.collision_handler = CollisionHandler(self)
         self.running:bool=True
         self.game_over:bool=False
         self.exit:bool=False
