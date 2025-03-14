@@ -44,6 +44,10 @@ class ghost_platform(interface):
                     self.collision(player,rect,type_object,coords)
                     self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
         self.next_position_platforms(player,matrix,object_name,width,height)
+    def handle_tube_collision(self, player, tube, objects):
+        current_object, next_object1, next_object2 = self.collision_handler.get_next_object(player, self.tubes)
+        self.collision_handler.update_objects(objects, current_object, next_object1, next_object2)
+        if self.collision_handler.check_collision(player, tube):self.collision_handler.handle_collision(player)
     def next_position_platforms(self,player,matrix,object_name,width,height,current_elements=None,next_elements1=None,next_elements2=None,next_elements3=None,next_elements4=None):
         sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
         for i, elements in enumerate(sorted_elements):
