@@ -47,12 +47,6 @@ class ghost_platform(interface):
     def handle_obj_collision(self, player, objects):
         current_object, next_object1, next_object2, next_object3, next_object4 = self.collision_handler.get_next_object(player, self.matrix)
         self.collision_handler.update_objects(objects, current_object, next_object1, next_object2, next_object3, next_object4)
-    def next_position_platforms(self,player,matrix,object_name,width,height,current_elements=None,next_elements1=None,next_elements2=None,next_elements3=None,next_elements4=None):
-        if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
-        if next_elements1:self.platarforms_nexts[0]=Rect(next_elements1)
-        if next_elements2:self.platarforms_nexts[1]=Rect(next_elements2)
-        if next_elements3:self.platarforms_nexts[2]=Rect(next_elements3)
-        if next_elements4:self.platarforms_nexts[3]=Rect(next_elements4)
     def collision(self,player,objects,type_object,coords):
         if player.check_collision(objects):
             match type_object:
