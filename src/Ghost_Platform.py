@@ -49,7 +49,6 @@ class ghost_platform(interface):
         self.collision_handler.update_objects(objects, current_object, next_object1, next_object2)
         if self.collision_handler.check_collision(player, obj):self.collision_handler.handle_collision(player)
     def next_position_platforms(self,player,matrix,object_name,width,height,current_elements=None,next_elements1=None,next_elements2=None,next_elements3=None,next_elements4=None):
-        sorted_elements = sorted(matrix, key=lambda t: t[1],reverse=True)
         for i, elements in enumerate(sorted_elements):
             if elements[1] < player.rect.y:
                 current_elements = elements
