@@ -1,4 +1,4 @@
-import random,torch
+import random
 import numpy as np
 from Interface import *
 from Entities import *
@@ -43,10 +43,10 @@ class ghost_platform(interface):
                     if coords[1]>=self.HEIGHT:self.reset_coords(coords)
                     self.collision(player,rect,type_object,coords)
                     self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
-        self.handle_obj_collision(player, object_name, width, height)
-    def handle_obj_collision(self, player, objects, width, height):
-        current_object, next_object1, next_object2, next_object3, next_object4 = self.collision_handler.get_next_object(player, self.matrix)
-        self.collision_handler.update_objects(objects, width, height, current_object, next_object1, next_object2, next_object3, next_object4)
+            self.handle_obj_collision(player, object_name, width, height,matrix)
+    def handle_obj_collision(self, player, objects, width, height,matrix):
+        current_object, next_object1, next_object2, next_object3, next_object4 = self.collision_handler.get_next_object(player, matrix)
+        self.collision_handler.update_objects(width, height, objects, current_object, next_object1, next_object2, next_object3, next_object4)
     def collision(self,player,objects,type_object,coords):
         if player.check_collision(objects):
             match type_object:

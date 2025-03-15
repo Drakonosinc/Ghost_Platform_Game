@@ -1,3 +1,4 @@
+from pygame import Rect
 class CollisionHandler:
     def __init__(self, game):
         self.game = game
@@ -10,8 +11,7 @@ class CollisionHandler:
     def get_next_object(self, player, objects):
         sorted_objects = sorted(objects, key=lambda t: t[1],reverse=True)
         for i, elements in enumerate(sorted_objects):
-            print(elements)
-            if elements[0][1] < player.rect.y:
+            if elements[1] < player.rect.y:
                 current_object = elements
                 next_object1 = sorted_objects[i + 1] if i + 1 < len(sorted_objects) else None
                 next_object2 = sorted_objects[i + 2] if i + 2 < len(sorted_objects) else None
@@ -20,8 +20,8 @@ class CollisionHandler:
                 return current_object, next_object1, next_object2, next_object3, next_object4
         return None, None, None, None, None
     def update_objects(self, width, height, objects, current_object, next_object1, next_object2, next_object3, next_object4):
-        if current_object:setattr(self.game, objects, current_object[0], current_object[1], width, height)
-        if next_object1:self.game.platarforms_nexts[0]=self.game.Rect(next_object1[0],next_object1[1], width, height)
-        if next_object2:self.game.platarforms_nexts[1]=self.game.Rect(next_object2[0],next_object2[1], width, height)
-        if next_object3:self.game.platarforms_nexts[2]=self.game.Rect(next_object3[0],next_object3[1], width, height)
-        if next_object4:self.game.platarforms_nexts[3]=self.game.Rect(next_object4[0],next_object4[1], width, height)
+        if current_object:setattr(self.game, objects, (current_object[0], current_object[1], width, height))
+        if next_object1:self.game.platarforms_nexts[0]=Rect(next_object1[0],next_object1[1], width, height)
+        if next_object2:self.game.platarforms_nexts[1]=Rect(next_object2[0],next_object2[1], width, height)
+        if next_object3:self.game.platarforms_nexts[2]=Rect(next_object3[0],next_object3[1], width, height)
+        if next_object4:self.game.platarforms_nexts[3]=Rect(next_object4[0],next_object4[1], width, height)
