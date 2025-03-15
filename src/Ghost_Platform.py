@@ -82,7 +82,7 @@ class ghost_platform(interface):
         elif not player.check_collision(self.object2):
             self.physics.apply_gravity(player)
             if player.rect.y<=-20:self.repeat_in_events_collision(player,-15,self.physics.gravity,True)
-            if player.rect.y>=self.HEIGHT+50:self.sounddeath(player=player,sound_play=self.check_sound(self.sound_game_lose,"game_over"))
+            if player.rect.y>=self.HEIGHT+50:self.collision_handler.handle_collision(player)
     def repeat_in_events_collision(self,player,number=0,number2=0,gravity=False,jumper=False,floor=False,reward=0,score=False):
         player.rect.y=number
         if gravity:player.dy=number2
