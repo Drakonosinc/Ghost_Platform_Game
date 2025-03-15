@@ -132,7 +132,7 @@ class ghost_platform(interface):
         player.life += 1 if player.state_life[0] == 1 else -1 if player.state_life[0] == 0 else 0
         states = {100: (2, self.GREEN),75: (2, self.SKYBLUE),50: (2, self.YELLOW),25: (2, self.RED),-1: (2, self.BLACK)}
         if player.life in states:player.state_life[0], self.life_color = states[player.life]
-        if player.life < 0:self.sounddeath(player=player,sound_play=self.check_sound(self.sound_game_lose,"game_over"))
+        if player.life < 0:self.collision_handler.handle_collision(player)
         if self.main==-1:self.screen.blit(self.font6.render("Life",True,self.life_color),(0,9))
     def shield_draw(self,player):
         if player.state_life[1]:pygame.draw.ellipse(self.screen,self.life_color,(player.rect.x-11,player.rect.y-15,50,50),3)
