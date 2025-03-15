@@ -43,11 +43,11 @@ class ghost_platform(interface):
                     if coords[1]>=self.HEIGHT:self.reset_coords(coords)
                     self.collision(player,rect,type_object,coords)
                     self.screen.blit(image,(coords[0]-restx,coords[1]-resty))
+                    self.handle_tube_collision(player, rect)
         self.next_position_platforms(player,matrix,object_name,width,height)
-    def handle_obj_collision(self, player, obj, objects):
+    def handle_obj_collision(self, player, objects):
         current_object, next_object1, next_object2, next_object3, next_object4 = self.collision_handler.get_next_object(player, self.matrix)
         self.collision_handler.update_objects(objects, current_object, next_object1, next_object2, next_object3, next_object4)
-        if self.collision_handler.check_collision(player, obj):self.collision_handler.handle_collision(player)
     def next_position_platforms(self,player,matrix,object_name,width,height,current_elements=None,next_elements1=None,next_elements2=None,next_elements3=None,next_elements4=None):
         if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
         if next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
