@@ -10,9 +10,9 @@ class CollisionHandler:
         self.game.restart()
     def get_next_object(self, player, objects):
         sorted_objects = sorted(objects, key=lambda t: t[1],reverse=True)
-        for i, object in enumerate(sorted_objects):
-            if object[1] < player.rect.y:
-                current_object = object
+        for i, elements in enumerate(sorted_objects):
+            if elements[1] < player.rect.y:
+                current_object = elements
                 next_object1 = sorted_objects[i + 1] if i + 1 < len(sorted_objects) else None
                 next_object2 = sorted_objects[i + 2] if i + 2 < len(sorted_objects) else None
                 next_object3 = sorted_objects[i + 3] if i + 3 < len(sorted_objects) else None

@@ -49,14 +49,6 @@ class ghost_platform(interface):
         self.collision_handler.update_objects(objects, current_object, next_object1, next_object2)
         if self.collision_handler.check_collision(player, obj):self.collision_handler.handle_collision(player)
     def next_position_platforms(self,player,matrix,object_name,width,height,current_elements=None,next_elements1=None,next_elements2=None,next_elements3=None,next_elements4=None):
-        for i, elements in enumerate(sorted_elements):
-            if elements[1] < player.rect.y:
-                current_elements = elements
-                next_elements1 = sorted_elements[i + 1] if i + 1 < len(sorted_elements) else None
-                next_elements2 = sorted_elements[i + 2] if i + 2 < len(sorted_elements) else None
-                next_elements3 = sorted_elements[i + 3] if i + 3 < len(sorted_elements) else None
-                next_elements4 = sorted_elements[i + 4] if i + 4 < len(sorted_elements) else None
-                break
         if current_elements:setattr(self, object_name, Rect(current_elements[0],current_elements[1],width,height))
         if next_elements1:self.platarforms_nexts[0]=Rect(next_elements1[0],next_elements1[1],width,height)
         if next_elements2:self.platarforms_nexts[1]=Rect(next_elements2[0],next_elements2[1],width,height)
