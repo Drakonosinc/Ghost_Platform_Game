@@ -20,7 +20,7 @@ class CollisionHandler:
         return None, None, None, None, None
     def update_objects(self, objects, current_object, next_object1, next_object2, next_object3, next_object4):
         if current_object:setattr(self.game, objects, current_object.rect)
-        if next_object1:setattr(self.game, "object4", next_object1.rect)
-        if next_object2:setattr(self.game, "object5", next_object2.rect)
-        if next_object3:setattr(self.game, "object5", next_object2.rect)
-        if next_object4:setattr(self.game, "object5", next_object2.rect)
+        if next_object1:self.game.platarforms_nexts[0]=self.game.Rect(next_object1.rect)
+        if next_object2:self.game.platarforms_nexts[1]=self.game.Rect(next_object2.rect)
+        if next_object3:self.game.platarforms_nexts[2]=self.game.Rect(next_object3.rect)
+        if next_object4:self.game.platarforms_nexts[3]=self.game.Rect(next_object4.rect)
