@@ -23,3 +23,5 @@ class CollisionHandler:
         if current_object:setattr(self.game, objects, current_object.rect)
         if next_object1:setattr(self.game, "object4", next_object1.rect)
         if next_object2:setattr(self.game, "object5", next_object2.rect)
+        if next_object3:setattr(self.game, "object5", next_object2.rect)
+        if next_object4:setattr(self.game, "object5", next_object2.rect)
