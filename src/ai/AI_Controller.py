@@ -6,7 +6,7 @@ class AIHandler:
         distances_y = [abs(player.rect.y - self.game.object2[1]),abs(player.rect.y - self.game.platarforms_nexts[0].y),
                     abs(player.rect.y - self.game.platarforms_nexts[1].y),abs(player.rect.y - self.game.platarforms_nexts[2].y),
                     abs(player.rect.y - self.game.platarforms_nexts[3].y),abs(player.rect.y - self.game.object3[1]),
-                    abs(player.rect.y - self.game.object4[3]),abs(player.rect.y - self.game.object5[3])]
+                    abs(player.rect.y - self.game.object4.y),abs(player.rect.y - self.game.object5.y)]
         return np.array([player.rect.x, player.rect.y, self.game.object2.x, self.game.object2.y,self.game.platarforms_nexts[0].x,
                         self.game.platarforms_nexts[0].y,self.game.platarforms_nexts[1].x,self.game.platarforms_nexts[1].y,
                         self.game.platarforms_nexts[2].x,self.game.platarforms_nexts[2].y,self.game.platarforms_nexts[3].x,
