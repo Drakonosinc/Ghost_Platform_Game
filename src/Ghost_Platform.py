@@ -143,7 +143,7 @@ class ghost_platform(interface):
         pygame.time.set_timer(self.speed_game, 5000)
         if type_reset==0:self.players[0].reset(350, self.HEIGHT - 35)
     def type_mode(self):self.ai_handler.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
-    def get_reward(self, reward: list) -> list:return self.ai_handler.get_reward(reward,(350, self.HEIGHT - 35))
+    def get_reward(self, reward: list) -> list:return self.ai_handler.get_reward(reward)
     def item_repeat_run(self):
         self.handle_keys()
         self.time_delta = self.clock.tick(self.FPS)/1000.0
