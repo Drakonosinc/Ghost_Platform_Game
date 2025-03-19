@@ -1,6 +1,6 @@
 import random
 import numpy as np
-from Interface import *
+from Interface.Interface import *
 from Entities import *
 from Physics import *
 from AI import *

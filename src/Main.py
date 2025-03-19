@@ -1,5 +1,5 @@
 import sys
-from Ghost_Platform import *
+from Game.Ghost_Platform import *
 from AI.Genetic_Algorithm import *
 if __name__=="__main__":
     while True:
