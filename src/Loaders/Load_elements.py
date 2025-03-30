@@ -38,9 +38,9 @@ class load_elements():
         self.floor=pygame.transform.scale(self.floor,(100,40))
         self.meteorite=pygame.image.load(os.path.join(self.image_path,self.image_direct_path("meteorite","meteorite_value"))).convert_alpha()
         self.meteorite=pygame.transform.scale(self.meteorite,(50,85))
-        self.potion=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["potion"][self.config.config_visuals["potion_value"]])).convert_alpha()
+        self.potion=pygame.image.load(os.path.join(self.image_path,self.image_direct_path("potion","potion_value"))).convert_alpha()
         self.potion=pygame.transform.scale(self.potion,(35,40))
-        self.shield=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["shield"][self.config.config_visuals["shield_value"]])).convert_alpha()
+        self.shield=pygame.image.load(os.path.join(self.image_path,self.image_direct_path("shield","shield_value"))).convert_alpha()
         self.shield=pygame.transform.scale(self.shield,(50,50))
     def load_fonts(self):
         self.font_path=os.path.join(self.config.base_dir, "fonts")
