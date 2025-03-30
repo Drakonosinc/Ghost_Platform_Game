@@ -30,13 +30,13 @@ class load_elements():
         return self.config.config_visuals[image][self.config.config_visuals[value]]
     def load_images(self):
         self.image_path=os.path.join(self.config.base_dir, "images")
-        self.space=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["background"][self.config.config_visuals["background_value"]]))
+        self.space=pygame.image.load(os.path.join(self.image_path,self.image_direct_path("background","background_value")))
         self.space=pygame.transform.scale(self.space,(700,400))
-        self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["player"][self.config.config_visuals["player_value"]])).convert_alpha()
+        self.player_ghost=pygame.image.load(os.path.join(self.image_path,self.image_direct_path("player","player_value"))).convert_alpha()
         self.player_ghost=pygame.transform.scale(self.player_ghost,(35,35))
-        self.floor=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["floor"][self.config.config_visuals["floor_value"]])).convert_alpha()
+        self.floor=pygame.image.load(os.path.join(self.image_path,self.image_direct_path("floor","floor_value"))).convert_alpha()
         self.floor=pygame.transform.scale(self.floor,(100,40))
-        self.meteorite=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["meteorite"][self.config.config_visuals["meteorite_value"]])).convert_alpha()
+        self.meteorite=pygame.image.load(os.path.join(self.image_path,self.image_direct_path("meteorite","meteorite_value"))).convert_alpha()
         self.meteorite=pygame.transform.scale(self.meteorite,(50,85))
         self.potion=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["potion"][self.config.config_visuals["potion_value"]])).convert_alpha()
         self.potion=pygame.transform.scale(self.potion,(35,40))
