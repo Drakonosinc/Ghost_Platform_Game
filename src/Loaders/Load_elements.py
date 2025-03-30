@@ -26,6 +26,8 @@ class load_elements():
         self.GOLDEN=(255,199,51)
         self.background=self.GRAY
         self.life_color=self.GREEN
+    def image_direct_path(self,image,value):
+        return self.config.config_visuals[image][self.config.config_visuals[value]]
     def load_images(self):
         self.image_path=os.path.join(self.config.base_dir, "images")
         self.space=pygame.image.load(os.path.join(self.image_path,self.config.config_visuals["background"][self.config.config_visuals["background_value"]]))
