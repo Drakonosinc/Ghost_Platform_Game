@@ -54,3 +54,7 @@ class DQNAgent:
         self.epsilon_min = epsilon_end
         self.epsilon_decay = epsilon_decay
         self.batch_size = batch_size
+        self.steps_done = 0
+        self.target_update = target_update
+        self.policy_net = SimpleNN(state_size, action_size)
+        self.target_net = SimpleNN(state_size, action_size)
