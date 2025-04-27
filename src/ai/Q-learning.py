@@ -29,3 +29,10 @@ class GhostPlatformEnv:
         self.game.reset(True)
         self.prev_reward = 0
         return self.handler.get_state()
+    def step(self, action: int) -> tuple:
+        # Ejecuta la acción y retorna (next_state, reward, done)
+        dir_map = ['UP', 'DOWN', 'LEFT', 'RIGHT']
+        self.game.player.direction = dir_map[action]
+        self.game.player.move()
+        self.game.collision()
+        
