@@ -35,4 +35,12 @@ class GhostPlatformEnv:
         self.game.player.direction = dir_map[action]
         self.game.player.move()
         self.game.collision()
-        
+        state = self.handler.get_state()
+        curr_reward = self.game.player.reward
+        reward = curr_reward - self.prev_reward
+        self.prev_reward = curr_reward
+        done = not self.game.player.active
+        if done:
+            # Opcional: reiniciar internamente para la próxima llamada a reset
+            pass
+        return state, reward, done
