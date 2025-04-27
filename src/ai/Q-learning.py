@@ -24,3 +24,8 @@ class GhostPlatformEnv:
         self.prev_reward = 0
     @property
     def action_space(self) -> int:return 4
+    def reset(self) -> np.ndarray:
+        # Reinicia el juego y devuelve el estado inicial
+        self.game.reset(True)
+        self.prev_reward = 0
+        return self.handler.get_state()
