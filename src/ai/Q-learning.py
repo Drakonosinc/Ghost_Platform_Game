@@ -16,3 +16,9 @@ class ReplayMemory:
         return random.sample(self.memory, batch_size)
     def __len__(self) -> int:
         return len(self.memory)
+class GhostPlatformEnv:
+    """Wrapper del juego GhostPlatform para interfaz Gym-like."""
+    def __init__(self):
+        self.game = GhostPlatform()
+        self.handler = AIHandler(self.game)
+        self.prev_reward = 0
