@@ -22,3 +22,5 @@ class GhostPlatformEnv:
         self.game = GhostPlatform()
         self.handler = AIHandler(self.game)
         self.prev_reward = 0
+    @property
+    def action_space(self) -> int:return 4
