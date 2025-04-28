@@ -71,3 +71,6 @@ class DQNAgent:
             return int(torch.argmax(q_values).item())
     def store_transition(self, state, action, reward, next_state, done):
         self.memory.push((state, action, reward, next_state, done))
+    def optimize_model(self):
+        if len(self.memory) < self.batch_size:
+            return
