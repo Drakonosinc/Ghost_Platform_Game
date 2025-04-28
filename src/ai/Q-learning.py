@@ -87,3 +87,6 @@ class DQNAgent:
         loss = nn.MSELoss()(current_q, expected_q)
         self.optimizer.zero_grad()
         loss.backward()
+        self.optimizer.step()
+        self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
+        self.steps_done += 1
