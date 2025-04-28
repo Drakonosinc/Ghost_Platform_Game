@@ -74,3 +74,8 @@ class DQNAgent:
     def optimize_model(self):
         if len(self.memory) < self.batch_size:
             return
+        transitions = self.memory.sample(self.batch_size)
+        states, actions, rewards, next_states, dones = zip(*transitions)
+        states = torch.tensor(states, dtype=torch.float32)
+        actions = torch.tensor(actions, dtype=torch.int64).unsqueeze(1)
+        rewards = torch.tensor(rewards, dtype=torch.float32).unsqueeze(1)
