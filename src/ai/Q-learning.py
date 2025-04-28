@@ -79,3 +79,7 @@ class DQNAgent:
         states = torch.tensor(states, dtype=torch.float32)
         actions = torch.tensor(actions, dtype=torch.int64).unsqueeze(1)
         rewards = torch.tensor(rewards, dtype=torch.float32).unsqueeze(1)
+        next_states = torch.tensor(next_states, dtype=torch.float32)
+        dones = torch.tensor(dones, dtype=torch.float32).unsqueeze(1)
+        current_q = self.policy_net(states).gather(1, actions)
+        next_q = self.target_net(next_states).max(1)[0].detach().unsqueeze(1)
