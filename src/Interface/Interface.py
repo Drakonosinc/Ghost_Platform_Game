@@ -13,7 +13,7 @@ class interface(load_elements):
         self.utils_keys:dict[str, bool]={"up1":False,"up2":False,"left":False,"right":False}
         self.draw_menus()
     def draw_menus(self):
-        self.main_menu()
+        if self.main==0:self.main_menu()
         self.game_over_menu()
         self.mode_game_menu()
         self.pausa_menu()
@@ -85,13 +85,12 @@ class interface(load_elements):
         else:variable[dic] = not variable[dic]
         self.change_mains(main,fade=fade,command=command)
     def main_menu(self):
-        if self.main==0:
-            self.screen.fill(self.BLACK)
-            self.screen.blit(self.font3.render("Ghost Platform",True,self.WHITE),(3,10))
-            self.play_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Play",manager=self.manager)
-            self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Option',manager=self.manager)
-            self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Exit',manager=self.manager)
-            self.active_buttons.extend([self.play_button, self.option_button, self.exit_button])
+        self.screen.fill(self.BLACK)
+        self.screen.blit(self.font3.render("Ghost Platform",True,self.WHITE),(3,10))
+        self.play_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Play",manager=self.manager)
+        self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Option',manager=self.manager)
+        self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Exit',manager=self.manager)
+        self.active_buttons.extend([self.play_button, self.option_button, self.exit_button])
     def game_over_menu(self):
         if self.main==1:
             self.filt(self.WIDTH,self.HEIGHT,150,self.RED)
