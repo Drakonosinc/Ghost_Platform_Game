@@ -17,7 +17,7 @@ class interface(load_elements):
         elif self.main==1:self.game_over_menu()
         elif self.main==2:self.mode_game_menu()
         elif self.main==3:self.pausa_menu()
-        self.menu_options()
+        elif self.main==4:self.menu_options()
         self.visuals_menu()
         self.keys_menu()
         self.sounds_menu()
@@ -115,14 +115,13 @@ class interface(load_elements):
         self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 250, 100, 50),text='Exit',manager=self.manager)
         self.active_buttons.extend([self.reset_button, self.option_button, self.back_button,self.exit_button])
     def menu_options(self):
-        if self.main==4:
-            self.screen.fill(self.BLACK)
-            self.screen.blit(self.font3.render("Options", True, "White"),(3,10))
-            self.visuals_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Visuals",manager=self.manager)
-            self.sounds_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Sounds',manager=self.manager)
-            self.keys_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Keys',manager=self.manager)
-            back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(0))
-            self.active_buttons.extend([self.visuals_button,self.sounds_button,self.keys_button,back_button])
+        self.screen.fill(self.BLACK)
+        self.screen.blit(self.font3.render("Options", True, "White"),(3,10))
+        self.visuals_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Visuals",manager=self.manager)
+        self.sounds_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Sounds',manager=self.manager)
+        self.keys_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Keys',manager=self.manager)
+        back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(0))
+        self.active_buttons.extend([self.visuals_button,self.sounds_button,self.keys_button,back_button])
     def visuals_menu(self):
         if self.main==5:
             self.screen.fill(self.BLACK)
