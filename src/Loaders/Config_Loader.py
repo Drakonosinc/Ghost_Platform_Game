@@ -23,7 +23,7 @@ class Config():
                                                 "meteorite":["meteorito.png","fire.png"],"meteorite_value":0,
                                                 "potion":["pocion1.png"],"potion_value":0,
                                                 "shield":["shield1.png"],"shield_value":0}
-        if AI or alls:self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3,"model_save":False}
+        if AI or alls:self.config_AI={"generation_value":100,"population_value":20,"try_for_ai":3,"model_save":False,"type_training":["genetic","q-learning"],"type_model":["DQN","CNN"]}
     def save_config(self):
         config = {"config_sounds":self.config_sounds,"config_keys":self.config_keys,"config_visuals":self.config_visuals,"config_AI":self.config_AI}
         with open(os.path.join(self.config_path,"config.json"),"w") as file:json.dump(config, file, indent=4)
