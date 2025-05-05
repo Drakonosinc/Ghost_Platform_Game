@@ -14,7 +14,7 @@ class interface(load_elements):
         self.draw_menus()
     def draw_menus(self):
         if self.main==0:self.main_menu()
-        self.game_over_menu()
+        elif self.main==1:self.game_over_menu()
         self.mode_game_menu()
         self.pausa_menu()
         self.menu_options()
@@ -92,13 +92,12 @@ class interface(load_elements):
         self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Exit',manager=self.manager)
         self.active_buttons.extend([self.play_button, self.option_button, self.exit_button])
     def game_over_menu(self):
-        if self.main==1:
-            self.filt(self.WIDTH,self.HEIGHT,150,self.RED)
-            self.screen.blit(self.font4.render("Game Over", True, self.BLACK),(3,10))
-            self.reset_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 150, 50),text="Press R to Restart",manager=self.manager)
-            self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 150, 50),text='Exit The Menu',manager=self.manager)
-            self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 150, 50),text='Exit The Game',manager=self.manager)
-            self.active_buttons.extend([self.reset_button, self.back_button, self.exit_button])
+        self.filt(self.WIDTH,self.HEIGHT,150,self.RED)
+        self.screen.blit(self.font4.render("Game Over", True, self.BLACK),(3,10))
+        self.reset_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 150, 50),text="Press R to Restart",manager=self.manager)
+        self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 150, 50),text='Exit The Menu',manager=self.manager)
+        self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 150, 50),text='Exit The Game',manager=self.manager)
+        self.active_buttons.extend([self.reset_button, self.back_button, self.exit_button])
     def mode_game_menu(self):
         if self.main==2:
             self.screen.fill(self.BLACK)
