@@ -191,7 +191,7 @@ class interface(load_elements):
         self.screen.blit(self.font3_5.render(f"Type Training AI", True, "White"),(10,200))
         type_training_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 200, 110, 50),text="Press",object_id="#button_on",manager=self.manager,command=lambda:self.more_options(command=lambda:self.change_mains(8,fade=False)))
         self.screen.blit(self.font3_5.render(f"Type Model", True, "White"),(10,240))
-        type_model_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 240, 110, 50),text="Press",object_id="#button_on",manager=self.manager,command=lambda:self.more_options(command=lambda:self.change_mains(8,fade=False)))
+        type_model_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 240, 110, 50),text="Change",object_id="#button_on",manager=self.manager,command=lambda:self.more_options(command=lambda:self.change_mains(8,fade=False)))
         self.screen.blit(self.font3_5.render(f"To Restart Config", True, "White"),(10,280))
         restar_config_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 280, 110, 50),text="Press",object_id="#button_on",manager=self.manager,command=lambda:self.more_options(command=lambda:self.config.config(AI=True),command2=self.config.save_config,command3=lambda:self.change_mains(8,fade=False)))
         play=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-110, self.HEIGHT-50, 100, 50),text='Play',manager=self.manager,command=lambda:self.change_mains(-1,run=True,command=lambda:self.type_game(mode_one=True),command2=lambda:self.more_options(self.population,lambda:self.on_off_sound(self.sound_menu,"sound_menu",False,game=True))))
