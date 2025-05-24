@@ -55,8 +55,8 @@
             "q-learning"
         ],
         "type_model": [
-            "DQN",
-            "CNN"
+            "Pytorch",
+            "Tensorflow"
         ]
     }
 }
