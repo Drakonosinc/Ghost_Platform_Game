@@ -1,5 +1,6 @@
 import pygame_gui
 from Loaders.Load_elements import *
+from .Menus import *
 class interface(load_elements):
     def __init__(self,width=0, height=0):
         super().__init__("Ghost Platform",width,height)
