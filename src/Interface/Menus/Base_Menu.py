@@ -27,4 +27,9 @@ class BaseMenu:
         if command2!=None:command2()
         if recursive:self.change_mains(main,fade=fade)
         if run:setattr(self,"running",False),setattr(self, "game_over", True)
+    def sounds_play(self,sound,repeat=True):
+        if repeat:
+            sound.play(loops=0)
+            repeat=False
+        else:repeat=True
     

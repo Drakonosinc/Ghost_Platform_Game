@@ -42,12 +42,6 @@ class interface(load_elements):
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
     
-    
-    def sounds_play(self,sound,repeat=True):
-        if repeat:
-            sound.play(loops=0)
-            repeat=False
-        else:repeat=True
     def type_game(self,mode_one=False,mode_two=False,mode_three=False):
         self.mode_game["Training AI"]=mode_one
         self.mode_game["Player"]=mode_two
