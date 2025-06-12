@@ -47,3 +47,9 @@ class BaseMenu:
         if dic is None:setattr(self, variable, not getattr(self, variable))
         else:variable[dic] = not variable[dic]
         self.change_mains(main,fade=fade,command=command)
+    def increase_decrease_variable(self,main,variable,number,population=False,fade=False,dic=None,length=None,command=None,recu=False):
+        if dic!=None and length!=None:dic[variable]=((dic[variable] + number) % len(dic[length]))
+        elif dic!=None:dic[variable]+=number
+        else:setattr(self,variable,getattr(self,variable)+number)
+        self.change_mains(main=main,fade=fade,command=self.config.save_config,command2=command,recursive=recu)
+        if population:self.interface.population()
