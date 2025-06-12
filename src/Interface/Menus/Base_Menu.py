@@ -53,3 +53,8 @@ class BaseMenu:
         else:setattr(self,variable,getattr(self,variable)+number)
         self.change_mains(main=main,fade=fade,command=self.config.save_config,command2=command,recursive=recu)
         if population:self.interface.population()
+    def more_options(self,command=[]):
+        try:
+            for command in self.commands:
+                if callable(command):command()
+        except TypeError:return None

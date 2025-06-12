@@ -164,10 +164,7 @@ class interface(load_elements,BaseMenu):
         sound.play(loops=-1) if play and self.config.config_sounds[type_sound] else sound.stop()
         if game:self.on_off_sound(self.sound_game,"sound_game")
         if command:self.config.save_config()
-    def more_options(self,command=False,command2=False,command3=False):
-        if command:command()
-        if command2:command2()
-        if command3:command3()
+    
     def change_keys(self,key,key_name):
         self.key=key
         self.key_name=key_name
