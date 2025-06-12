@@ -55,6 +55,6 @@ class BaseMenu:
         if population:self.interface.population()
     def more_options(self,command=[]):
         try:
-            for command in self.commands:
+            for command in command:
                 if callable(command):command()
         except TypeError:return None
