@@ -32,4 +32,11 @@ class BaseMenu:
             sound.play(loops=0)
             repeat=False
         else:repeat=True
+    def clear_buttons(self):
+        try:
+            for button in self.active_buttons:button.kill()
+            self.active_buttons=[]
+        except:
+            self.active_buttons=[]
+            self.clear_buttons()
     
