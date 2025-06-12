@@ -1,9 +1,10 @@
 import pygame_gui
 from Loaders.Load_elements import *
 from .Menus import *
-class interface(load_elements):
+class interface(load_elements,BaseMenu):
     def __init__(self,width=0, height=0):
-        super().__init__("Ghost Platform",width,height)
+        load_elements.__init__(self,"Ghost Platform",width,height)
+        BaseMenu.__init__(self,self)
         self.WIDTH:int = width
         self.HEIGHT:int = height
         self.manager = pygame_gui.UIManager((self.WIDTH,self.HEIGHT),theme_path=os.path.join(self.config.config_path,"theme_buttons.json"))
@@ -41,7 +42,6 @@ class interface(load_elements):
         if event.ui_element == self.visuals_button:self.change_mains(5)
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
-    
     def type_game(self,mode_one=False,mode_two=False,mode_three=False):
         self.mode_game["Training AI"]=mode_one
         self.mode_game["Player"]=mode_two
