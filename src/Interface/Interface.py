@@ -46,10 +46,6 @@ class interface(load_elements,BaseMenu):
         self.mode_game["Training AI"]=mode_one
         self.mode_game["Player"]=mode_two
         if os.path.exists(self.model_path):self.mode_game["AI"]=mode_three
-    def filt(self,width,height,number,color=(0,0,0),position=(0,0)):
-        background=pygame.Surface((width,height),pygame.SRCALPHA)
-        background.fill((*color, number))
-        self.screen.blit(background,position)
     def on_off(self,main,variable,fade=True,dic=None,command=None):
         if dic is None:setattr(self, variable, not getattr(self, variable))
         else:variable[dic] = not variable[dic]

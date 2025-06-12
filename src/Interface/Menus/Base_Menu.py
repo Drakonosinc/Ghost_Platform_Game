@@ -39,4 +39,7 @@ class BaseMenu:
         except:
             self.active_buttons=[]
             self.clear_buttons()
-    
+    def filt(self,width,height,number,color=(0,0,0),position=(0,0)):
+        background=pygame.Surface((width,height),pygame.SRCALPHA)
+        background.fill((*color, number))
+        self.screen.blit(background,position)
