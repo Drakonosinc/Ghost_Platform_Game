@@ -43,3 +43,7 @@ class BaseMenu:
         background=pygame.Surface((width,height),pygame.SRCALPHA)
         background.fill((*color, number))
         self.screen.blit(background,position)
+    def on_off(self,main,variable,fade=True,dic=None,command=None):
+        if dic is None:setattr(self, variable, not getattr(self, variable))
+        else:variable[dic] = not variable[dic]
+        self.change_mains(main,fade=fade,command=command)
