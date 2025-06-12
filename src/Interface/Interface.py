@@ -46,7 +46,6 @@ class interface(load_elements,BaseMenu):
         self.mode_game["Training AI"]=mode_one
         self.mode_game["Player"]=mode_two
         if os.path.exists(self.model_path):self.mode_game["AI"]=mode_three
-    
     def main_menu(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Ghost Platform",True,self.WHITE),(3,10))

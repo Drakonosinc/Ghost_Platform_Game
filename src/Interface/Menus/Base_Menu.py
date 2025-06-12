@@ -15,14 +15,14 @@ class BaseMenu:
             overlay.set_alpha(alpha)
             self.screen.blit(overlay, (0, 0))
             pygame.display.flip()
-            self.clock.tick(20)
+            self.interface.clock.tick(20)
             alpha += -15 if fade_in else 15
     def change_mains(self,main=0,color=(0,0,0),limit=255,command=None,command2=None,sound=None,run=False,fade=True,recursive=False):
-        self.sounds_play(sound=self.sound_touchletters if sound==None else sound)
+        self.sounds_play(sound=self.interface.sound_touchletters if sound==None else sound)
         if fade:self.fade_transition(False,color,limit)
         self.clear_buttons()
-        self.main=main
-        self.draw_menus()
+        self.interface.main=main
+        self.interface.draw_menus()
         if command!=None:command()
         if command2!=None:command2()
         if recursive:self.change_mains(main,fade=fade)
@@ -34,10 +34,10 @@ class BaseMenu:
         else:repeat=True
     def clear_buttons(self):
         try:
-            for button in self.active_buttons:button.kill()
-            self.active_buttons=[]
+            for button in self.interface.active_buttons:button.kill()
+            self.interface.active_buttons=[]
         except:
-            self.active_buttons=[]
+            self.interface.active_buttons=[]
             self.clear_buttons()
     def filt(self,width,height,number,color=(0,0,0),position=(0,0)):
         background=pygame.Surface((width,height),pygame.SRCALPHA)
