@@ -50,9 +50,6 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.visuals_button:self.change_mains(5)
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
-    def main_menu(self):
-        self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Exit',manager=self.manager)
-        self.active_buttons.extend([self.play_button, self.option_button, self.exit_button])
     def game_over_menu(self):
         self.filt(self.WIDTH,self.HEIGHT,150,self.RED)
         self.screen.blit(self.font4.render("Game Over", True, self.BLACK),(3,10))
