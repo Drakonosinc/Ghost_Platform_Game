@@ -15,7 +15,8 @@ class interface(load_elements,BaseMenu):
         self.utils_keys:dict[str, bool]={"up1":False,"up2":False,"left":False,"right":False}
         self.initialize_menus()
         self.draw_menus()
-    def initialize_menus(self):pass
+    def initialize_menus(self):
+        self.main_menu = MainMenu(self)
     def draw_menus(self):
         if self.main==0:self.main_menu()
         elif self.main==1:self.game_over_menu()
