@@ -4,4 +4,6 @@ class MainMenu(BaseMenu):
         super().__init__(interface)
         self.buttons = {}
     def setup_buttons(self):pass
-    def render(self):pass
+    def render(self):
+        self.screen.fill(self.interface.BLACK)
+        self.screen.blit(self.interface.font3.render("Ghost Platform",True,self.interface.WHITE),(3,10))
