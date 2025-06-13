@@ -12,3 +12,4 @@ class MainMenu(BaseMenu):
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Ghost Platform",True,self.interface.WHITE),(3,10))
+        self.interface.active_buttons = [button for button in self.buttons.values()]
