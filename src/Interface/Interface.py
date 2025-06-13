@@ -47,7 +47,6 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
     def game_over_menu(self):
-        self.reset_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 150, 50),text="Press R to Restart",manager=self.manager)
         self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 150, 50),text='Exit The Game',manager=self.manager)
         self.active_buttons.extend([self.reset_button, self.back_button, self.exit_button])
     def mode_game_menu(self):
