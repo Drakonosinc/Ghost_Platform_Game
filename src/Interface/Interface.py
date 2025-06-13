@@ -23,8 +23,7 @@ class interface(load_elements,BaseMenu):
         menu_routes = {
             0: self.main_menu.render,
             1: self.game_over_menu.render,}
-        if self.main==1:self.game_over_menu()
-        elif self.main==2:self.mode_game_menu()
+        if self.main==2:self.mode_game_menu()
         elif self.main==3:self.pausa_menu()
         elif self.main==4:self.menu_options()
         elif self.main==5:self.visuals_menu()
@@ -34,6 +33,7 @@ class interface(load_elements,BaseMenu):
         if self.main in menu_routes:menu_routes[self.main]()
     def draw_buttons(self):
         self.main_menu.setup_buttons()
+        self.game_over_menu.setup_buttons()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
     def event_buttons(self,event):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:

@@ -1,6 +1,6 @@
 from .Base_Menu import BaseMenu
 from .Main_Menu import MainMenu
-# from .Game_Over import GameOver
+from .Game_Over import GameOver
 # from .Game_Mode import GameMode
 # from .Pause import Pause
 # from .Options_Menu import OptionsMenu
