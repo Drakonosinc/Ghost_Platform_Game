@@ -44,10 +44,7 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.visuals_button:self.change_mains(5)
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
-    def type_game(self,mode_one=False,mode_two=False,mode_three=False):
-        self.mode_game["Training AI"]=mode_one
-        self.mode_game["Player"]=mode_two
-        if os.path.exists(self.model_path):self.mode_game["AI"]=mode_three
+    
     def main_menu(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Ghost Platform",True,self.WHITE),(3,10))

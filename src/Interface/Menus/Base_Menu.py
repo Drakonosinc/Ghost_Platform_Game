@@ -58,3 +58,7 @@ class BaseMenu:
             for command in command:
                 if callable(command):command()
         except TypeError:return None
+    def type_game(self,mode_one=False,mode_two=False,mode_three=False):
+        self.mode_game["Training AI"]=mode_one
+        self.mode_game["Player"]=mode_two
+        if os.path.exists(self.model_path):self.mode_game["AI"]=mode_three
