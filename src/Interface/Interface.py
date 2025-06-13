@@ -18,9 +18,11 @@ class interface(load_elements,BaseMenu):
         self.draw_buttons()
     def initialize_menus(self):
         self.main_menu = MainMenu(self)
+        self.game_over_menu = GameOver(self)
     def draw_menus(self):
         menu_routes = {
-            0: self.main_menu.render,}
+            0: self.main_menu.render,
+            1: self.game_over_menu.render,}
         if self.main==1:self.game_over_menu()
         elif self.main==2:self.mode_game_menu()
         elif self.main==3:self.pausa_menu()
