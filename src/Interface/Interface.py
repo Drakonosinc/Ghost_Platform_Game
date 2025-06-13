@@ -51,7 +51,6 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
     def main_menu(self):
-        self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Option',manager=self.manager)
         self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Exit',manager=self.manager)
         self.active_buttons.extend([self.play_button, self.option_button, self.exit_button])
     def game_over_menu(self):
