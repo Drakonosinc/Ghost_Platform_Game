@@ -13,4 +13,5 @@ class GameMode(BaseMenu):
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Mode Game", True, "White"),(3,10))
+        self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]

@@ -12,4 +12,5 @@ class GameOver(BaseMenu):
     def render(self):
         self.filt(self.WIDTH,self.HEIGHT,150,self.interface.RED)
         self.screen.blit(self.interface.font4.render("Game Over", True, self.interface.BLACK),(3,10))
+        self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]
