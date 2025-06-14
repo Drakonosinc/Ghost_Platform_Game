@@ -8,6 +8,6 @@ class GameMode(BaseMenu):
     def setup_buttons(self):
         self.buttons['training_ai'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text='Training AI',manager=self.interface.manager,command=lambda:self.change_mains(8))
         self.buttons['player'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Player',manager=self.interface.manager,command=lambda:self.change_mains(-1,command=lambda:self.type_game(mode_two=True),run=True,command2=lambda:self.more_options([self.population,lambda:self.on_off_sound(self.sound_menu,"sound_menu",False,game=True)])))
-        self.buttons['ai'] = 
+        self.buttons['ai'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='AI',manager=self.interface.manager,command=lambda:self.change_mains(-1,command=lambda:self.type_game(mode_three=True),run=True,command2=lambda:self.more_options([self.population,lambda:self.on_off_sound(self.sound_menu,"sound_menu",False,game=True)])))
         self.buttons['back'] =pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.interface.manager,command=lambda:self.change_mains(0))
     def render(self):pass
