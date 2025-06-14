@@ -45,9 +45,6 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.visuals_button:self.change_mains(5)
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
-    def mode_game_menu(self):
-        self.screen.fill(self.BLACK)
-        self.screen.blit(self.font3.render("Mode Game", True, "White"),(3,10))
     def pausa_menu(self):
         self.filt(self.WIDTH,self.HEIGHT,150,self.GRAY)
         self.screen.blit(self.font3.render("Pause", True, "White"),(3,10))
