@@ -44,10 +44,7 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.keys_button:self.change_mains(6)
     def pausa_menu(self):
         
-        self.reset_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Reset",manager=self.manager)
         self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Option',manager=self.manager)
-        self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Menu',manager=self.manager)
-        self.exit_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 250, 100, 50),text='Exit',manager=self.manager)
         self.active_buttons.extend([self.reset_button, self.option_button, self.back_button,self.exit_button])
     def menu_options(self):
         self.screen.fill(self.BLACK)
