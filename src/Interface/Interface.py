@@ -19,6 +19,7 @@ class interface(load_elements,BaseMenu):
     def initialize_menus(self):
         self.main_menu = MainMenu(self)
         self.game_over_menu = GameOver(self)
+        self.game_mode_menu = GameMode(self)
     def draw_menus(self):
         menu_routes = {
             0: self.main_menu.render,
