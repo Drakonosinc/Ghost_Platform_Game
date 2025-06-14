@@ -43,8 +43,7 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
     def pausa_menu(self):
-        self.filt(self.WIDTH,self.HEIGHT,150,self.GRAY)
-        self.screen.blit(self.font3.render("Pause", True, "White"),(3,10))
+        
         self.reset_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Reset",manager=self.manager)
         self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Option',manager=self.manager)
         self.back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Menu',manager=self.manager)

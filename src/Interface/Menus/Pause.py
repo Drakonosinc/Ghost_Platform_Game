@@ -4,4 +4,6 @@ class Pause(BaseMenu):
         super().__init__(interface)
         self.buttons = {}
     def setup_buttons(self):pass
-    def render(self):pass
+    def render(self):
+        self.filt(self.WIDTH,self.HEIGHT,150,self.interface.GRAY)
+        self.screen.blit(self.interface.font3.render("Pause", True, "White"),(3,10))
