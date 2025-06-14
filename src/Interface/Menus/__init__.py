@@ -6,3 +6,4 @@ from .Game_Over import GameOver
 # from .Options_Menu import OptionsMenu
 # from .Visuals_Menu import VisualsMenu
 # from .Menu_Keys import KeysMenu
+# from .Menu_AI import AIMenu
