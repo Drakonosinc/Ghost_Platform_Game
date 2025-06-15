@@ -28,8 +28,7 @@ class interface(load_elements,BaseMenu):
             2: self.game_mode_menu.render,
             3: self.pause_menu.render,
             4: self.options_menu.render,}
-        if self.main==4:self.menu_options()
-        elif self.main==5:self.visuals_menu()
+        if self.main==5:self.visuals_menu()
         elif self.main==6:self.keys_menu()
         elif self.main==7:self.sounds_menu()
         elif self.main==8:self.menu_AI()
@@ -44,13 +43,10 @@ class interface(load_elements,BaseMenu):
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
     def menu_options(self):
-        self.screen.fill(self.BLACK)
-        self.screen.blit(self.font3.render("Options", True, "White"),(3,10))
         self.visuals_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Visuals",manager=self.manager)
         self.sounds_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Sounds',manager=self.manager)
         self.keys_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Keys',manager=self.manager)
         back_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(0))
-        self.active_buttons.extend([self.visuals_button,self.sounds_button,self.keys_button,back_button])
     def visuals_menu(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))

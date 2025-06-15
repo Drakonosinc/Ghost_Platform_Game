@@ -6,4 +6,7 @@ class OptionsMenu(BaseMenu):
         super().__init__(interface)
         self.buttons = {}
     def setup_buttons(self):pass
-    def render(self):pass
+    def render(self):
+        self.screen.fill(self.BLACK)
+        self.screen.blit(self.font3.render("Options", True, "White"),(3,10))
+        self.interface.active_buttons = [button for button in self.buttons.values()]
