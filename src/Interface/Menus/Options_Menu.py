@@ -11,6 +11,6 @@ class OptionsMenu(BaseMenu):
         self.buttons['sound'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Sounds',manager=self.interface.manager,command=lambda:self.change_mains(7))
         self.buttons['main'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.interface.manager,command=lambda:self.change_mains(0))
     def render(self):
-        self.screen.fill(self.BLACK)
-        self.screen.blit(self.font3.render("Options", True, "White"),(3,10))
+        self.screen.fill(self.interface.BLACK)
+        self.screen.blit(self.interface.font3.render("Options", True, "White"),(3,10))
         self.interface.active_buttons = [button for button in self.buttons.values()]
