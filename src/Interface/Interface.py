@@ -34,10 +34,6 @@ class interface(load_elements,BaseMenu):
         elif self.main==8:self.menu_AI()
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
-    def event_buttons(self,event):
-        if event.type == pygame_gui.UI_BUTTON_PRESSED:
-            if hasattr(event, 'ui_element'):
-                if self.main==4:self.buttons_options_menu(event)
     def visuals_menu(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
