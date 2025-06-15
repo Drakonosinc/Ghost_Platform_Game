@@ -38,8 +38,6 @@ class interface(load_elements,BaseMenu):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
                 if self.main==4:self.buttons_options_menu(event)
-    def menu_options(self):
-        self.keys_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Keys',manager=self.manager)
     def visuals_menu(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Visuals", True, "White"),(3,10))
