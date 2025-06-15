@@ -39,11 +39,10 @@ class interface(load_elements,BaseMenu):
             if hasattr(event, 'ui_element'):
                 if self.main==4:self.buttons_options_menu(event)
     def buttons_options_menu(self,event):
-        if event.ui_element == self.visuals_button:self.change_mains(5)
         if event.ui_element == self.sounds_button:self.change_mains(7)
         if event.ui_element == self.keys_button:self.change_mains(6)
     def menu_options(self):
-        self.visuals_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Visuals",manager=self.manager)
+        pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Visuals",manager=self.interface.manager,command=lambda:self.change_mains(5))
         self.sounds_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 100, 50),text='Sounds',manager=self.manager)
         self.keys_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Keys',manager=self.manager)
     def visuals_menu(self):
