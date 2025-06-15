@@ -1,4 +1,4 @@
-import os, pygame, pygame_gui
+import pygame_gui
 from pygame import Rect
 from .Base_Menu import BaseMenu
 class GameMode(BaseMenu):
