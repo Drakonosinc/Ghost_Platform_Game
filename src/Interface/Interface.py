@@ -38,8 +38,6 @@ class interface(load_elements,BaseMenu):
         if event.type == pygame_gui.UI_BUTTON_PRESSED:
             if hasattr(event, 'ui_element'):
                 if self.main==4:self.buttons_options_menu(event)
-    def buttons_options_menu(self,event):
-        if event.ui_element == self.keys_button:self.change_mains(6)
     def menu_options(self):
         self.keys_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 100, 50),text='Keys',manager=self.manager)
     def visuals_menu(self):
