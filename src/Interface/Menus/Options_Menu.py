@@ -6,6 +6,7 @@ class OptionsMenu(BaseMenu):
         super().__init__(interface)
         self.buttons = {}
     def setup_buttons(self):
+        self.buttons['visual'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 100, 50),text="Visuals",manager=self.interface.manager,command=lambda:self.change_mains(5))
         self.buttons['main'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.interface.manager,command=lambda:self.change_mains(0))
     def render(self):
         self.screen.fill(self.BLACK)
