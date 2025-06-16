@@ -8,6 +8,7 @@ class VisualsMenu(BaseMenu):
     def setup_buttons(self):
         self.buttons['back'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.interface.manager)
         self.buttons['increase_floor'] = pygame_gui.elements.UIButton(relative_rect=Rect(290, 100, 50, 40),text='>',manager=self.interface.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",1,dic=self.config.config_visuals,length="floor",command=self.interface.load_images,recu=True))
+        self.buttons['decrease_floor'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 50, 40),text='<',manager=self.interface.manager,command=lambda:self.increase_decrease_variable(5,"floor_value",-1,dic=self.config.config_visuals,length="floor",command=self.interface.load_images,recu=True))
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Visuals", True, "White"),(3,10))
