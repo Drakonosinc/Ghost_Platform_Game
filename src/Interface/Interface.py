@@ -44,7 +44,7 @@ class interface(load_elements,BaseMenu):
         
         increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",1,dic=self.config.config_visuals,length="potion",command=self.load_images,recu=True))
         decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",-1,dic=self.config.config_visuals,length="potion",command=self.load_images,recu=True))
-        self.screen.blit(self.shield,(150,400))
+        
         increase_shield=pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",1,dic=self.config.config_visuals,length="shield",command=self.load_images,recu=True))
         decrease_shield=pygame_gui.elements.UIButton(relative_rect=Rect(10, 400, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",-1,dic=self.config.config_visuals,length="shield",command=self.load_images,recu=True))
         self.screen.blit(self.player_ghost,(150,500))
