@@ -41,7 +41,7 @@ class interface(load_elements,BaseMenu):
         
         increase_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(290, 200, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",1,dic=self.config.config_visuals,length="meteorite",command=self.load_images,recu=True))
         decrease_meteorite=pygame_gui.elements.UIButton(relative_rect=Rect(10, 200, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"meteorite_value",-1,dic=self.config.config_visuals,length="meteorite",command=self.load_images,recu=True))
-        self.screen.blit(self.potion,(150,300))
+        
         increase_potion=pygame_gui.elements.UIButton(relative_rect=Rect(290, 300, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",1,dic=self.config.config_visuals,length="potion",command=self.load_images,recu=True))
         decrease_potion=pygame_gui.elements.UIButton(relative_rect=Rect(10, 300, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"potion_value",-1,dic=self.config.config_visuals,length="potion",command=self.load_images,recu=True))
         self.screen.blit(self.shield,(150,400))
