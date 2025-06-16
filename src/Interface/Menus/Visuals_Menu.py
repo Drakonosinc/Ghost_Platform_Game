@@ -16,6 +16,7 @@ class VisualsMenu(BaseMenu):
         self.buttons['increase_shield'] = pygame_gui.elements.UIButton(relative_rect=Rect(290, 400, 50, 40),text='>',manager=self.interface.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",1,dic=self.config.config_visuals,length="shield",command=self.interface.load_images,recu=True))
         self.buttons['decrease_shield'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 400, 50, 40),text='<',manager=self.interface.manager,command=lambda:self.increase_decrease_variable(5,"shield_value",-1,dic=self.config.config_visuals,length="shield",command=self.interface.load_images,recu=True))
         self.buttons['increase_player'] = pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='>',manager=self.interface.manager,command=lambda:self.increase_decrease_variable(5,"player_value",1,dic=self.config.config_visuals,length="player",command=self.interface.load_images,recu=True))
+        self.buttons['decrease_player'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 500, 50, 40),text='<',manager=self.interface.manager,command=lambda:self.increase_decrease_variable(5,"player_value",-1,dic=self.config.config_visuals,length="player",command=self.interface.load_images,recu=True))
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Visuals", True, "White"),(3,10))
