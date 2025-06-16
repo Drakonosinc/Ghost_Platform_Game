@@ -13,5 +13,6 @@ class VisualsMenu(BaseMenu):
         self.screen.blit(self.interface.meteorite,(150,150))
         self.screen.blit(self.interface.potion,(150,300))
         self.screen.blit(self.interface.shield,(150,400))
+        self.screen.blit(self.interface.player_ghost,(150,500))
         self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]
