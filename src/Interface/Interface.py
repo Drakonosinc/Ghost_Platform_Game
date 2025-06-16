@@ -50,8 +50,6 @@ class interface(load_elements,BaseMenu):
         
         increase_player=pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",1,dic=self.config.config_visuals,length="player",command=self.load_images,recu=True))
         decrease_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 500, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",-1,dic=self.config.config_visuals,length="player",command=self.load_images,recu=True))
-        self.option_button=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager)
-        self.active_buttons.extend([self.option_button,increase_floor,decrease_floor,increase_meteorite,decrease_meteorite,increase_potion,decrease_potion,increase_shield,decrease_shield,increase_player,decrease_player])
     def keys_menu(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Keys", True, "White"),(3,10))
