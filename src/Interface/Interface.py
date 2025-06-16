@@ -36,7 +36,7 @@ class interface(load_elements,BaseMenu):
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
     def visuals_menu(self):
-        increase_player=pygame_gui.elements.UIButton(relative_rect=Rect(290, 500, 50, 40),text='>',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",1,dic=self.config.config_visuals,length="player",command=self.load_images,recu=True))
+        
         decrease_player=pygame_gui.elements.UIButton(relative_rect=Rect(10, 500, 50, 40),text='<',manager=self.manager,command=lambda:self.increase_decrease_variable(5,"player_value",-1,dic=self.config.config_visuals,length="player",command=self.load_images,recu=True))
     def keys_menu(self):
         self.screen.fill(self.BLACK)
