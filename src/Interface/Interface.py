@@ -22,6 +22,7 @@ class interface(load_elements,BaseMenu):
         self.pause_menu = Pause(self)
         self.options_menu = OptionsMenu(self)
         self.visuals_menu = VisualsMenu(self)
+        self.keys_menu = KeysMenu(self)
     def draw_menus(self):
         menu_routes = {
             0: self.main_menu.render,
@@ -29,9 +30,9 @@ class interface(load_elements,BaseMenu):
             2: self.game_mode_menu.render,
             3: self.pause_menu.render,
             4: self.options_menu.render,
-            5: self.visuals_menu.render,}
-        if self.main==6:self.keys_menu()
-        elif self.main==7:self.sounds_menu()
+            5: self.visuals_menu.render,
+            6: self.keys_menu.render,}
+        if self.main==7:self.sounds_menu()
         elif self.main==8:self.menu_AI()
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
