@@ -79,9 +79,3 @@ class interface(load_elements,BaseMenu):
         sound.play(loops=-1) if play and self.config.config_sounds[type_sound] else sound.stop()
         if game:self.on_off_sound(self.sound_game,"sound_game")
         if command:self.config.save_config()
-    def event_change_keys(self,event):
-        if self.key!=None and (self.utils_keys[self.key] and event.type==KEYDOWN):
-            self.config.config_keys[self.key]=event.key
-            self.config.config_keys[self.key_name]=event.unicode.upper() if self.config.config_keys[self.key]!=32 else "Space"
-            self.utils_keys[self.key]= not self.utils_keys[self.key]
-            self.change_mains(6,fade=False),self.config.save_config()

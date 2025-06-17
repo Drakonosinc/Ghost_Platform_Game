@@ -31,3 +31,9 @@ class KeysMenu(BaseMenu):
         self.key_name=key_name
         for k in self.utils_keys.keys():self.utils_keys[k]=False if k!=self.key else not self.utils_keys[self.key]
         self.change_mains(6,fade=False)
+    def event_change_keys(self,event):
+        if self.key!=None and (self.utils_keys[self.key] and event.type==KEYDOWN):
+            self.config.config_keys[self.key]=event.key
+            self.config.config_keys[self.key_name]=event.unicode.upper() if self.config.config_keys[self.key]!=32 else "Space"
+            self.utils_keys[self.key]= not self.utils_keys[self.key]
+            self.change_mains(6,fade=False),self.config.save_config()
