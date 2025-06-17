@@ -34,16 +34,6 @@ class interface(load_elements,BaseMenu):
         elif self.main==8:self.menu_AI()
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
-    def keys_menu(self):
-        
-        
-        
-        
-        
-        
-        
-        restar_config_key=pygame_gui.elements.UIButton(relative_rect=Rect(360, 300, 80, 50),text="Press",object_id="#button_on",manager=self.interface.manager,command=lambda:self.more_options([lambda:self.config.config(keys=True),self.config.save_config,lambda:self.change_mains(6,fade=False)]))
-        
     def sounds_menu(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
