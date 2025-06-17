@@ -17,5 +17,6 @@ class KeysMenu(BaseMenu):
         self.screen.blit(self.interface.font3_5.render(f"Jump Two", True, "White"),(10,150))
         self.screen.blit(self.interface.font3_5.render(f"Move Left", True, "White"),(10,200))
         self.screen.blit(self.interface.font3_5.render(f"Move Right", True, "White"),(10,250))
+        self.screen.blit(self.interface.font3_5.render(f"To Restart Config", True, "White"),(10,300))
         self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]
