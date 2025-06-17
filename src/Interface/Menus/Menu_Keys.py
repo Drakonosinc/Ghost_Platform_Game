@@ -26,3 +26,8 @@ class KeysMenu(BaseMenu):
         self.screen.blit(self.interface.font3_5.render(f"To Restart Config", True, "White"),(10,300))
         self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]
+    def change_keys(self,key,key_name):
+        self.key=key
+        self.key_name=key_name
+        for k in self.utils_keys.keys():self.utils_keys[k]=False if k!=self.key else not self.utils_keys[self.key]
+        self.change_mains(6,fade=False)
