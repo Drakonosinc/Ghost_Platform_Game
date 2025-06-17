@@ -40,7 +40,7 @@ class interface(load_elements,BaseMenu):
         
         
         
-        key_right=pygame_gui.elements.UIButton(relative_rect=Rect(220, 250, 50, 50),text=f"{self.config.config_keys["name_right"]}",manager=self.interface.manager,object_id="#button_on" if self.utils_keys["right"] else None,command=lambda:self.change_keys("right","name_right"))
+        
         
         restar_config_key=pygame_gui.elements.UIButton(relative_rect=Rect(360, 300, 80, 50),text="Press",object_id="#button_on",manager=self.interface.manager,command=lambda:self.more_options([lambda:self.config.config(keys=True),self.config.save_config,lambda:self.change_mains(6,fade=False)]))
         
