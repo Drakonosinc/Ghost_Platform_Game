@@ -12,6 +12,8 @@ class KeysMenu(BaseMenu):
     def setup_buttons(self):
         self.buttons['back'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.interface.manager,command=lambda:self.change_mains(0))
         self.buttons['key_up1'] = pygame_gui.elements.UIButton(relative_rect=Rect(220, 100, 50, 50),text=f"{self.config.config_keys["name_up1"]}",manager=self.interface.manager,object_id="#button_on" if self.utils_keys["up1"] else None,command=lambda:self.change_keys("up1","name_up1"))
+        self.buttons['key_up2'] = pygame_gui.elements.UIButton(relative_rect=Rect(220, 150, 50, 50),text=f"{self.config.config_keys["name_up2"]}",manager=self.interface.manager,object_id="#button_on" if self.utils_keys["up2"] else None,command=lambda:self.change_keys("up2","name_up2"))
+        
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Keys", True, "White"),(3,10))
