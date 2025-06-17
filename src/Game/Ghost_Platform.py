@@ -89,7 +89,7 @@ class ghost_platform(interface):
             self.event_quit(event)
             self.event_keydown(event)
             self.new_events(event)
-            if self.main==6:self.event_change_keys(event)
+            if self.main==6:self.keys_menu.event_change_keys(event)
         self.pressed_keys=pygame.key.get_pressed()
         self.pressed_mouse=pygame.mouse.get_pressed()
         self.mouse_pos = pygame.mouse.get_pos()
