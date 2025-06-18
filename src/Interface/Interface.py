@@ -37,8 +37,6 @@ class interface(load_elements,BaseMenu):
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
     def sounds_menu(self):
-        self.screen.fill(self.BLACK)
-        self.screen.blit(self.font3.render("Sounds", True, "White"),(3,10))
         sound_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.config.config_sounds["sound_menu"] else "OFF"}",object_id="#button_on" if self.config.config_sounds["sound_menu"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_menu",command=lambda:self.on_off_sound(self.sound_menu,"sound_menu",True,command=True)))
         sound_game=pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.config.config_sounds["sound_game"] else "OFF"}",object_id="#button_on" if self.config.config_sounds["sound_game"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_game",command=lambda:self.on_off_sound(self.sound_game,"sound_game",False,command=True)))
         self.screen.blit(self.font3_5.render(f"Sound Jump", True, "White"),(10,200))
