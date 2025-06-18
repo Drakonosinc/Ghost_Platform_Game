@@ -43,7 +43,7 @@ class interface(load_elements,BaseMenu):
         on_off_jump=pygame_gui.elements.UIButton(relative_rect=Rect(220, 200, 50, 40),text=f"{self.config.config_sounds["sound_jump"]}",object_id="#button_on" if self.config.config_sounds["sound_jump"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_jump",command=self.config.save_config))
         
         on_off_game_over=pygame_gui.elements.UIButton(relative_rect=Rect(220, 240, 50, 40),text=f"{self.config.config_sounds["game_over"]}",object_id="#button_on" if self.config.config_sounds["game_over"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"game_over",command=self.config.save_config))
-        self.screen.blit(self.font3_5.render(f"Damage", True, "White"),(10,280))
+        
         on_off_damage=pygame_gui.elements.UIButton(relative_rect=Rect(220, 280, 50, 40),text=f"{self.config.config_sounds["sound_damage"]}",object_id="#button_on" if self.config.config_sounds["sound_damage"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_damage",command=self.config.save_config))
         self.screen.blit(self.font3_5.render(f"Potion", True, "White"),(10,320))
         on_off_potion=pygame_gui.elements.UIButton(relative_rect=Rect(220, 320, 50, 40),text=f"{self.config.config_sounds["sound_potion"]}",object_id="#button_on" if self.config.config_sounds["sound_potion"] else "#button_off",manager=self.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_potion",command=self.config.save_config))
