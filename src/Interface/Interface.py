@@ -75,7 +75,3 @@ class interface(load_elements,BaseMenu):
         save=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-160,10, 150, 50),text=f"Save model {self.config.config_AI["model_save"]}",object_id="#button_on" if self.config.config_AI["model_save"] else "#button_off",manager=self.manager,command=lambda:self.on_off(8,self.config.config_AI,False,"model_save",command=self.config.save_config))
         back_game_menu=pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.manager,command=lambda:self.change_mains(2))
         self.active_buttons.extend([play,save,back_game_menu,increase_generation,decrease_generation,increase_population,decrease_population,increase_try_for_ai,decrease_try_for_ai,restar_config_ai,type_training_ai,type_model_ai])
-    def on_off_sound(self,sound,type_sound,play=True,game=False,command=False):
-        sound.play(loops=-1) if play and self.config.config_sounds[type_sound] else sound.stop()
-        if game:self.on_off_sound(self.sound_game,"sound_game")
-        if command:self.config.save_config()
