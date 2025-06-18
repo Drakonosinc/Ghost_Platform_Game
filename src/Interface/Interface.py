@@ -31,9 +31,9 @@ class interface(load_elements,BaseMenu):
             3: self.pause_menu.render,
             4: self.options_menu.render,
             5: self.visuals_menu.render,
-            6: self.keys_menu.render,}
-        if self.main==7:self.sounds_menu()
-        elif self.main==8:self.menu_AI()
+            6: self.keys_menu.render,
+            7: self.self.sounds_menu.render,
+            8: self.menu_AI.render}
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
     def sounds_menu(self):
