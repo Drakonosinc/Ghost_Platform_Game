@@ -5,7 +5,8 @@ class SoundsMenu(BaseMenu):
     def __init__(self, interface):
         super().__init__(interface)
         self.buttons = {}
-    def setup_buttons(self):pass
+    def setup_buttons(self):
+        self.buttons['back'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.interface.manager,command=lambda:self.change_mains(0))
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Sounds", True, "White"),(3,10))
