@@ -9,6 +9,8 @@ class SoundsMenu(BaseMenu):
         self.buttons['back'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, self.HEIGHT-50, 100, 50),text='Back',manager=self.interface.manager,command=lambda:self.change_mains(0))
         self.buttons['sound_menu'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 100, 125, 50),text=f"Sound Menu {"ON" if self.config.config_sounds["sound_menu"] else "OFF"}",object_id="#button_on" if self.config.config_sounds["sound_menu"] else "#button_off",manager=self.interface.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_menu",command=lambda:self.on_off_sound(self.interface.sound_menu,"sound_menu",True,command=True)))
         self.buttons['sound_game'] = pygame_gui.elements.UIButton(relative_rect=Rect(10, 150, 125, 50),text=f"Sound Game {"ON" if self.config.config_sounds["sound_game"] else "OFF"}",object_id="#button_on" if self.config.config_sounds["sound_game"] else "#button_off",manager=self.interface.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_game",command=lambda:self.on_off_sound(self.interface.sound_game,"sound_game",False,command=True)))
+        self.buttons['on_off_jump'] = pygame_gui.elements.UIButton(relative_rect=Rect(220, 200, 50, 40),text=f"{self.config.config_sounds["sound_jump"]}",object_id="#button_on" if self.config.config_sounds["sound_jump"] else "#button_off",manager=self.interface.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_jump",command=self.config.save_config))
+        
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Sounds", True, "White"),(3,10))
