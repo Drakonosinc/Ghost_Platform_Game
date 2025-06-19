@@ -9,5 +9,6 @@ class AIMenu(BaseMenu):
     def render(self):
         self.screen.fill(self.interface.BLACK)
         self.screen.blit(self.interface.font3.render("Config AI", True, "White"),(3,10))
+        self.screen.blit(self.interface.font3_5.render(f"Generation Size {self.config.config_AI["generation_value"]}", True, "White"),(10,80))
         self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]
