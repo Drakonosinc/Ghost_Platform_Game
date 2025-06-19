@@ -48,7 +48,7 @@ class interface(load_elements,BaseMenu):
         
         
         
-        on_off_shield=pygame_gui.elements.UIButton(relative_rect=Rect(220, 360, 50, 40),text=f"{self.config.config_sounds["sound_shield"]}",object_id="#button_on" if self.config.config_sounds["sound_shield"] else "#button_off",manager=self.interface.manager,command=lambda:self.on_off(7,self.config.config_sounds,False,"sound_shield",command=self.config.save_config))
+        
         
         restar_config_sound=pygame_gui.elements.UIButton(relative_rect=Rect(360, 400, 80, 50),text="Press",object_id="#button_on",manager=self.interface.manager,command=lambda:self.more_options([lambda:self.config.config(sounds=True),self.config.save_config,lambda:self.change_mains(7,fade=False)]))
         
