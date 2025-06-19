@@ -32,13 +32,11 @@ class interface(load_elements,BaseMenu):
             4: self.options_menu.render,
             5: self.visuals_menu.render,
             6: self.keys_menu.render,
-            7: self.self.sounds_menu.render,
+            7: self.sounds_menu.render,
             8: self.menu_AI.render}
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
     def menu_AI(self):
-        self.screen.fill(self.BLACK)
-        self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
         self.screen.blit(self.font3_5.render(f"Generation Size {self.config.config_AI["generation_value"]}", True, "White"),(10,80))
         increase_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-60, 80, 50, 40),text='+',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"generation_value",1,dic=self.config.config_AI))
         decrease_generation=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 80, 50, 40),text='-',manager=self.manager,command=lambda:self.increase_decrease_variable(8,"generation_value",-1,dic=self.config.config_AI)) if self.config.config_AI["generation_value"]>1 else None
