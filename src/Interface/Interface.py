@@ -36,22 +36,6 @@ class interface(load_elements,BaseMenu):
             8: self.menu_AI.render}
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
-    def sounds_menu(self):
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        restar_config_sound=pygame_gui.elements.UIButton(relative_rect=Rect(360, 400, 80, 50),text="Press",object_id="#button_on",manager=self.interface.manager,command=lambda:self.more_options([lambda:self.config.config(sounds=True),self.config.save_config,lambda:self.change_mains(7,fade=False)]))
-        
     def menu_AI(self):
         self.screen.fill(self.BLACK)
         self.screen.blit(self.font3.render("Config AI", True, "White"),(3,10))
