@@ -13,6 +13,7 @@ class SoundsMenu(BaseMenu):
         self.screen.blit(self.interface.font3_5.render(f"Game Over", True, "White"),(10,240))
         self.screen.blit(self.interface.font3_5.render(f"Damage", True, "White"),(10,280))
         self.screen.blit(self.interface.font3_5.render(f"Potion", True, "White"),(10,320))
+        self.screen.blit(self.interface.font3_5.render(f"Shield", True, "White"),(10,360))
         self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]
     def on_off_sound(self,sound,type_sound,play=True,game=False,command=False):
