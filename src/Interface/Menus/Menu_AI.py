@@ -14,5 +14,6 @@ class AIMenu(BaseMenu):
         self.screen.blit(self.interface.font3_5.render(f"Number of try for AI {self.config.config_AI["try_for_ai"]}", True, "White"),(10,160))
         self.screen.blit(self.interface.font3_5.render(f"Type Training AI", True, "White"),(10,200))
         self.screen.blit(self.interface.font3_5.render(f"Type Model", True, "White"),(10,240))
+        self.screen.blit(self.interface.font3_5.render(f"To Restart Config", True, "White"),(10,280))
         self.setup_buttons()
         self.interface.active_buttons = [button for button in self.buttons.values()]
