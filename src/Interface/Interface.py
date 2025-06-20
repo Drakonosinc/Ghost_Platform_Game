@@ -36,6 +36,3 @@ class interface(load_elements,BaseMenu):
             8: self.menu_AI.render}
         if self.main in menu_routes:menu_routes[self.main]()
     def play_music(self):self.sound_menu.play(loops=-1) if self.config.config_sounds["sound_menu"] else self.sound_menu.stop()
-    def menu_AI(self):
-        
-        type_model_ai=pygame_gui.elements.UIButton(relative_rect=Rect(self.WIDTH-120, 240, 110, 50),text="Change",object_id="#button_on",manager=self.interface.manager,command=lambda:self.more_options([lambda:self.change_mains(8,fade=False)]))
