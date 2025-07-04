@@ -1,4 +1,4 @@
-import pygame, os, pygame_gui
+import pygame, os
 class BaseMenu:
     def __init__(self, interface=None):
         self.interface = interface
