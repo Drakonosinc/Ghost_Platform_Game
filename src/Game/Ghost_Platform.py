@@ -101,7 +101,7 @@ class ghost_platform(interface):
         if event.type==KEYDOWN:
             if self.main==3 and event.key==K_p:self.change_mains(-1,self.GRAY,20)
             elif self.main==-1 and event.key==K_p:self.change_mains(3,self.GRAY)
-            if (self.mode_game["Player"] and self.main==-1) and (event.key in {self.config.config_keys["up1"], self.config.config_keys["up2"]}):self.players[0].jump(self.physics.jump_force,self.check_sound(self.sound_jump,"sound_jump"))
+            if (self.mode_game["Player"] and self.main==-1) and (event.key in {self.config.config_keys["up1"], self.config.config_keys["up2"]}):self.players[0].jump(-12,self.check_sound(self.sound_jump,"sound_jump"))
             if self.main==1 and event.key==K_r:self.change_mains(-1,command=self.reset)
     def press_keys(self):
         if self.mode_game["Player"] and self.main==-1:
