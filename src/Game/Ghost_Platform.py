@@ -85,7 +85,6 @@ class ghost_platform(interface):
         if score:player.scores+=1
     def handle_keys(self):
         for event in pygame.event.get():
-            self.manager.process_events(event)
             self.event_quit(event)
             self.event_keydown(event)
             self.new_events(event)
@@ -145,9 +144,9 @@ class ghost_platform(interface):
     def get_reward(self, reward: list) -> list:return self.ai_handler.get_reward(reward)
     def item_repeat_run(self):
         self.handle_keys()
+        if self.main != -1:
+            self.draw_menus()
         self.time_delta = self.clock.tick(self.FPS)/1000.0
-        self.manager.update(self.time_delta)
-        self.manager.draw_ui(self.screen)
         pygame.display.flip()
     def run(self):
         self.running = True
