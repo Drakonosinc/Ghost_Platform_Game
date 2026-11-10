@@ -20,16 +20,17 @@ class AIHandler:
         chosen_action = np.argmax(probabilities)
         if chosen_action == 0:player.rect.x -= 5
         elif chosen_action == 1:player.rect.x += 5
-        elif chosen_action == 2 and player.isjumper:player.jump(self.game.physics.jump_force,self.game.sound_jump)
+        elif chosen_action == 2 and player.isjumper:player.jump(self.game.physics.jump_force,self.game.check_sound(self.game.sound_jump,"sound_jump"))
     def actions_AI(self, models):
         def actions(player, model):
             state = self.get_state(player)
             action = model(torch.tensor(state, dtype=torch.float32)).detach().numpy()
             self.AI_actions(player, action)
-        try:
+        if isinstance(models, (list, tuple)):
             for player, model in zip(self.game.players, models):
-                if player.active:actions(player, model)
-        except:actions(self.game.players[0], models)
+                if player.active and model is not None:actions(player, model)
+        elif models is not None:
+            actions(self.game.players[0], models)
     def get_reward(self, reward: list) -> list:
         for player in self.game.players:
             reward.append(player.reward)
