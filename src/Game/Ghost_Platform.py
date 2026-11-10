@@ -139,7 +139,7 @@ class ghost_platform(interface):
         self.active_floor=False
         pygame.time.set_timer(self.speed_game, 0)
         pygame.time.set_timer(self.speed_game, 5000)
-        if type_reset==0:self.players[0].reset(350, self.HEIGHT - 35)
+        if type_reset==0:self.players[0].reset()
     def type_mode(self):self.ai_handler.actions_AI(self.models if self.mode_game["Training AI"] else self.model_training)
     def get_reward(self, reward: list) -> list:return self.ai_handler.get_reward(reward)
     def item_repeat_run(self):
